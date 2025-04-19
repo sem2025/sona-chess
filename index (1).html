@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life in Germany - Information Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --navy-blue: #0A2463;
+            --orange: #FF7F11;
+            --light-orange: #FF9F45;
+            --light-blue: #1B4B9A;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        .bg-navy-blue {
+            background-color: var(--navy-blue);
+        }
+        .bg-orange {
+            background-color: var(--orange);
+        }
+        .bg-light-orange {
+            background-color: var(--light-orange);
+        }
+        .bg-light-blue {
+            background-color: var(--light-blue);
+        }
+        .text-navy-blue {
+            color: var(--navy-blue);
+        }
+        .text-orange {
+            color: var(--orange);
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .btn-orange {
+            background-color: var(--orange);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+        }
+        .btn-orange:hover {
+            background-color: var(--light-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .section-heading {
+            position: relative;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .section-heading:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100px;
+            height: 4px;
+            background-color: var(--orange);
+        }
+        .language-switcher {
+            display: flex;
+            align-items: center;
+        }
+        .language-button {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .language-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .language-button.active {
+            background-color: var(--orange);
+            border-color: var(--orange);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .language-flag {
+            width: 20px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .whatsapp-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .earnings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .earnings-table tr {
+            border-bottom: 1px solid #eee;
+        }
+        .earnings-table tr:last-child {
+            border-bottom: none;
+        }
+        .earnings-table td {
+            padding: 10px;
+        }
+        .earnings-table td:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .collapsible-content.open {
+            max-height: 2000px;
+        }
+        .hamburger-menu {
+            display: none;
+        }
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--navy-blue);
+            z-index: 1000;
+            padding: 2rem;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-nav.open {
+            transform: translateX(0);
+        }
+        .mobile-nav-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: block;
+                cursor: pointer;
+            }
+            .desktop-nav {
+                display: none;
+            }
+        }
+        .hero-image {
+            height: 400px;
+            object-fit: cover;
+            object-position: center;
+        }
+        /* Hover effect for resource links */
+        .resource-link {
+            transition: all 0.3s ease;
+        }
+        .resource-link:hover {
+            transform: translateX(5px);
+        }
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--navy-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background-color: var(--light-blue);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <a href="#top" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    <a href="https://wa.me/+491234567890" class="whatsapp-button" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-close" id="closeMobileNav">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="flex flex-col space-y-6 mt-10">
+            <a id="mobile-nav-life" href="#life" class="text-white text-xl">Life</a>
+            <a id="mobile-nav-study" href="#study" class="text-white text-xl">Study</a>
+            <a id="mobile-nav-ausbildung" href="#ausbildung" class="text-white text-xl">Ausbildung</a>
+            <a id="mobile-nav-work" href="#work" class="text-white text-xl">Work</a>
+            <a id="mobile-nav-resources" href="#resources" class="text-white text-xl">Resources</a>
+        </div>
+        <div class="mt-8 flex">
+            <button class="language-button active" data-lang="en">
+                <span>EN</span>
+            </button>
+            <button class="language-button" data-lang="az">
+                <span>AZ</span>
+            </button>
+            <button class="language-button" data-lang="ru">
+                <span>RU</span>
+            </button>
+        </div>
+    </div>
+    <header id="top" class="bg-navy-blue text-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto py-4 px-6 flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 id="site-title" class="text-2xl font-bold">Life in Germany</h1>
+            </div>
+            <div class="flex items-center">
+                <nav class="hidden md:flex space-x-6 mr-6 desktop-nav">
+                    <a id="nav-life" href="#life" class="hover:text-orange transition-colors">Life</a>
+                    <a id="nav-study" href="#study" class="hover:text-orange transition-colors">Study</a>
+                    <a id="nav-ausbildung" href="#ausbildung" class="hover:text-orange transition-colors">Ausbildung</a>
+                    <a id="nav-work" href="#work" class="hover:text-orange transition-colors">Work</a>
+                    <a id="nav-resources" href="#resources" class="hover:text-orange transition-colors">Resources</a>
+                </nav>
+                <div class="language-switcher">
+                    <button class="language-button active" data-lang="en"><span>EN</span></button>
+                    <button class="language-button" data-lang="az"><span>AZ</span></button>
+                    <button class="language-button" data-lang="ru"><span>RU</span></button>
+                </div>
+                <div class="md:hidden ml-4 hamburger-menu" id="hamburgerMenu">
+                    <i class="fas fa-bars text-xl"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section and subsequent content truncated for brevity -->
+</body>
+</html>
