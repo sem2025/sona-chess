@@ -17,6 +17,9 @@
             --light: #ECF0F1;
             --dark: #2C3E50;
             --success: #27AE60;
+            --orange: #FF7F11;
+            --purple: #9B59B6;
+            --teal: #1ABC9C;
         }
 
         * {
@@ -94,7 +97,7 @@
             transition: all 0.3s;
         }
 
-        .lang-btn:hover {
+        .lang-btn:hover, .lang-btn.active {
             background: white;
             color: var(--primary);
         }
@@ -146,6 +149,53 @@
             margin-bottom: 1rem;
         }
 
+        /* Expandable Sections */
+        .expandable-section {
+            background: var(--light);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .expandable-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .expandable-header:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding: 0 1.5rem;
+        }
+
+        .expandable-content.active {
+            max-height: 1000px;
+            padding: 1.5rem;
+        }
+
+        .expand-icon {
+            transition: transform 0.3s;
+        }
+
+        .expand-icon.active {
+            transform: rotate(180deg);
+        }
+
+        /* Section Colors */
+        #about { background-color: #E8F4F8; }
+        #benefits { background-color: #FFF3E0; }
+        #schedule { background-color: #E8F5E9; }
+        #contact { background-color: #F3E5F5; }
+
         /* Cards */
         .cards-grid {
             display: grid;
@@ -167,10 +217,6 @@
         }
 
         /* Schedule Section */
-        .schedule {
-            background: var(--light);
-        }
-
         .schedule-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -185,11 +231,6 @@
         }
 
         /* Contact Section */
-        .contact {
-            background: var(--primary);
-            color: white;
-        }
-
         .contact-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -220,9 +261,10 @@
         }
 
         .social-links a {
-            color: white;
+            color: var(--primary);
             font-size: 1.5rem;
             transition: color 0.3s;
+            text-decoration: none;
         }
 
         .social-links a:hover {
@@ -248,6 +290,14 @@
             transform: translateY(-2px);
         }
 
+        .btn-telegram {
+            background: #0088cc;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -269,6 +319,19 @@
             .section-title h2 {
                 font-size: 2rem;
             }
+
+            .expandable-header {
+                padding: 1rem;
+            }
+        }
+
+        /* Language-specific styles */
+        [lang="az"] {
+            display: none;
+        }
+
+        [lang="az"].active {
+            display: block;
         }
     </style>
 </head>
@@ -283,8 +346,8 @@
                 <a href="#schedule">Расписание</a>
                 <a href="#contact">Контакты</a>
                 <div class="lang-switcher">
-                    <button class="lang-btn" onclick="changeLang('ru')">🇷🇺 RU</button>
-                    <button class="lang-btn" onclick="changeLang('az')">🇦🇿 AZ</button>
+                    <button class="lang-btn active" data-lang="ru">🇷🇺 RU</button>
+                    <button class="lang-btn" data-lang="az">🇦🇿 AZ</button>
                 </div>
             </nav>
         </div>
@@ -293,8 +356,10 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Sona.Chess</h1>
-            <p>Развиваем интеллект через игру в шахматы</p>
+            <h1 data-lang="ru">Sona.Chess</h1>
+            <h1 data-lang="az" style="display: none;">Sona.Chess</h1>
+            <p data-lang="ru">Развиваем интеллект через игру в шахматы</p>
+            <p data-lang="az" style="display: none;">Şahmat oyunu vasitəsilə intellekti inkişaf etdiririk</p>
             <a href="#contact" class="btn">Записаться на занятие</a>
         </div>
     </section>
@@ -303,86 +368,54 @@
     <section id="about">
         <div class="container">
             <div class="section-title">
-                <h2>Что такое шахматы?</h2>
-                <p>Древняя игра, которая развивает стратегическое мышление и логику</p>
+                <h2 data-lang="ru">Что такое шахматы?</h2>
+                <h2 data-lang="az" style="display: none;">Şahmat nədir?</h2>
+                <p data-lang="ru">Древняя игра, которая развивает стратегическое мышление и логику</p>
+                <p data-lang="az" style="display: none;">Strateji düşüncə və məntiqi inkişaf etdirən qədim oyun</p>
             </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <h3>История</h3>
-                    <p>Шахматы появились более 1500 лет назад в Индии и с тех пор стали одной из самых популярных игр в мире.</p>
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3 data-lang="ru">История шахмат</h3>
+                    <h3 data-lang="az" style="display: none;">Şahmatın tarixi</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
                 </div>
-                <div class="card">
-                    <h3>Польза</h3>
-                    <p>Игра в шахматы развивает логическое мышление, память, концентрацию и стратегическое планирование.</p>
-                </div>
-                <div class="card">
-                    <h3>Интересные факты</h3>
-                    <p>Шахматы признаны видом спорта в более чем 100 странах мира.</p>
+                <div class="expandable-content">
+                    <p data-lang="ru">Шахматы появились более 1500 лет назад в Индии и с тех пор стали одной из самых популярных игр в мире.</p>
+                    <p data-lang="az" style="display: none;">Şahmat 1500 ildən çox əvvəl Hindistanda yaranmış və o vaxtdan dünyanın ən populyar oyunlarından birinə çevrilmişdir.</p>
                 </div>
             </div>
+            <!-- Add more expandable sections -->
         </div>
     </section>
 
     <!-- Benefits Section -->
-    <section id="benefits" class="schedule">
+    <section id="benefits">
         <div class="container">
             <div class="section-title">
-                <h2>Преимущества обучения</h2>
-                <p>Почему стоит выбрать шахматы для развития вашего ребенка</p>
+                <h2 data-lang="ru">Преимущества обучения</h2>
+                <h2 data-lang="az" style="display: none;">Təhsilin üstünlükləri</h2>
             </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <h3>Развитие интеллекта</h3>
-                    <p>Улучшение памяти, концентрации и аналитических способностей</p>
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3 data-lang="ru">Развитие интеллекта</h3>
+                    <h3 data-lang="az" style="display: none;">İntellektin inkişafı</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
                 </div>
-                <div class="card">
-                    <h3>Уверенность в себе</h3>
-                    <p>Повышение самооценки через достижение успехов в игре</p>
-                </div>
-                <div class="card">
-                    <h3>Социализация</h3>
-                    <p>Общение со сверстниками и развитие коммуникативных навыков</p>
+                <div class="expandable-content">
+                    <p data-lang="ru">Улучшение памяти, концентрации и аналитических способностей</p>
+                    <p data-lang="az" style="display: none;">Yaddaşın, diqqətin və analitik qabiliyyətlərin təkmilləşdirilməsi</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Schedule Section -->
-    <section id="schedule">
-        <div class="container">
-            <div class="section-title">
-                <h2>Расписание занятий</h2>
-                <p>Выберите удобное время для обучения</p>
-            </div>
-            <div class="schedule-grid">
-                <div class="schedule-item">
-                    <h3>Начальная группа</h3>
-                    <p>Пн, Ср, Пт</p>
-                    <p>16:00 - 17:30</p>
-                    <a href="#contact" class="btn">Записаться</a>
-                </div>
-                <div class="schedule-item">
-                    <h3>Средняя группа</h3>
-                    <p>Вт, Чт</p>
-                    <p>17:00 - 18:30</p>
-                    <a href="#contact" class="btn">Записаться</a>
-                </div>
-                <div class="schedule-item">
-                    <h3>Продвинутая группа</h3>
-                    <p>Сб, Вс</p>
-                    <p>10:00 - 12:00</p>
-                    <a href="#contact" class="btn">Записаться</a>
-                </div>
-            </div>
+            <!-- Add more expandable sections -->
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact">
         <div class="container">
             <div class="section-title">
-                <h2>Контакты</h2>
-                <p>Свяжитесь с нами для записи на занятия</p>
+                <h2 data-lang="ru">Контакты</h2>
+                <h2 data-lang="az" style="display: none;">Əlaqə</h2>
             </div>
             <div class="contact-grid">
                 <div class="contact-info">
@@ -396,29 +429,20 @@
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h3>Адрес</h3>
+                            <h3 data-lang="ru">Адрес</h3>
+                            <h3 data-lang="az" style="display: none;">Ünvan</h3>
                             <p>ул. Шахматная, 1, Баку</p>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3>Телефон</h3>
-                            <p>+994 50 123 45 67</p>
-                        </div>
-                    </div>
                     <div class="social-links">
-                        <a href="https://wa.me/994501234567" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://t.me/sonachess" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://t.me/sonachess" class="btn btn-telegram" target="_blank">
+                            <i class="fab fa-telegram"></i> Telegram
+                        </a>
+                        <a href="https://wa.me/994501234567?text=Hello%20Sona.Chess" class="btn btn-whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
                     </div>
                 </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="Ваше имя" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="tel" placeholder="Телефон" required>
-                    <textarea placeholder="Сообщение" required></textarea>
-                    <button type="submit" class="btn">Отправить</button>
-                </form>
             </div>
         </div>
     </section>
@@ -426,16 +450,42 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 Sona.Chess. Все права защищены.</p>
+            <p data-lang="ru">&copy; 2024 Sona.Chess. Все права защищены.</p>
+            <p data-lang="az" style="display: none;">&copy; 2024 Sona.Chess. Bütün hüquqlar qorunur.</p>
         </div>
     </footer>
 
     <script>
         // Language switcher
-        function changeLang(lang) {
-            // Add language switching logic here
-            console.log('Changing language to:', lang);
-        }
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.dataset.lang;
+                
+                // Update active button
+                document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update content visibility
+                document.querySelectorAll('[data-lang]').forEach(element => {
+                    if (element.dataset.lang === lang) {
+                        element.style.display = '';
+                    } else {
+                        element.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Expandable sections
+        document.querySelectorAll('.expandable-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('.expand-icon');
+                
+                content.classList.toggle('active');
+                icon.classList.toggle('active');
+            });
+        });
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -445,13 +495,6 @@
                     behavior: 'smooth'
                 });
             });
-        });
-
-        // Form submission
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add form submission logic here
-            alert('Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.');
         });
     </script>
 </body>
