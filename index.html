@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sona.Chess</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent1: #1a1a1a;
+            --accent2: #2a2a2a;
+            --accent3: #3a3a3a;
+            --accent4: #4a4a4a;
+            --primary: #ff4757;
+            --primary-hover: #ff6b81;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+
+            /* Modern section colors */
+            --block-color-home: #1e1e24;
+            --block-color-about: #2d2d35;
+            --block-color-champions: #3d3d45;
+            --block-color-azeri: #4d4d55;
+            --block-color-fide: #2c3e50;
+            --block-color-asf: #34495e;
+            --block-color-results: #4a6b82;
+            --block-color-links: #16a085;
+            --block-color-contact: #2980b9;
+            --block-color-schedule: #8e44ad;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: 60px;
+        }
+
+        header {
+            background: var(--accent1);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-md);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-right: 2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .lang-switch {
+            margin-left: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: var(--accent3);
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .lang-btn:hover {
+            background: var(--accent4);
+            transform: translateY(-1px);
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+        }
+
+        section {
+            padding: 3rem 2rem;
+            margin: 0;
+            border-bottom: 1px solid var(--accent3);
+            transition: var(--transition);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* Applying modern background colors to sections */
+        #home { background-color: var(--block-color-home); }
+        #about { background-color: var(--block-color-about); }
+        #champions { background-color: var(--block-color-champions); }
+        #azeri { background-color: var(--block-color-azeri); }
+        #fide { background-color: var(--block-color-fide); }
+        #asf { background-color: var(--block-color-asf); }
+        #results { background-color: var(--block-color-results); }
+        #links { background-color: var(--block-color-links); }
+        #contact { background-color: var(--block-color-contact); }
+        #schedule { background-color: var(--block-color-schedule); }
+
+        .home {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 0;
+        }
+        
+        .home h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 1rem 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .home img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            border-radius: 0;
+            margin: 0;
+            display: block;
+            box-shadow: none;
+            transition: var(--transition);
+            object-fit: cover;
+            aspect-ratio: 16/9;
+        }
+
+        .home img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 1.5rem 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .info-block {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            margin-top: 1.5rem;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .toggle-btn {
+            background: var(--accent3);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 1rem 0;
+            transition: var(--transition);
+            font-weight: 500;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-btn:hover {
+            background: var(--accent4);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        section h2 {
+            color: var(--primary); /* Section titles in primary color */
+            margin-bottom: 1.5rem;
+            text-align: center; /* Center section titles */
+        }
+
+        .champions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .champions li {
+            background: rgba(255,255,255,0.05);
+            padding: 0.5rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .players {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .player {
+            background: var(--accent2); /* Darker background for player cards */
+            padding: 1.5rem;
+            border-radius: 10px;
+            flex: 1 1 320px; /* Slightly wider player cards */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .player:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .player img {
+            width: 100%;
+            border-radius: 8px; /* Softer corners */
+            margin-bottom: 1rem;
+        }
+        .player h3 {
+            color: var(--primary);
+        }
+
+        .links-grid { /* Renamed from .links for clarity, using grid */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+            gap: 1.5rem;
+        }
+
+        .links-grid a {
+            background: var(--accent2);
+            color: var(--text-color);
+            padding: 1rem; /* Increased padding */
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold; /* Bolder link text */
+            transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+            border: 1px solid var(--accent3); /* Subtle border */
+        }
+
+        .links-grid a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .contact-form-container { /* Renamed for clarity */
+            background: rgba(0,0,0,0.1); /* Subtle background for form container */
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 700px; /* Max width for form */
+            margin: 0 auto; /* Center form */
+        }
+
+        .contact-form-container input,
+        .contact-form-container textarea {
+            width: calc(100% - 1.6rem); /* Adjust width for padding */
+            padding: 0.8rem; /* Increased padding */
+            margin-bottom: 1rem;
+            border: 1px solid var(--accent3); /* Softer border */
+            border-radius: 5px;
+            background: var(--accent1);
+            color: var(--text-color);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .contact-form-container input:focus,
+        .contact-form-container textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary);
+            border-color: var(--primary);
+        }
+
+        .social-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0; /* Added vertical margin */
+            justify-content: center;
+        }
+
+        .social-btns a {
+            flex-grow: 1; /* Allow buttons to grow */
+            min-width: 120px; /* Minimum width */
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .social-btns a:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        .schedule-container { /* Renamed for clarity */
+            background: rgba(0,0,0,0.1); /* Subtle background for schedule table */
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto; /* For responsive tables */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem; /* Increased padding */
+            border-bottom: 1px solid var(--accent4);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--accent3);
+            color: var(--primary); /* Header text in primary color */
+        }
+
+        tr:hover {
+            background-color: var(--accent3);
+        }
+
+        footer {
+            background: var(--accent1);
+            color: var(--text-color);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--primary);
+        }
+        
+        footer h3 {
+            color: var(--primary);
+        }
+
+        .social-icons {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem; /* Increased gap */
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.8rem; /* Larger icons */
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+            color: var(--primary); /* Icon color change on hover */
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            width: 45px; /* Slightly larger */
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            font-size: 1.5rem; /* Larger arrow */
+        }
+        .back-to-top:hover {
+            transform: scale(1.1);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0.5rem 1rem;
+            }
+            
+            nav {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                margin-top: 0.5rem;
+                gap: 0.3rem;
+            }
+            
+            nav a {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            
+            .lang-switch {
+                margin: 0;
+            }
+
+            .lang-btn {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.8rem;
+            }
+
+            body {
+                padding-top: 80px;
+            }
+
+            .players {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .player {
+                width: 100%;
+                max-width: 400px;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .home img {
+                max-width: 100%;
+                margin: 1rem 0;
+            }
+
+            section {
+                padding: 1.5rem 1rem;
+            }
+
+            .contact-form-container {
+                padding: 1rem;
+            }
+
+            .social-btns {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .social-btns a {
+                width: 100%;
+            }
+
+            .schedule-container {
+                padding: 1rem;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            th, td {
+                padding: 0.8rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .home h1 {
+                font-size: 1.8rem;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .player {
+                padding: 1rem;
+            }
+
+            .player img {
+                margin-bottom: 0.8rem;
+            }
+
+            .social-icons {
+                gap: 1rem;
+            }
+
+            .social-icons a {
+                font-size: 1.5rem;
+            }
+
+            .back-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Add smooth scrolling to the whole page */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Improve focus styles for accessibility */
+        a:focus, button:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Add loading animation for images */
+        .home img {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .home img.loaded {
+            opacity: 1;
+        }
+
+        .welcome-content {
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            margin-top: -4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-text {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        @media (max-width: 768px) {
+            .welcome-content {
+                padding: 1.5rem;
+                margin-top: -3rem;
+            }
+
+            .welcome-text {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" data-lang="main_title_header">Sona.Chess</div>
+        <nav>
+            <a href="#home" data-lang="menu_home">Главная</a>
+            <a href="#about" data-lang="menu_about">О шахматах</a>
+            <a href="#champions" data-lang="menu_champions">Чемпионы мира</a>
+            <a href="#azeri" data-lang="menu_azeri">Шахматисты АЗ</a>
+            <a href="#fide" data-lang="menu_fide">FIDE</a>
+            <a href="#asf" data-lang="menu_asf">АШФ</a>
+            <a href="#results" data-lang="menu_results">Результаты</a>
+            <a href="#links" data-lang="menu_links">Полезные ссылки</a>
+            <a href="#contact" data-lang="menu_contact">Контакты</a>
+            <a href="#schedule" data-lang="menu_schedule">Расписание</a>
+        </nav>
+        <div class="lang-switch">
+            <button class="lang-btn active" id="ru-btn" onclick="setLang('ru')">RU</button>
+            <button class="lang-btn" id="az-btn" onclick="setLang('az')">AZ</button>
+        </div>
+    </header>
+
+    <section class="home" id="home">
+        <h1 data-lang="main_title">Sona.Chess</h1>
+        <img src="https://images.unsplash.com/photo-1586165368502-1bad197a6461?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
+             alt="Children playing chess on a carpet"
+             onerror="this.src='https://via.placeholder.com/1200x675?text=Children+Playing+Chess'"
+             loading="lazy">
+        <div class="welcome-content">
+            <p class="welcome-text" data-lang="welcome">Добро пожаловать в мир шахмат!</p>
+            <button class="btn" onclick="alert('Coming Soon!')" data-lang="start">Начать обучение</button>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 data-lang="about">О шахматах</h2>
+        <button class="toggle-btn" onclick="toggleBlock('aboutText')" data-lang="more">Подробнее</button>
+        <div class="info-block" id="aboutText">
+            <p data-lang="about_text">Шахматы — древняя интеллектуальная игра, зародившаяся в Индии. Цель игры — поставить мат королю противника. Шахматы развивают логическое мышление, концентрацию и стратегическое планирование. Особенно полезны для детей, улучшая когнитивные способности и самодисциплину.</p>
+        </div>
+    </section>
+
+    <section id="champions">
+        <h2 data-lang="champions">Чемпионы мира</h2>
+        <button class="toggle-btn" onclick="toggleBlock('championsList')" data-lang="more">Подробнее</button>
+        <div class="info-block" id="championsList">
+            <ul class="champions-list">
+                <li>Вилхельм Стейниц (1886-1894)</li>
+                <li>Эмануэль Ласкер (1894-1921)</li>
+                <li>Хосе Рауль Капабланка (1921-1927)</li>
+                <li>Александр Алехин (1927-1935, 1937-1946)</li>
+                <li>Макс Эйве (1935-1937)</li>
+                <li>Михаил Ботвинник (1948-1957, 1958-1960, 1961-1963)</li>
+                <li>Василий Смыслов (1957-1958)</li>
+                <li>Михаил Таль (1960-1961)</li>
+                <li>Тигран Петросян (1963-1969)</li>
+                <li>Борис Спасский (1969-1972)</li>
+                <li>Бобби Фишер (1972-1975)</li>
+                <li>Анатолий Карпов (1975-1985)</li>
+                <li>Гарри Каспаров (1985-2000)</li>
+                <li>Владимир Крамник (2000-2007)</li>
+                <li>Вишванатан Ананд (2007-2013)</li>
+                <li>Магнус Карлсен (2013-2023)</li>
+                <li>Дин Лижэнь (2023-настоящее время)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="azeri-chess" id="azeri">
+        <h2 data-lang="azeri_players">Ведущие шахматисты Азербайджана</h2>
+        <div class="players">
+            <div class="player">
+                <img src="https://via.placeholder.com/200x200.png?text=Shakhriyar+Mamedyarov" alt="Шахрияр Мамедьяров">
+                <h3 data-lang="mamedyarov_name">Шахрияр Мамедьяров</h3>
+                <p data-lang="mamedyarov_bio">Родился в 1985 году. Гроссмейстер с 2002 года. Входит в топ-10 мира. Участник многих чемпионатов мира и олимпиад. Чемпион мира по быстрым шахматам 2018 года.</p>
+            </div>
+            <div class="player">
+                <img src="https://via.placeholder.com/200x200.png?text=Teimour+Radjabov" alt="Теймур Раджабов">
+                <h3 data-lang="radjabov_name">Теймур Раджабов</h3>
+                <p data-lang="radjabov_bio">Родился в 1987 году. Гроссмейстер с 2001 года. Участник чемпионатов мира. Победитель многих международных турниров. Чемпион мира по блицу 2019 года.</p>
+            </div>
+             <div class="player"> <!-- Placeholder for another player -->
+                <img src="https://via.placeholder.com/200x200.png?text=Placeholder+Player" alt="Placeholder Player">
+                <h3 data-lang="placeholder_player_name">Имя Игрока</h3>
+                <p data-lang="placeholder_player_bio">Краткая биография игрока. Достижения, стиль игры и т.д. Этот текст является заполнителем.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="fide">
+        <h2 data-lang="fide_section_title">FIDE</h2>
+        <div class="links-grid">
+            <a href="https://fide.com" target="_blank" data-lang="fide_link">Официальный сайт FIDE</a>
+        </div>
+    </section>
+
+    <section id="asf">
+        <h2 data-lang="asf_title">Азербайджанская шахматная федерация</h2>
+        <div class="links-grid">
+            <a href="https://asf.org.az/en" target="_blank" data-lang="asf_link">Официальный сайт ASF</a>
+        </div>
+    </section>
+
+    <section id="results">
+        <h2 data-lang="results">Результаты шахмат Азербайджана</h2>
+        <div class="links-grid">
+            <a href="https://chess-results.com/fed.aspx?lan=1&fed=aze" target="_blank" data-lang="view_results">Посмотреть последние результаты</a>
+        </div>
+    </section>
+
+    <section id="links">
+        <h2 data-lang="links">Полезные ссылки</h2>
+        <div class="links-grid">
+            <a href="https://www.chess.com" target="_blank" data-lang="chess_com_link">Chess.com</a>
+            <a href="https://www.lichess.org" target="_blank" data-lang="lichess_link">Lichess.org</a>
+            <a href="https://www.youtube.com/results?search_query=chess+tutorials" target="_blank" data-lang="youtube_tutorials">YouTube: Шахматные уроки</a>
+            <a href="https://www.chess.com/articles" target="_blank" data-lang="strategy_tactics">Статьи: Стратегии и тактики</a>
+            <a href="https://handbook.fide.com/" target="_blank" data-lang="fide_handbook_link">Справочник FIDE</a>
+            <a href="https://www.chessgames.com" target="_blank" data-lang="chessgames_link">База партий Chessgames</a>
+            <a href="https://placeholder.com/chessnews" target="_blank" data-lang="chess_news_site_link">Сайт новостей о шахматах</a>
+            <a href="https://placeholder.com/chesspuzzles" target="_blank" data-lang="chess_puzzles_site_link">Сайт с шахматными задачами</a>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 data-lang="contact_form">Форма обратной связи</h2>
+        <div class="contact-form-container">
+            <form id="contactForm" onsubmit="event.preventDefault(); validateForm();">
+                <input type="text" id="name" placeholder="Имя" required data-lang-placeholder="name_placeholder">
+                <input type="email" id="email" placeholder="Email" required data-lang-placeholder="email_placeholder">
+                <textarea rows="5" id="message" placeholder="Сообщение" required data-lang-placeholder="message_placeholder"></textarea>
+                <div class="social-btns">
+                    <a href="https://wa.me/0000000000" target="_blank" class="social-btn whatsapp" data-lang="whatsapp_btn">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://t.me/placeholder" target="_blank" class="social-btn telegram" data-lang="telegram_btn">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                    <a href="mailto:example@example.com" class="social-btn email" data-lang="email_btn">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                </div>
+                <button type="submit" class="btn" data-lang="send">Отправить</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="schedule">
+        <h2 data-lang="schedule">Расписание занятий</h2>
+        <div class="schedule-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-lang="day">День</th>
+                        <th data-lang="time">Время</th>
+                        <th data-lang="level">Уровень</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-lang="monday">Понедельник</td>
+                        <td>17:00 - 18:30</td>
+                        <td data-lang="beginner">Начальный</td>
+                    </tr>
+                    <tr>
+                        <td data-lang="tuesday">Вторник</td>
+                        <td>17:00 - 18:30</td>
+                        <td data-lang="beginner">Начальный</td>
+                    </tr>
+                    <tr>
+                        <td data-lang="wednesday">Среда</td>
+                        <td>18:00 - 19:30</td>
+                        <td data-lang="intermediate">Средний</td>
+                    </tr>
+                     <tr>
+                        <td data-lang="thursday">Четверг</td>
+                        <td>18:00 - 19:30</td>
+                        <td data-lang="intermediate">Средний</td>
+                    </tr>
+                    <tr>
+                        <td data-lang="friday">Пятница</td>
+                        <td>19:00 - 20:30</td>
+                        <td data-lang="advanced">Продвинутый</td>
+                    </tr>
+                    <tr>
+                        <td data-lang="saturday">Суббота</td>
+                        <td>12:00 - 14:00</td>
+                        <td data-lang="all_levels">Все уровни (Практика)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                 <button class="btn" onclick="alert('Coming Soon!')" data-lang="register">Записаться</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h3 data-lang="contact_info">Контактная информация</h3>
+        <p>Email: contact@sonachess.com</p>
+        <p>WhatsApp: +0000000000 (placeholder)</p>
+        <p>Telegram: @sonachess_placeholder</p>
+        <div class="social-icons">
+            <a href="#" aria-label="Instagram" class="social-icon instagram" data-lang="instagram_link_text">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" aria-label="Facebook" class="social-icon facebook" data-lang="facebook_link_text">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" aria-label="VK" class="social-icon vk" data-lang="vk_link_text">
+                <i class="fab fa-vk"></i>
+            </a>
+        </div>
+        <p>© 2025 Sona.Chess. <span data-lang="copyright">Все права защищены.</span></p>
+    </footer>
+
+    <a href="#home" class="back-to-top" id="backToTop" title="Наверх">↑</a>
+
+    <script>
+        // Словарь переводов
+        const translations = {
+            'ru': {
+                'main_title_header': 'Sona.Chess',
+                'main_title': 'Sona.Chess',
+                'menu_home': 'Главная',
+                'menu_about': 'О шахматах',
+                'menu_champions': 'Чемпионы мира',
+                'menu_azeri': 'Шахматисты АЗ',
+                'menu_fide': 'FIDE',
+                'menu_asf': 'АШФ',
+                'menu_results': 'Результаты',
+                'menu_links': 'Полезные ссылки',
+                'menu_contact': 'Контакты',
+                'menu_schedule': 'Расписание',
+                'welcome': 'Добро пожаловать в мир шахмат!',
+                'start': 'Начать обучение',
+                'about': 'О шахматах',
+                'more': 'Подробнее',
+                'champions': 'Чемпионы мира',
+                'azeri_players': 'Ведущие шахматисты Азербайджана',
+                'mamedyarov_name': 'Шахрияр Мамедьяров',
+                'radjabov_name': 'Теймур Раджабов',
+                'placeholder_player_name': 'Имя Игрока (Пример)',
+                'mamedyarov_bio': 'Родился в 1985 году. Гроссмейстер с 2002 года. Входит в топ-10 мира. Участник многих чемпионатов мира и олимпиад. Чемпион мира по быстрым шахматам 2018 года.',
+                'radjabov_bio': 'Родился в 1987 году. Гроссмейстер с 2001 года. Участник чемпионатов мира. Победитель многих международных турниров. Чемпион мира по блицу 2019 года.',
+                'placeholder_player_bio': 'Краткая биография игрока. Достижения, стиль игры и т.д. Этот текст является заполнителем.',
+                'fide_section_title': 'FIDE (Международная шахматная федерация)',
+                'fide_link': 'Официальный сайт FIDE',
+                'asf_title': 'Азербайджанская шахматная федерация (АШФ)',
+                'asf_link': 'Официальный сайт АШФ',
+                'results': 'Результаты шахмат Азербайджана',
+                'view_results': 'Посмотреть последние результаты',
+                'links': 'Полезные ссылки',
+                'chess_com_link': 'Chess.com - Играть и учиться',
+                'lichess_link': 'Lichess.org - Бесплатные шахматы',
+                'youtube_tutorials': 'YouTube: Шахматные уроки',
+                'strategy_tactics': 'Статьи: Стратегии и тактики',
+                'fide_handbook_link': 'Справочник FIDE (Правила)',
+                'chessgames_link': 'База партий Chessgames',
+                'chess_news_site_link': 'Сайт новостей о шахматах (Пример)',
+                'chess_puzzles_site_link': 'Сайт с шахматными задачами (Пример)',
+                'contact_form': 'Форма обратной связи',
+                'send': 'Отправить',
+                'whatsapp_btn': 'WhatsApp',
+                'telegram_btn': 'Telegram',
+                'email_btn': 'Email',
+                'schedule': 'Расписание занятий',
+                'register': 'Записаться на занятия',
+                'about_text': 'Шахматы — древняя интеллектуальная игра, зародившаяся в Индии. Цель игры — поставить мат королю противника. Шахматы развивают логическое мышление, концентрацию и стратегическое планирование. Особенно полезны для детей, улучшая когнитивные способности и самодисциплину.',
+                'day': 'День',
+                'time': 'Время',
+                'level': 'Уровень',
+                'beginner': 'Начальный',
+                'intermediate': 'Средний',
+                'advanced': 'Продвинутый',
+                'all_levels': 'Все уровни',
+                'monday': 'Понедельник',
+                'tuesday': 'Вторник',
+                'wednesday': 'Среда',
+                'thursday': 'Четверг',
+                'friday': 'Пятница',
+                'saturday': 'Суббота',
+                'contact_info': 'Контактная информация',
+                'copyright': 'Все права защищены.',
+                'name_placeholder': 'Ваше имя',
+                'email_placeholder': 'Ваш Email',
+                'message_placeholder': 'Ваше сообщение',
+                'instagram_link_text': 'Instagram',
+                'facebook_link_text': 'Facebook',
+                'vk_link_text': 'VK'
+            },
+            'az': {
+                'main_title_header': 'Sona.Chess',
+                'main_title': 'Sona.Chess',
+                'menu_home': 'Ana səhifə',
+                'menu_about': 'Şahmat haqqında',
+                'menu_champions': 'Dünya çempionları',
+                'menu_azeri': 'AZ şahmatçıları',
+                'menu_fide': 'FIDE',
+                'menu_asf': 'AŞF',
+                'menu_results': 'Nəticələr',
+                'menu_links': 'Faydalı linklər',
+                'menu_contact': 'Əlaqə',
+                'menu_schedule': 'Cədvəl',
+                'welcome': 'Şahmat dünyasına xoş gəlmisiniz!',
+                'start': 'Təlimə başla',
+                'about': 'Şahmat haqqında',
+                'more': 'Ətraflı',
+                'champions': 'Dünya çempionları',
+                'azeri_players': 'Azərbaycanın aparıcı şahmatçıları',
+                'mamedyarov_name': 'Şəhriyar Məmmədyarov',
+                'radjabov_name': 'Teymur Rəcəbov',
+                'placeholder_player_name': 'Oyunçu Adı (Nümunə)',
+                'mamedyarov_bio': '1985-ci ildə anadan olub. 2002-ci ildən qrosmeyster. Dünyanın ən yaxşı 10 oyunçusu arasında yer alır. Bir çox dünya çempionatlarının və olimpiadalarının iştirakçısı. 2018-ci ildə sürətli şahmat üzrə dünya çempionu.',
+                'radjabov_bio': '1987-ci ildə anadan olub. 2001-ci ildən qrosmeyster. Dünya çempionatlarının iştirakçısı. Bir çox beynəlxalq turnirlərin qalibi. 2019-cu ildə blits şahmat üzrə dünya çempionu.',
+                'placeholder_player_bio': 'Oyunçunun qısa tərcümeyi-halı. Nailiyyətlər, oyun tərzi və s. Bu mətn yer tutucudur.',
+                'fide_section_title': 'FIDE (Beynəlxalq Şahmat Federasiyası)',
+                'fide_link': 'FIDE rəsmi saytı',
+                'asf_title': 'Azərbaycan Şahmat Federasiyası (AŞF)',
+                'asf_link': 'AŞF rəsmi saytı',
+                'results': 'Azərbaycan şahmat nəticələri',
+                'view_results': 'Son nəticələrə baxın',
+                'links': 'Faydalı linklər',
+                'chess_com_link': 'Chess.com - Oynayın və öyrənin',
+                'lichess_link': 'Lichess.org - Pulsuz şahmat',
+                'youtube_tutorials': 'YouTube: Şahmat dərsləri',
+                'strategy_tactics': 'Məqalələr: Strategiya və taktika',
+                'fide_handbook_link': 'FIDE Əl Kitabçası (Qaydalar)',
+                'chessgames_link': 'Chessgames.com Oyunlar Bazası',
+                'chess_news_site_link': 'Şahmat Xəbərləri Saytı (Nümunə)',
+                'chess_puzzles_site_link': 'Şahmat Məsələləri Saytı (Nümunə)',
+                'contact_form': 'Əlaqə forması',
+                'send': 'Göndər',
+                'whatsapp_btn': 'WhatsApp',
+                'telegram_btn': 'Telegram',
+                'email_btn': 'Email',
+                'schedule': 'Dərslərin cədvəli',
+                'register': 'Dərslərə yazılın',
+                'about_text': 'Şahmat Hindistanda yaranmış qədim intellektual oyundur. Oyunun məqsədi rəqibin şahını mat etməkdir. Şahmat məntiqi təfəkkürü, konsentrasiyanı və strateji planlaşdırmanı inkişaf etdirir. Xüsusilə uşaqlar üçün faydalıdır, idrak qabiliyyətlərini və özünü intizamı yaxşılaşdırır.',
+                'day': 'Gün',
+                'time': 'Vaxt',
+                'level': 'Səviyyə',
+                'beginner': 'Başlanğıc',
+                'intermediate': 'Orta',
+                'advanced': 'İnkişaf etmiş',
+                'all_levels': 'Bütün səviyyələr',
+                'monday': 'Bazar ertəsi',
+                'tuesday': 'Çərşənbə axşamı',
+                'wednesday': 'Çərşənbə',
+                'thursday': 'Cümə axşamı',
+                'friday': 'Cümə',
+                'saturday': 'Şənbə',
+                'contact_info': 'Əlaqə məlumatları',
+                'copyright': 'Bütün hüquqlar qorunur.',
+                'name_placeholder': 'Adınız',
+                'email_placeholder': 'Email ünvanınız',
+                'message_placeholder': 'Mesajınız',
+                'instagram_link_text': 'Instagram',
+                'facebook_link_text': 'Facebook',
+                'vk_link_text': 'VK'
+            }
+        };
+
+        // Функция переключения языка
+        function setLang(lang) {
+            document.documentElement.setAttribute('lang', lang);
+            
+            // Update active state of language buttons
+            document.getElementById('ru-btn').classList.toggle('active', lang === 'ru');
+            document.getElementById('az-btn').classList.toggle('active', lang === 'az');
+            
+            // Update all elements with data-lang attribute
+            const elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                } else if (translations['ru'] && translations['ru'][key]) {
+                    el.textContent = translations['ru'][key] + (lang === 'az' ? " [AZ]" : "");
+                }
+            });
+            
+            // Update all elements with data-lang-placeholder attribute
+            const placeholders = document.querySelectorAll('[data-lang-placeholder]');
+            placeholders.forEach(el => {
+                const key = el.getAttribute('data-lang-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                } else if (translations['ru'] && translations['ru'][key]) {
+                    el.placeholder = translations['ru'][key] + (lang === 'az' ? " [AZ]" : "");
+                }
+            });
+
+            // Save language preference
+            localStorage.setItem('preferredLang', lang);
+            
+            // Update page title
+            document.title = lang === 'ru' ? 'Sona.Chess' : 'Sona.Chess - Şahmat';
+        }
+
+        // Функция для загрузки предпочтительного языка
+        function loadPreferredLang() {
+            const preferredLang = localStorage.getItem('preferredLang') || 
+                                (navigator.language.startsWith('az') ? 'az' : 'ru');
+            setLang(preferredLang);
+        }
+
+        // Функция для раскрытия/скрытия блоков
+        function toggleBlock(blockId) {
+            const block = document.getElementById(blockId);
+            if (block) {
+                const isHidden = block.style.display === 'none' || block.style.display === '';
+                block.style.display = isHidden ? 'block' : 'none';
+                
+                // Update button text
+                const button = block.previousElementSibling;
+                if (button && button.classList.contains('toggle-btn')) {
+                    const currentLang = document.documentElement.lang || 'ru';
+                    button.textContent = isHidden ? 
+                        (currentLang === 'az' ? 'Gizlət' : 'Скрыть') : 
+                        (currentLang === 'az' ? 'Ətraflı' : 'Подробнее');
+                }
+            }
+        }
+
+        // Валидация формы
+        function validateForm() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const currentLang = document.documentElement.lang || 'ru';
+
+            let alertMsg = "";
+
+            if (name === "" || email === "" || message === "") {
+                alertMsg = (currentLang === 'az') ? 
+                    "Zəhmət olmasa, bütün sahələri doldurun." : 
+                    "Пожалуйста, заполните все поля.";
+                alert(alertMsg);
+                return false;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alertMsg = (currentLang === 'az') ? 
+                    "Zəhmət olmasa, düzgün bir e-poçt ünvanı daxil edin." : 
+                    "Пожалуйста, введите корректный email адрес.";
+                alert(alertMsg);
+                return false;
+            }
+
+            alertMsg = (currentLang === 'az') ? 
+                "Forma göndərildi (simulyasiya)!" : 
+                "Форма отправлена (имитация)!";
+            alert(alertMsg);
+            document.getElementById('contactForm').reset();
+            return true;
+        }
+
+        // Кнопка "Наверх"
+        const backToTopButton = document.getElementById('backToTop');
+        if (backToTopButton) {
+            window.onscroll = function() {
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            };
+            
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Add image loading handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainImage = document.querySelector('.home img');
+            if (mainImage) {
+                mainImage.onload = function() {
+                    this.classList.add('loaded');
+                };
+                if (mainImage.complete) {
+                    mainImage.classList.add('loaded');
+                }
+            }
+        });
+
+        // Add smooth scroll for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPreferredLang();
+            
+            // Hide info blocks by default
+            document.querySelectorAll('.info-block').forEach(block => {
+                block.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
