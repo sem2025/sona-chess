@@ -20,6 +20,15 @@
             --orange: #FF7F11;
             --purple: #9B59B6;
             --teal: #1ABC9C;
+            --yellow: #F1C40F;
+            --red: #E74C3C;
+            --blue: #3498DB;
+            --section-1: #E8F4F8;
+            --section-2: #FFF3E0;
+            --section-3: #E8F5E9;
+            --section-4: #F3E5F5;
+            --section-5: #E3F2FD;
+            --section-6: #FFF8E1;
         }
 
         * {
@@ -95,6 +104,7 @@
             padding: 0.5rem 1rem;
             cursor: pointer;
             transition: all 0.3s;
+            border-radius: 5px;
         }
 
         .lang-btn:hover, .lang-btn.active {
@@ -151,10 +161,11 @@
 
         /* Expandable Sections */
         .expandable-section {
-            background: var(--light);
-            border-radius: 10px;
+            background: white;
+            border-radius: 15px;
             margin-bottom: 2rem;
             overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .expandable-header {
@@ -191,10 +202,12 @@
         }
 
         /* Section Colors */
-        #about { background-color: #E8F4F8; }
-        #benefits { background-color: #FFF3E0; }
-        #schedule { background-color: #E8F5E9; }
-        #contact { background-color: #F3E5F5; }
+        #about { background-color: var(--section-1); }
+        #champions { background-color: var(--section-2); }
+        #benefits { background-color: var(--section-3); }
+        #players { background-color: var(--section-4); }
+        #tournaments { background-color: var(--section-5); }
+        #links { background-color: var(--section-6); }
 
         /* Cards */
         .cards-grid {
@@ -206,7 +219,7 @@
 
         .card {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 2rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: transform 0.3s;
@@ -216,18 +229,44 @@
             transform: translateY(-5px);
         }
 
-        /* Schedule Section */
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+        .player-card {
+            text-align: center;
         }
 
-        .schedule-item {
+        .player-card img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        /* Links Section */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .link-card {
             background: white;
             padding: 1.5rem;
             border-radius: 10px;
             text-align: center;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .link-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
         }
 
         /* Contact Section */
@@ -235,40 +274,77 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
             gap: 1rem;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-2px);
         }
 
         .contact-item i {
             font-size: 1.5rem;
             color: var(--secondary);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .social-links {
             display: flex;
             gap: 1rem;
             margin-top: 1rem;
+            flex-wrap: wrap;
         }
 
         .social-links a {
-            color: var(--primary);
-            font-size: 1.5rem;
-            transition: color 0.3s;
+            color: white;
             text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 200px;
+            justify-content: center;
         }
 
         .social-links a:hover {
-            color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-telegram {
+            background: #0088cc;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
         }
 
         /* Buttons */
@@ -286,17 +362,13 @@
         }
 
         .btn:hover {
-            background: #c0392b;
             transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .btn-telegram {
-            background: #0088cc;
-        }
-
-        .btn-whatsapp {
-            background: #25D366;
-        }
+        .btn-orange { background: var(--orange); }
+        .btn-blue { background: var(--blue); }
+        .btn-green { background: var(--success); }
 
         /* Footer */
         footer {
@@ -323,6 +395,19 @@
             .expandable-header {
                 padding: 1rem;
             }
+
+            .player-card img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .social-links {
+                flex-direction: column;
+            }
+
+            .social-links a {
+                width: 100%;
+            }
         }
 
         /* Language-specific styles */
@@ -342,8 +427,11 @@
             <a href="#" class="logo">Sona.Chess</a>
             <nav>
                 <a href="#about">О нас</a>
+                <a href="#champions">Чемпионы</a>
                 <a href="#benefits">Преимущества</a>
-                <a href="#schedule">Расписание</a>
+                <a href="#players">Игроки</a>
+                <a href="#tournaments">Турниры</a>
+                <a href="#links">Ссылки</a>
                 <a href="#contact">Контакты</a>
                 <div class="lang-switcher">
                     <button class="lang-btn active" data-lang="ru">🇷🇺 RU</button>
@@ -360,7 +448,7 @@
             <h1 data-lang="az" style="display: none;">Sona.Chess</h1>
             <p data-lang="ru">Развиваем интеллект через игру в шахматы</p>
             <p data-lang="az" style="display: none;">Şahmat oyunu vasitəsilə intellekti inkişaf etdiririk</p>
-            <a href="#contact" class="btn">Записаться на занятие</a>
+            <a href="#contact" class="btn btn-orange">Записаться на занятие</a>
         </div>
     </section>
 
@@ -370,8 +458,6 @@
             <div class="section-title">
                 <h2 data-lang="ru">Что такое шахматы?</h2>
                 <h2 data-lang="az" style="display: none;">Şahmat nədir?</h2>
-                <p data-lang="ru">Древняя игра, которая развивает стратегическое мышление и логику</p>
-                <p data-lang="az" style="display: none;">Strateji düşüncə və məntiqi inkişaf etdirən qədim oyun</p>
             </div>
             <div class="expandable-section">
                 <div class="expandable-header">
@@ -380,11 +466,38 @@
                     <i class="fas fa-chevron-down expand-icon"></i>
                 </div>
                 <div class="expandable-content">
-                    <p data-lang="ru">Шахматы появились более 1500 лет назад в Индии и с тех пор стали одной из самых популярных игр в мире.</p>
-                    <p data-lang="az" style="display: none;">Şahmat 1500 ildən çox əvvəl Hindistanda yaranmış və o vaxtdan dünyanın ən populyar oyunlarından birinə çevrilmişdir.</p>
+                    <p data-lang="ru">Шахматы появились более 1500 лет назад в Индии и с тех пор стали одной из самых популярных игр в мире. Игра распространилась по всему миру через торговые пути и завоевания, адаптируясь к различным культурам и традициям.</p>
+                    <p data-lang="az" style="display: none;">Şahmat 1500 ildən çox əvvəl Hindistanda yaranmış və o vaxtdan dünyanın ən populyar oyunlarından birinə çevrilmişdir. Oyun ticarət yolları və işğallar vasitəsilə bütün dünyaya yayılmış, müxtəlif mədəniyyətlərə və ənənələrə uyğunlaşmışdır.</p>
                 </div>
             </div>
-            <!-- Add more expandable sections -->
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3 data-lang="ru">Правила игры</h3>
+                    <h3 data-lang="az" style="display: none;">Oyun qaydaları</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-content">
+                    <p data-lang="ru">Шахматы - это игра для двух игроков на квадратной доске 8x8. Каждый игрок начинает с 16 фигурами: король, ферзь, две ладьи, два слона, два коня и восемь пешек. Цель игры - поставить мат королю противника.</p>
+                    <p data-lang="az" style="display: none;">Şahmat 8x8 kvadrat taxtada iki oyunçu üçün oyundur. Hər oyunçu 16 fiqurla başlayır: şah, vəzir, iki top, iki fil, iki at və səkkiz piyada. Oyunun məqsədi rəqibin şahına mat verməkdir.</p>
+                </div>
+            </div>
+            <div class="expandable-section">
+                <div class="expandable-header">
+                    <h3 data-lang="ru">Основные фигуры</h3>
+                    <h3 data-lang="az" style="display: none;">Əsas fiqurlar</h3>
+                    <i class="fas fa-chevron-down expand-icon"></i>
+                </div>
+                <div class="expandable-content">
+                    <ul>
+                        <li data-lang="ru">Король - самая важная фигура, может двигаться на одну клетку в любом направлении</li>
+                        <li data-lang="az" style="display: none;">Şah - ən vacib fiqur, istənilən istiqamətdə bir hücrə hərəkət edə bilər</li>
+                        <li data-lang="ru">Ферзь - самая сильная фигура, может двигаться по горизонтали, вертикали и диагонали</li>
+                        <li data-lang="az" style="display: none;">Vəzir - ən güclü fiqur, üfüqi, şaquli və diaqonal istiqamətlərdə hərəkət edə bilər</li>
+                        <li data-lang="ru">Ладья - может двигаться по горизонтали и вертикали</li>
+                        <li data-lang="az" style="display: none;">Top - üfüqi və şaquli istiqamətlərdə hərəkət edə bilər</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -392,21 +505,148 @@
     <section id="benefits">
         <div class="container">
             <div class="section-title">
-                <h2 data-lang="ru">Преимущества обучения</h2>
-                <h2 data-lang="az" style="display: none;">Təhsilin üstünlükləri</h2>
+                <h2 data-lang="ru">Преимущества игры в шахматы</h2>
+                <h2 data-lang="az" style="display: none;">Şahmat oyununun üstünlükləri</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <i class="fas fa-brain fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 data-lang="ru">Развитие интеллекта</h3>
+                    <h3 data-lang="az" style="display: none;">İntellektin inkişafı</h3>
+                    <p data-lang="ru">Шахматы развивают логическое мышление, память и концентрацию внимания.</p>
+                    <p data-lang="az" style="display: none;">Şahmat məntiqi təfəkkürü, yaddaşı və diqqəti inkişaf etdirir.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-graduation-cap fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 data-lang="ru">Улучшение успеваемости</h3>
+                    <h3 data-lang="az" style="display: none;">Təhsil uğurunun artırılması</h3>
+                    <p data-lang="ru">Исследования показывают, что дети, играющие в шахматы, лучше учатся в школе.</p>
+                    <p data-lang="az" style="display: none;">Tədqiqatlar göstərir ki, şahmat oynayan uşaqlar məktəbdə daha yaxşı oxuyurlar.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h3 data-lang="ru">Социальные навыки</h3>
+                    <h3 data-lang="az" style="display: none;">Sosial bacarıqlar</h3>
+                    <p data-lang="ru">Шахматы учат уважению к сопернику, терпению и стратегическому мышлению.</p>
+                    <p data-lang="az" style="display: none;">Şahmat rəqibə hörməti, səbir və strateji təfəkkürü öyrədir.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Champions Section -->
+    <section id="champions">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-lang="ru">Чемпионы мира</h2>
+                <h2 data-lang="az" style="display: none;">Dünya çempionları</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card player-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Garry_Kasparov_2015.jpg/800px-Garry_Kasparov_2015.jpg" alt="Garry Kasparov">
+                    <h3>Гарри Каспаров</h3>
+                    <p>1985-2000</p>
+                    <p data-lang="ru">13-й чемпион мира по шахматам</p>
+                    <p data-lang="az" style="display: none;">13-cü dünya şahmat çempionu</p>
+                </div>
+                <div class="card player-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Magnus_Carlsen_%2833623096435%29.jpg/800px-Magnus_Carlsen_%2833623096435%29.jpg" alt="Magnus Carlsen">
+                    <h3>Магнус Карлсен</h3>
+                    <p>2013-настоящее время</p>
+                    <p data-lang="ru">16-й чемпион мира по шахматам</p>
+                    <p data-lang="az" style="display: none;">16-cı dünya şahmat çempionu</p>
+                </div>
+                <div class="card player-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Viswanathan_Anand_2012.jpg/800px-Viswanathan_Anand_2012.jpg" alt="Viswanathan Anand">
+                    <h3>Вишванатан Ананд</h3>
+                    <p>2007-2013</p>
+                    <p data-lang="ru">15-й чемпион мира по шахматам</p>
+                    <p data-lang="az" style="display: none;">15-ci dünya şahmat çempionu</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Azerbaijani Players Section -->
+    <section id="players">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-lang="ru">Азербайджанские шахматисты</h2>
+                <h2 data-lang="az" style="display: none;">Azərbaycan şahmatçıları</h2>
+            </div>
+            <div class="cards-grid">
+                <div class="card player-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Shakhriyar_Mamedyarov_2018.jpg/800px-Shakhriyar_Mamedyarov_2018.jpg" alt="Shakhriyar Mamedyarov">
+                    <h3>Шахрияр Мамедъяров</h3>
+                    <p data-lang="ru">Гроссмейстер, многократный чемпион Азербайджана</p>
+                    <p data-lang="az" style="display: none;">Qrossmeyster, çoxqatlı Azərbaycan çempionu</p>
+                </div>
+                <div class="card player-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Teimour_Radjabov_2018.jpg/800px-Teimour_Radjabov_2018.jpg" alt="Teimour Radjabov">
+                    <h3>Теймур Раджабов</h3>
+                    <p data-lang="ru">Гроссмейстер, победитель Кубка мира ФИДЕ</p>
+                    <p data-lang="az" style="display: none;">Qrossmeyster, FİDE Dünya Kubokunun qalibi</p>
+                </div>
+                <div class="card player-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Gunay_Mammadzada_2018.jpg/800px-Gunay_Mammadzada_2018.jpg" alt="Gunay Mammadzada">
+                    <h3>Гюнай Мамедзаде</h3>
+                    <p data-lang="ru">Гроссмейстер, чемпионка Азербайджана среди женщин</p>
+                    <p data-lang="az" style="display: none;">Qrossmeyster, qadınlar arasında Azərbaycan çempionu</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tournaments Section -->
+    <section id="tournaments">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-lang="ru">Турниры</h2>
+                <h2 data-lang="az" style="display: none;">Turnirlər</h2>
             </div>
             <div class="expandable-section">
                 <div class="expandable-header">
-                    <h3 data-lang="ru">Развитие интеллекта</h3>
-                    <h3 data-lang="az" style="display: none;">İntellektin inkişafı</h3>
+                    <h3 data-lang="ru">Предстоящие турниры</h3>
+                    <h3 data-lang="az" style="display: none;">Gələcək turnirlər</h3>
                     <i class="fas fa-chevron-down expand-icon"></i>
                 </div>
                 <div class="expandable-content">
-                    <p data-lang="ru">Улучшение памяти, концентрации и аналитических способностей</p>
-                    <p data-lang="az" style="display: none;">Yaddaşın, diqqətin və analitik qabiliyyətlərin təkmilləşdirilməsi</p>
+                    <ul>
+                        <li data-lang="ru">Чемпионат Азербайджана - Июнь 2024</li>
+                        <li data-lang="az" style="display: none;">Azərbaycan Çempionatı - İyun 2024</li>
+                        <li data-lang="ru">Кубок Баку - Сентябрь 2024</li>
+                        <li data-lang="az" style="display: none;">Bakı Kuboku - Sentyabr 2024</li>
+                    </ul>
                 </div>
             </div>
-            <!-- Add more expandable sections -->
+        </div>
+    </section>
+
+    <!-- Links Section -->
+    <section id="links">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-lang="ru">Полезные ссылки</h2>
+                <h2 data-lang="az" style="display: none;">Faydalı linklər</h2>
+            </div>
+            <div class="links-grid">
+                <a href="https://www.fide.com" class="link-card" target="_blank">
+                    <i class="fas fa-chess"></i>
+                    <h3>FIDE</h3>
+                </a>
+                <a href="https://www.chess.com" class="link-card" target="_blank">
+                    <i class="fas fa-chess-knight"></i>
+                    <h3>Chess.com</h3>
+                </a>
+                <a href="https://lichess.org" class="link-card" target="_blank">
+                    <i class="fas fa-chess-queen"></i>
+                    <h3>Lichess</h3>
+                </a>
+                <a href="https://www.youtube.com" class="link-card" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    <h3>YouTube</h3>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -434,11 +674,20 @@
                             <p>ул. Шахматная, 1, Баку</p>
                         </div>
                     </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h3 data-lang="ru">Время работы</h3>
+                            <h3 data-lang="az" style="display: none;">İş saatları</h3>
+                            <p data-lang="ru">Пн-Пт: 9:00 - 18:00</p>
+                            <p data-lang="az" style="display: none;">B.e-Ş: 9:00 - 18:00</p>
+                        </div>
+                    </div>
                     <div class="social-links">
-                        <a href="https://t.me/sonachess" class="btn btn-telegram" target="_blank">
+                        <a href="https://t.me/sonachess" class="btn-telegram" target="_blank">
                             <i class="fab fa-telegram"></i> Telegram
                         </a>
-                        <a href="https://wa.me/994501234567?text=Hello%20Sona.Chess" class="btn btn-whatsapp" target="_blank">
+                        <a href="https://wa.me/994501234567?text=Hello%20Sona.Chess" class="btn-whatsapp" target="_blank">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </a>
                     </div>
@@ -473,6 +722,9 @@
                         element.style.display = 'none';
                     }
                 });
+
+                // Update document language
+                document.documentElement.lang = lang;
             });
         });
 
@@ -496,6 +748,19 @@
                 });
             });
         });
+
+        // Initialize first expandable section
+        document.querySelector('.expandable-content').classList.add('active');
+        document.querySelector('.expand-icon').classList.add('active');
     </script>
 </body>
 </html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDgPj1yjM4OCrL5gap0g1xIe3dFYeWiOUpvb%2F22rhzmagSD7UKB8PjzkHFhgBt09DHHVdm9M6mqyNOH0oXC4%2FOsDzMniuo482fbKNUznfR46cHZtoqygEBfyWSMFODNAFiXhlRwodct8QdrBMdpp1ln2z76CrFVIKlWsb5B3FHGLuLcZLcoESYIgDwljUsNJqBR1mqNj1tuLkt%2FdU9bjWh5mE54egS5AnjfXc9VLUWGwharIcM%2FY6mUsjXUqKYjKAJgDpR53lSfZ3cX33S1DXEZNarKWJrrK6HT%2F%2BeeR0qlMIROasaKt7e8HTV03luo2DVA7AWr3v%2F0oPEYQohRPPSEPNwWBG4nfc%2BARYLEVqPYVc%2F6pKtkasqe8zpvdDLawzdT31AUD8AEVg8Yv10JFG%2FgTaKAy1rhEK9NI1vcI5D3gEjnZr%2Bx6QXGRqwxEkAydKbB7%2BbwmswzRyB02r%2Fnm7E3sbC9yrp58xjAcNhBWKk87GJATVhespVxmbV1HdPuNebHFK61khKUdQUTMNlcPplE8T%2Fs%2FB2pmz3j8sU67MVePv9M9XQ1kuSf%2FCZoHnJWmFPTpJHw0gYSCyoOxAF4cxx88%3D";
+        window.__genspark_locale = "en-US";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDgPj1yjM4OCrL5gap0g1xIe3dFYeWiOUpvb/22rhzmagSD7UKB8PjzkHFhgBt09DHHVdm9M6mqyNOH0oXC4/OsDzMniuo482fbKNUznfR46cHZtoqygEBfyWSMFODNAFiXhlRwodct8QdrBMdpp1ln2z76CrFVIKlWsb5B3FHGLuLcZLcoESYIgDwljUsNJqBR1mqNj1tuLkt/dU9bjWh5mE54egS5AnjfXc9VLUWGwharIcM/Y6mUsjXUqKYjKAJgDpR53lSfZ3cX33S1DXEZNarKWJrrK6HT/+eeR0qlMIROasaKt7e8HTV03luo2DVA7AWr3v/0oPEYQohRPPSEPNwWBG4nfc+ARYLEVqPYVc/6pKtkasqe8zpvdDLawzdT31AUD8AEVg8Yv10JFG/gTaKAy1rhEK9NI1vcI5D3gEjnZr+x6QXGRqwxEkAydKbB7+bwmswzRyB02r/nm7E3sbC9yrp58xjAcNhBWKk87GJATVhespVxmbV1HdPuNebHFK61khKUdQUTMNlcPplE8T/s/B2pmz3j8sU67MVePv9M9XQ1kuSf/CZoHnJWmFPTpJHw0gYSCyoOxAF4cxx88=";
+    </script>
+    
+        <script id="html_badge_script2" src="https://www.genspark.ai/html_badge.js"></script>
+        
