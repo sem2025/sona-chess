@@ -1,758 +1,458 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Life in Germany - Information Portal</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Sona.Chess - Шахматная школа</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --navy-blue: #0A2463;
-            --orange: #FF7F11;
-            --light-orange: #FF9F45;
-            --light-blue: #1B4B9A;
+            --primary: #2C3E50;
+            --secondary: #E74C3C;
+            --accent: #3498DB;
+            --light: #ECF0F1;
+            --dark: #2C3E50;
+            --success: #27AE60;
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #333;
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            scroll-behavior: smooth;
+            color: var(--dark);
         }
-        .bg-navy-blue {
-            background-color: var(--navy-blue);
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
         }
-        .bg-orange {
-            background-color: var(--orange);
+
+        /* Header Styles */
+        header {
+            background: var(--primary);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .bg-light-orange {
-            background-color: var(--light-orange);
-        }
-        .bg-light-blue {
-            background-color: var(--light-blue);
-        }
-        .text-navy-blue {
-            color: var(--navy-blue);
-        }
-        .text-orange {
-            color: var(--orange);
-        }
-        .feature-card {
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-        .btn-orange {
-            background-color: var(--orange);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 0.25rem;
-            transition: all 0.3s ease;
-        }
-        .btn-orange:hover {
-            background-color: var(--light-orange);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .section-heading {
-            position: relative;
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-        }
-        .section-heading:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 100px;
-            height: 4px;
-            background-color: var(--orange);
-        }
-        .language-switcher {
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
-        .language-button {
-            display: flex;
-            align-items: center;
-            margin-left: 10px;
-            padding: 5px 10px;
-            background-color: transparent;
+
+        .logo {
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 4px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
             cursor: pointer;
             transition: all 0.3s;
         }
-        .language-button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+
+        .lang-btn:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            position: relative;
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Schedule Section */
+        .schedule {
+            background: var(--light);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .schedule-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--primary);
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--secondary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #c0392b;
             transform: translateY(-2px);
         }
-        .language-button.active {
-            background-color: var(--orange);
-            border-color: var(--orange);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        .language-flag {
-            width: 20px;
-            height: 15px;
-            margin-right: 5px;
-        }
-        .whatsapp-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: #25D366;
+
+        /* Footer */
+        footer {
+            background: var(--dark);
             color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            transition: all 0.3s ease;
+            padding: 2rem 0;
+            text-align: center;
         }
-        .whatsapp-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        .earnings-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .earnings-table tr {
-            border-bottom: 1px solid #eee;
-        }
-        .earnings-table tr:last-child {
-            border-bottom: none;
-        }
-        .earnings-table td {
-            padding: 10px;
-        }
-        .earnings-table td:last-child {
-            text-align: right;
-            font-weight: 600;
-        }
-        .collapsible-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-        .collapsible-content.open {
-            max-height: 2000px;
-        }
-        .hamburger-menu {
-            display: none;
-        }
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--navy-blue);
-            z-index: 1000;
-            padding: 2rem;
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-        .mobile-nav.open {
-            transform: translateX(0);
-        }
-        .mobile-nav-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            color: white;
-            cursor: pointer;
-        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hamburger-menu {
-                display: block;
-                cursor: pointer;
+            .hero h1 {
+                font-size: 2rem;
             }
-            .desktop-nav {
+
+            nav {
                 display: none;
             }
-        }
-        .hero-image {
-            height: 400px;
-            object-fit: cover;
-            object-position: center;
-        }
-        /* Hover effect for resource links */
-        .resource-link {
-            transition: all 0.3s ease;
-        }
-        .resource-link:hover {
-            transform: translateX(5px);
-        }
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* Back to top button */
-        .back-to-top {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--navy-blue);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-        .back-to-top:hover {
-            background-color: var(--light-blue);
-            transform: translateY(-5px);
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <a href="#top" class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-    <a href="https://wa.me/+491234567890" class="whatsapp-button" target="_blank" rel="noopener noreferrer">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-    <div class="mobile-nav" id="mobileNav">
-        <div class="mobile-nav-close" id="closeMobileNav">
-            <i class="fas fa-times"></i>
-        </div>
-        <div class="flex flex-col space-y-6 mt-10">
-            <a id="mobile-nav-life" href="#life" class="text-white text-xl">Life</a>
-            <a id="mobile-nav-study" href="#study" class="text-white text-xl">Study</a>
-            <a id="mobile-nav-ausbildung" href="#ausbildung" class="text-white text-xl">Ausbildung</a>
-            <a id="mobile-nav-work" href="#work" class="text-white text-xl">Work</a>
-            <a id="mobile-nav-resources" href="#resources" class="text-white text-xl">Resources</a>
-        </div>
-        <div class="mt-8 flex">
-            <button class="language-button active" data-lang="en">
-                <span>EN</span>
-            </button>
-            <button class="language-button" data-lang="az">
-                <span>AZ</span>
-            </button>
-            <button class="language-button" data-lang="ru">
-                <span>RU</span>
-            </button>
-        </div>
-    </div>
-    <header id="top" class="bg-navy-blue text-white sticky top-0 z-50 shadow-md">
-        <div class="container mx-auto py-4 px-6 flex justify-between items-center">
-            <div class="flex items-center">
-                <h1 id="site-title" class="text-2xl font-bold">Life in Germany</h1>
-            </div>
-            <div class="flex items-center">
-                <nav class="hidden md:flex space-x-6 mr-6 desktop-nav">
-                    <a id="nav-life" href="#life" class="hover:text-orange transition-colors">Life</a>
-                    <a id="nav-study" href="#study" class="hover:text-orange transition-colors">Study</a>
-                    <a id="nav-ausbildung" href="#ausbildung" class="hover:text-orange transition-colors">Ausbildung</a>
-                    <a id="nav-work" href="#work" class="hover:text-orange transition-colors">Work</a>
-                    <a id="nav-resources" href="#resources" class="hover:text-orange transition-colors">Resources</a>
-                </nav>
-                <div class="language-switcher">
-                    <button class="language-button active" data-lang="en"><span>EN</span></button>
-                    <button class="language-button" data-lang="az"><span>AZ</span></button>
-                    <button class="language-button" data-lang="ru"><span>RU</span></button>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">Sona.Chess</a>
+            <nav>
+                <a href="#about">О нас</a>
+                <a href="#benefits">Преимущества</a>
+                <a href="#schedule">Расписание</a>
+                <a href="#contact">Контакты</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn" onclick="changeLang('ru')">🇷🇺 RU</button>
+                    <button class="lang-btn" onclick="changeLang('az')">🇦🇿 AZ</button>
                 </div>
-                <div class="md:hidden ml-4 hamburger-menu" id="hamburgerMenu">
-                    <i class="fas fa-bars text-xl"></i>
-                </div>
-            </div>
+            </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="relative">
-        <img src="/api/placeholder/1200/400" alt="Germany cityscape" class="w-full hero-image">
-        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-            <div class="text-center text-white px-4">
-                <h2 id="hero-title" class="text-4xl md:text-5xl font-bold mb-4">Your Guide to Living and Working in Germany</h2>
-                <p id="hero-subtitle" class="text-xl md:text-2xl mb-8">Everything you need to know about life, education, and career opportunities</p>
-                <a href="#contact" class="btn-orange text-lg font-semibold">Get Started</a>
-            </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Sona.Chess</h1>
+            <p>Развиваем интеллект через игру в шахматы</p>
+            <a href="#contact" class="btn">Записаться на занятие</a>
         </div>
     </section>
 
-    <!-- Life Section -->
-    <section id="life" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 id="life-heading" class="text-3xl font-bold text-navy-blue section-heading">Life in Germany</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="feature-card bg-white rounded-lg p-6">
-                    <div class="text-orange text-4xl mb-4">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h3 id="housing-title" class="text-xl font-bold mb-2">Housing</h3>
-                    <p id="housing-text">Finding accommodation in Germany can be challenging but rewarding. Learn about different housing options, rental processes, and typical costs in various cities.</p>
-                    <button class="mt-4 text-orange font-semibold flex items-center collapsible-toggle">
-                        <span id="housing-more">Learn More</span>
-                        <i class="fas fa-chevron-down ml-2"></i>
-                    </button>
-                    <div class="collapsible-content mt-4">
-                        <p id="housing-details">In Germany, you'll find various housing options including apartments (Wohnungen), shared flats (WGs), and student dormitories. Rental prices vary significantly by location, with Munich and Frankfurt being among the most expensive cities. The average rent for a one-bedroom apartment in city centers ranges from €700-€1200 per month.</p>
-                    </div>
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Что такое шахматы?</h2>
+                <p>Древняя игра, которая развивает стратегическое мышление и логику</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>История</h3>
+                    <p>Шахматы появились более 1500 лет назад в Индии и с тех пор стали одной из самых популярных игр в мире.</p>
                 </div>
-                <div class="feature-card bg-white rounded-lg p-6">
-                    <div class="text-orange text-4xl mb-4">
-                        <i class="fas fa-subway"></i>
-                    </div>
-                    <h3 id="transport-title" class="text-xl font-bold mb-2">Transportation</h3>
-                    <p id="transport-text">Germany offers excellent public transportation networks. Discover how to navigate cities and travel between regions efficiently and affordably.</p>
-                    <button class="mt-4 text-orange font-semibold flex items-center collapsible-toggle">
-                        <span id="transport-more">Learn More</span>
-                        <i class="fas fa-chevron-down ml-2"></i>
-                    </button>
-                    <div class="collapsible-content mt-4">
-                        <p id="transport-details">Germany's public transportation system is one of the best in Europe. In cities, you can use U-Bahn (subway), S-Bahn (suburban trains), trams, and buses. For intercity travel, Deutsche Bahn operates an extensive rail network. The Deutschland-Ticket offers unlimited regional transport for €49 per month, while student semester tickets provide discounted travel options.</p>
-                    </div>
+                <div class="card">
+                    <h3>Польза</h3>
+                    <p>Игра в шахматы развивает логическое мышление, память, концентрацию и стратегическое планирование.</p>
                 </div>
-                <div class="feature-card bg-white rounded-lg p-6">
-                    <div class="text-orange text-4xl mb-4">
-                        <i class="fas fa-heartbeat"></i>
-                    </div>
-                    <h3 id="healthcare-title" class="text-xl font-bold mb-2">Healthcare</h3>
-                    <p id="healthcare-text">Navigate Germany's healthcare system with confidence. Learn about health insurance options, finding doctors, and accessing medical services.</p>
-                    <button class="mt-4 text-orange font-semibold flex items-center collapsible-toggle">
-                        <span id="healthcare-more">Learn More</span>
-                        <i class="fas fa-chevron-down ml-2"></i>
-                    </button>
-                    <div class="collapsible-content mt-4">
-                        <p id="healthcare-details">Health insurance is mandatory in Germany. There are two main types: public (gesetzliche Krankenversicherung) and private (private Krankenversicherung). Most people use the public system, which costs about 14.6% of your gross income, typically split between you and your employer. Students enjoy special rates, and family members can often be covered at no extra cost.</p>
-                    </div>
+                <div class="card">
+                    <h3>Интересные факты</h3>
+                    <p>Шахматы признаны видом спорта в более чем 100 странах мира.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Study Section -->
-    <section id="study" class="py-16 bg-gray-100">
-        <div class="container mx-auto px-6">
-            <h2 id="study-heading" class="text-3xl font-bold text-navy-blue section-heading">Study in Germany</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 id="university-title" class="text-2xl font-bold mb-4">University Education</h3>
-                    <p id="university-text" class="mb-4">Germany is home to some of Europe's most prestigious universities, offering high-quality education with low or no tuition fees. Most programs at public universities are tuition-free for all students, regardless of nationality. You'll only need to pay a semester fee of €150-€350 which usually includes a public transportation ticket.</p>
-                    <p id="university-requirements" class="mb-4">To study in Germany, international students typically need:</p>
-                    <ul class="list-disc pl-6 mb-6">
-                        <li id="req-1">A recognized higher education entrance qualification (Hochschulzugangsberechtigung)</li>
-                        <li id="req-2">Proof of language proficiency (usually German B2/C1 or English B2/C1)</li>
-                        <li id="req-3">Sufficient financial resources (approximately €11,200 per year)</li>
-                        <li id="req-4">Health insurance coverage</li>
-                    </ul>
-                    <a href="#" class="btn-orange inline-block">Learn About Application Process</a>
+    <!-- Benefits Section -->
+    <section id="benefits" class="schedule">
+        <div class="container">
+            <div class="section-title">
+                <h2>Преимущества обучения</h2>
+                <p>Почему стоит выбрать шахматы для развития вашего ребенка</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Развитие интеллекта</h3>
+                    <p>Улучшение памяти, концентрации и аналитических способностей</p>
                 </div>
-                <div>
-                    <img src="/api/placeholder/600/400" alt="German university campus" class="rounded-lg shadow-lg w-full">
+                <div class="card">
+                    <h3>Уверенность в себе</h3>
+                    <p>Повышение самооценки через достижение успехов в игре</p>
+                </div>
+                <div class="card">
+                    <h3>Социализация</h3>
+                    <p>Общение со сверстниками и развитие коммуникативных навыков</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Ausbildung Section -->
-    <section id="ausbildung" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 id="ausbildung-heading" class="text-3xl font-bold text-navy-blue section-heading">Ausbildung (Vocational Training)</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <img src="/api/placeholder/600/400" alt="Vocational training in Germany" class="rounded-lg shadow-lg w-full">
-                </div>
-                <div>
-                    <h3 id="ausbildung-title" class="text-2xl font-bold mb-4">Dual Vocational Training System</h3>
-                    <p id="ausbildung-text" class="mb-4">Germany's dual vocational training system combines practical work experience with theoretical education. This globally recognized model offers excellent career prospects and is a popular alternative to university studies.</p>
-                    <h4 id="ausbildung-benefits" class="text-xl font-semibold mb-3">Benefits of Ausbildung:</h4>
-                    <ul class="list-disc pl-6 mb-6">
-                        <li id="benefit-1">Earn while you learn (average monthly salary: €800-€1,200)</li>
-                        <li id="benefit-2">Practical, hands-on training in your chosen profession</li>
-                        <li id="benefit-3">High employment rates after completion</li>
-                        <li id="benefit-4">Pathway to further qualifications (Meister/Techniker)</li>
-                    </ul>
-                    <h4 id="ausbildung-earnings" class="text-xl font-semibold mb-3">Average Monthly Earnings:</h4>
-                    <table class="earnings-table">
-                        <tr>
-                            <td id="year-1">First Year</td>
-                            <td>€800 - €1,000</td>
-                        </tr>
-                        <tr>
-                            <td id="year-2">Second Year</td>
-                            <td>€900 - €1,100</td>
-                        </tr>
-                        <tr>
-                            <td id="year-3">Third Year</td>
-                            <td>€1,000 - €1,200</td>
-                        </tr>
-                        <tr>
-                            <td id="after-completion">After Completion</td>
-                            <td>€2,400 - €3,500+</td>
-                        </tr>
-                    </table>
-                </div>
+    <!-- Schedule Section -->
+    <section id="schedule">
+        <div class="container">
+            <div class="section-title">
+                <h2>Расписание занятий</h2>
+                <p>Выберите удобное время для обучения</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Work Section -->
-    <section id="work" class="py-16 bg-gray-100">
-        <div class="container mx-auto px-6">
-            <h2 id="work-heading" class="text-3xl font-bold text-navy-blue section-heading">Working in Germany</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="feature-card bg-white rounded-lg p-6">
-                    <div class="text-orange text-4xl mb-4">
-                        <i class="fas fa-file-contract"></i>
-                    </div>
-                    <h3 id="visa-title" class="text-xl font-bold mb-2">Work Permits & Visas</h3>
-                    <p id="visa-text">Learn about the various work permits and visas available for non-EU citizens, including the EU Blue Card, job seeker visa, and residence permits for qualified professionals.</p>
-                    <button class="mt-4 text-orange font-semibold flex items-center collapsible-toggle">
-                        <span id="visa-more">Learn More</span>
-                        <i class="fas fa-chevron-down ml-2"></i>
-                    </button>
-                    <div class="collapsible-content mt-4">
-                        <p id="visa-details">Germany offers various work visas for qualified professionals. The EU Blue Card is available for university graduates with a job offer paying at least €58,400 annually (€45,552 for shortage occupations). The Job Seeker Visa allows qualified professionals to stay in Germany for up to six months to find employment. Recent graduates can apply for an 18-month residence permit to seek employment after completing their studies.</p>
-                    </div>
+            <div class="schedule-grid">
+                <div class="schedule-item">
+                    <h3>Начальная группа</h3>
+                    <p>Пн, Ср, Пт</p>
+                    <p>16:00 - 17:30</p>
+                    <a href="#contact" class="btn">Записаться</a>
                 </div>
-                <div class="feature-card bg-white rounded-lg p-6">
-                    <div class="text-orange text-4xl mb-4">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3 id="jobsearch-title" class="text-xl font-bold mb-2">Job Search Strategies</h3>
-                    <p id="jobsearch-text">Discover effective strategies for finding employment in Germany, including online job portals, networking events, and how to create a German-style CV and cover letter.</p>
-                    <button class="mt-4 text-orange font-semibold flex items-center collapsible-toggle">
-                        <span id="jobsearch-more">Learn More</span>
-                        <i class="fas fa-chevron-down ml-2"></i>
-                    </button>
-                    <div class="collapsible-content mt-4">
-                        <p id="jobsearch-details">When job hunting in Germany, utilize platforms like Stepstone, Indeed, and LinkedIn. The Federal Employment Agency (Bundesagentur für Arbeit) also offers job listings and assistance. German CVs typically include a professional photo and personal details. Networking is crucial - attend industry events and join professional associations in your field. Application documents should be in German unless specifically stated otherwise.</p>
-                    </div>
+                <div class="schedule-item">
+                    <h3>Средняя группа</h3>
+                    <p>Вт, Чт</p>
+                    <p>17:00 - 18:30</p>
+                    <a href="#contact" class="btn">Записаться</a>
                 </div>
-                <div class="feature-card bg-white rounded-lg p-6">
-                    <div class="text-orange text-4xl mb-4">
-                        <i class="fas fa-euro-sign"></i>
-                    </div>
-                    <h3 id="salary-title" class="text-xl font-bold mb-2">Salaries & Benefits</h3>
-                    <p id="salary-text">Understand typical salary ranges, taxation, social security contributions, and workplace benefits in Germany to better plan your finances and career development.</p>
-                    <button class="mt-4 text-orange font-semibold flex items-center collapsible-toggle">
-                        <span id="salary-more">Learn More</span>
-                        <i class="fas fa-chevron-down ml-2"></i>
-                    </button>
-                    <div class="collapsible-content mt-4">
-                        <p id="salary-details">The average annual salary in Germany is around €56,000, but this varies significantly by profession, location, and experience. Income tax ranges from 14% to 45% depending on income level. Social security contributions (health insurance, pension, unemployment, and nursing care) amount to about 20% of your gross salary, with employers matching most contributions. Standard benefits include 20-30 paid vacation days, paid sick leave, parental leave, and strong employee protection rights.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Resources Section -->
-    <section id="resources" class="py-16 bg-white">
-        <div class="container mx-auto px-6">
-            <h2 id="resources-heading" class="text-3xl font-bold text-navy-blue section-heading">Useful Resources</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 id="official-title" class="text-2xl font-bold mb-4">Official Websites</h3>
-                    <ul class="space-y-3">
-                        <li class="resource-link">
-                            <a href="https://www.make-it-in-germany.com" class="flex items-center text-navy-blue hover:text-orange">
-                                <i class="fas fa-external-link-alt mr-2"></i>
-                                <span id="resource-1">Make it in Germany - Official portal for qualified professionals</span>
-                            </a>
-                        </li>
-                        <li class="resource-link">
-                            <a href="https://www.daad.de/en/" class="flex items-center text-navy-blue hover:text-orange">
-                                <i class="fas fa-external-link-alt mr-2"></i>
-                                <span id="resource-2">DAAD - German Academic Exchange Service</span>
-                            </a>
-                        </li>
-                        <li class="resource-link">
-                            <a href="https://www.auswaertiges-amt.de/en" class="flex items-center text-navy-blue hover:text-orange">
-                                <i class="fas fa-external-link-alt mr-2"></i>
-                                <span id="resource-3">Federal Foreign Office - Visa regulations and embassy information</span>
-                            </a>
-                        </li>
-                        <li class="resource-link">
-                            <a href="https://www.arbeitsagentur.de/en/welcome" class="flex items-center text-navy-blue hover:text-orange">
-                                <i class="fas fa-external-link-alt mr-2"></i>
-                                <span id="resource-4">Federal Employment Agency - Job search assistance</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 id="community-title" class="text-2xl font-bold mb-4">Community & Support</h3>
-                    <ul class="space-y-3">
-                        <li class="resource-link">
-                            <a href="https://www.facebook.com/groups/expatsintermany" class="flex items-center text-navy-blue hover:text-orange">
-                                <i class="fab fa-facebook mr-2"></i>
-                                <span id="community-1">Expats in Germany - Facebook Group</span>
-                            </a>
-                        </li>
-                        <li class="resource-link">
-                            <a href="https://www.meetup.com/topics/new-in-town/de/" class="flex items-center text-navy-blue hover:text-orange">
-                                <i class="fab fa-meetup mr-2"></i>
-                                <span id="community-2">Meetup Groups for Newcomers</span>
-                            </a>
-                        </li>
-                        <li class="resource-link">
-                            <a href="https://www.internations.org/germany-expats" class="flex items-center text-navy-blue hover:text-orange">
-                                <i class="fas fa-globe mr-2"></i>
-                                <span id="community-3">InterNations - Expat Community Platform</span>
-                            </a>
-                        </li>
-                        <li class="resource-link">
-                            <a href="https://www.reddit.com/r/germany/" class="flex items-center text-navy-blue hover:text-orange">
-                                <i class="fab fa-reddit mr-2"></i>
-                                <span id="community-4">r/germany - Reddit Community</span>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="schedule-item">
+                    <h3>Продвинутая группа</h3>
+                    <p>Сб, Вс</p>
+                    <p>10:00 - 12:00</p>
+                    <a href="#contact" class="btn">Записаться</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-navy-blue text-white">
-        <div class="container mx-auto px-6">
-            <h2 id="contact-heading" class="text-3xl font-bold section-heading">Get in Touch</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div>
-                    <p id="contact-text" class="mb-6">Have questions about living or working in Germany? Our team of experts is here to help. Fill out the form, and we'll get back to you within 24 hours.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <div class="text-orange text-xl mr-4 mt-1">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div>
-                                <h3 id="location-title" class="font-semibold">Visit Our Office</h3>
-                                <p id="location-address">Hauptstraße 123, 10115 Berlin, Germany</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="text-orange text-xl mr-4 mt-1">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div>
-                                <h3 id="phone-title" class="font-semibold">Call Us</h3>
-                                <p id="phone-number">+49 30 1234 5678</p>
-                            </div>
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Контакты</h2>
+                <p>Свяжитесь с нами для записи на занятия</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@sonachess.com</p>
                         </div>
                     </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Адрес</h3>
+                            <p>ул. Шахматная, 1, Баку</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Телефон</h3>
+                            <p>+994 50 123 45 67</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://wa.me/994501234567" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://t.me/sonachess" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
                 </div>
-                <div>
-                    <form class="bg-white rounded-lg p-6 text-gray-800">
-                        <div class="mb-4">
-                            <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange">
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                            <input type="email" id="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange">
-                        </div>
-                        <div class="mb-4">
-                            <label for="subject" class="block text-gray-700 font-medium mb-2">Subject</label>
-                            <select id="subject" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange">
-                                <option value="" disabled selected>Please select a topic</option>
-                                <option value="visa">Visa & Immigration</option>
-                                <option value="education">Education</option>
-                                <option value="housing">Housing</option>
-                                <option value="work">Work & Career</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
-                            <textarea id="message" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange"></textarea>
-                        </div>
-                        <button type="submit" class="btn-orange w-full">Send Message</button>
-                    </form>
-                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Телефон" required>
+                    <textarea placeholder="Сообщение" required></textarea>
+                    <button type="submit" class="btn">Отправить</button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h3 id="footer-about-title" class="text-xl font-bold mb-4">About Us</h3>
-                    <p id="footer-about-text">We're dedicated to helping international talents navigate life in Germany with ease, providing practical information and personalized guidance.</p>
-                </div>
-                <div>
-                    <h3 id="footer-links-title" class="text-xl font-bold mb-4">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#life" class="hover:text-orange transition-colors">Life</a></li>
-                        <li><a href="#study" class="hover:text-orange transition-colors">Study</a></li>
-                        <li><a href="#ausbildung" class="hover:text-orange transition-colors">Ausbildung</a></li>
-                        <li><a href="#work" class="hover:text-orange transition-colors">Work</a></li>
-                        <li><a href="#resources" class="hover:text-orange transition-colors">Resources</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 id="footer-legal-title" class="text-xl font-bold mb-4">Legal</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-orange transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-orange transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-orange transition-colors">Disclaimer</a></li>
-                        <li><a href="#" class="hover:text-orange transition-colors">Imprint</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 id="footer-follow-title" class="text-xl font-bold mb-4">Follow Us</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-2xl hover:text-orange transition-colors"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-2xl hover:text-orange transition-colors"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-2xl hover:text-orange transition-colors"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-2xl hover:text-orange transition-colors"><i class="fab fa-youtube"></i></a>
-                    </div>
-                    <div class="mt-4">
-                        <p id="footer-newsletter-text">Subscribe to our newsletter:</p>
-                        <div class="flex mt-2">
-                            <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg focus:outline-none flex-grow">
-                            <button class="bg-orange px-4 py-2 rounded-r-lg">
-                                <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-700 mt-8 pt-6 text-center">
-                <p id="copyright">&copy; 2025 Life in Germany. All rights reserved.</p>
-            </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Sona.Chess. Все права защищены.</p>
         </div>
     </footer>
 
-    <!-- JavaScript -->
     <script>
-        // Mobile navigation toggle
-        const hamburgerMenu = document.getElementById('hamburgerMenu');
-        const mobileNav = document.getElementById('mobileNav');
-        const closeMobileNav = document.getElementById('closeMobileNav');
-        
-        hamburgerMenu.addEventListener('click', () => {
-            mobileNav.style.display = 'block';
-            setTimeout(() => {
-                mobileNav.classList.add('open');
-            }, 10);
-        });
-        
-        closeMobileNav.addEventListener('click', () => {
-            mobileNav.classList.remove('open');
-            setTimeout(() => {
-                mobileNav.style.display = 'none';
-            }, 300);
-        });
-        
-        // Mobile nav links close menu when clicked
-        const mobileNavLinks = document.querySelectorAll('#mobileNav a');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileNav.classList.remove('open');
-                setTimeout(() => {
-                    mobileNav.style.display = 'none';
-                }, 300);
-            });
-        });
-        
-        // Collapsible content toggles
-        const collapsibleToggles = document.querySelectorAll('.collapsible-toggle');
-        collapsibleToggles.forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const content = toggle.nextElementSibling;
-                content.classList.toggle('open');
-                const icon = toggle.querySelector('i');
-                icon.classList.toggle('fa-chevron-down');
-                icon.classList.toggle('fa-chevron-up');
-            });
-        });
-        
-        // Back to top button
-        const backToTopButton = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopButton.classList.add('visible');
-            } else {
-                backToTopButton.classList.remove('visible');
-            }
-        });
-        
         // Language switcher
-        const languageButtons = document.querySelectorAll('.language-button');
-        languageButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                languageButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                button.classList.add('active');
-                
-                // Here you would typically implement language switching logic
-                const lang = button.getAttribute('data-lang');
-                console.log(`Switching to language: ${lang}`);
-                // This would be where you'd call a function to change text content based on selected language
-                // switchLanguage(lang);
+        function changeLang(lang) {
+            // Add language switching logic here
+            console.log('Changing language to:', lang);
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
         });
-        
-        // Sample language switching function (placeholder)
-        function switchLanguage(lang) {
-            // In a real implementation, you would load translations from a JSON file or API
-            // This is just a simplified example for demonstration
-            const translations = {
-                'en': {
-                    'site-title': 'Life in Germany',
-                    'nav-life': 'Life',
-                    // ... more translations
-                },
-                'az': {
-                    'site-title': 'Almaniyada Həyat',
-                    'nav-life': 'Həyat',
-                    // ... more translations
-                },
-                'ru': {
-                    'site-title': 'Жизнь в Германии',
-                    'nav-life': 'Жизнь',
-                    // ... more translations
-                }
-            };
-            
-            // Apply translations to all elements with IDs
-            for (const [id, text] of Object.entries(translations[lang])) {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.textContent = text;
-                }
-            }
-        }
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add form submission logic here
+            alert('Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.');
+        });
     </script>
 </body>
-</html> id="email-title" class="font-semibold">Email Us</h3>
-                                <p id="email-address">info@lifeingermany.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="text-orange text-xl mr-4 mt-1">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div>
-                                <h3
+</html>
