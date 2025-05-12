@@ -1,86 +1,1302 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en"> <!-- Default language, will be updated by JS -->
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KidChess - Kids Chess School</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta description and title will be updated by JS for language changes if we decide to -->
+    <meta name="description" content="Discover exquisite flavors at The Gourmet Place. View our menu, book a table, and explore our culinary delights." data-translate-key="meta_description">
+    <meta name="keywords" content="restaurant, gourmet, food, dining, menu, reservations, fine dining">
+
+<title data-translate-key="page_title">The Gourmet Place - Exquisite Dining Experience</title>
+
+<!-- Favicon (example) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍲</text></svg>">
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google Fonts (example) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+    /* Normally in css/style.css */
+    :root {
+        --primary-color: #8B4513; 
+        --secondary-color: #D2B48C; 
+        --accent-color: #DAA520; 
+        --text-color: #333;
+        --light-text-color: #f8f8f8;
+        --bg-color: #FDF5E6; 
+        --section-bg-color: #FFFFFF;
+        --border-color: #ddd;
+        --error-color: #D8000C;
+        --success-color: #4F8A10;
+        --whatsapp-color: #25D366;
+
+        --font-heading: 'Playfair Display', serif;
+        --font-body: 'Roboto', sans-serif;
+    }
+
+    /* Basic Reset & Defaults */
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: var(--font-body);
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        font-size: 16px;
+        position: relative; /* For language switcher positioning context */
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-heading);
+        color: var(--primary-color);
+        margin-bottom: 0.75em;
+    }
+
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 1.75rem; }
+
+    p {
+        margin-bottom: 1em;
+    }
+
+    a {
+        color: var(--accent-color);
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 0;
+    }
+
+    section {
+        padding: 3rem 0;
+    }
+    section:nth-child(even) { /* This needs adjustment if we insert sections */
+         /* background-color: var(--section-bg-color); */
+    }
+    #about, #menu, #reservations, #contact { /* Ensuring these have the alternating bg */
+         background-color: var(--section-bg-color);
+    }
+     #hero, #instagram, footer { /* Ensuring these don't get white bg */
+        /* background-color: transparent or their specific bg */
+    }
+
+
+    .btn {
+        display: inline-block;
+        padding: 0.75em 1.5em;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        cursor: pointer;
+        border: none;
+        font-size: 1rem;
+    }
+    .btn-primary {
+        background-color: var(--accent-color);
+        color: var(--light-text-color);
+    }
+    .btn-primary:hover {
+        background-color: darkgoldenrod;
+        color: white;
+        text-decoration: none;
+        transform: translateY(-2px);
+    }
+    .btn-secondary {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+    }
+    .btn-secondary:hover {
+        background-color: var(--primary-color);
+        color: var(--light-text-color);
+        text-decoration: none;
+        transform: translateY(-2px);
+    }
+
+    /* Screen reader only */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
+    /* --- Language Switcher --- */
+    .language-switcher {
+        position: absolute; /* Changed to absolute for better control relative to body/header */
+        top: 15px;
+        right: 15px;
+        z-index: 1000;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+    .language-switcher button {
+        background: none;
+        border: none;
+        color: var(--light-text-color); /* Adjust if on dark hero */
+        cursor: pointer;
+        padding: 5px;
+        font-weight: bold;
+        font-size: 0.9rem;
+    }
+    .language-switcher button.active {
+        color: var(--accent-color); /* Highlight active language */
+        text-decoration: underline;
+    }
+    .language-switcher button:hover:not(.active) {
+        color: var(--secondary-color);
+    }
+    /* Adjust color if switcher is over a light background section */
+    body:not(:has(#hero:target)) .language-switcher button { /* Example: if hero is not in view */
+         /* color: var(--primary-color); */ /* This might be too complex without JS check for scroll */
+    }
+    /* Simpler: if not on hero, ensure it's visible */
+    .language-switcher-fixed { /* Add this class with JS if not on hero */
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        background-color: rgba(0,0,0,0.5);
+    }
+    .language-switcher-fixed button {
+        color: var(--light-text-color);
+    }
+    .language-switcher-fixed button.active {
+        color: var(--accent-color);
+    }
+
+
+    /* --- Hero Section --- */
+    #hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                    url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+        color: var(--light-text-color);
+        height: 100vh;
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 0 1rem;
+        position: relative; /* For language switcher context if needed */
+    }
+    #hero h1 {
+        font-size: 3.5rem; 
+        margin-bottom: 0.5em;
+        color: var(--light-text-color);
+    }
+    #hero .tagline {
+        font-size: 1.5rem;
+        margin-bottom: 2em;
+        font-style: italic;
+    }
+    #hero .cta-buttons a {
+        margin: 0.5em;
+    }
+    #hero .cta-buttons .btn-primary {
+        background-color: var(--accent-color);
+        color: white;
+    }
+    #hero .cta-buttons .btn-primary:hover {
+        background-color: darkgoldenrod;
+    }
+    #hero .cta-buttons .btn-secondary {
+        border-color: var(--light-text-color);
+        color: var(--light-text-color);
+    }
+    #hero .cta-buttons .btn-secondary:hover {
+        background-color: var(--light-text-color);
+        color: var(--primary-color);
+    }
+
+
+    /* --- About Us Section --- */
+    #about { background-color: var(--section-bg-color); } /* ensure alternating bg */
+    #about .about-content {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 2rem;
+        align-items: center;
+    }
+    #about .about-text {
+        text-align: left;
+    }
+    #about .about-visuals {
+        display: grid;
+        gap: 1rem;
+    }
+    #about .cozy-image-container img {
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        max-height: 400px; /* Limit height */
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        margin-bottom: 1rem; /* Space if image grid is below */
+    }
+    #about .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    #about .image-grid img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* --- Menu Section --- */
+    #menu { background-color: var(--bg-color); } /* ensure alternating bg */
+    #menu .menu-tabs {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+    #menu .tab-button {
+        padding: 0.75em 1.5em;
+        margin: 0.25em;
+        cursor: pointer;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        background-color: var(--section-bg-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+        font-weight: bold;
+    }
+    #menu .tab-button.active {
+        background-color: var(--primary-color);
+        color: var(--light-text-color);
+        border-color: var(--primary-color);
+    }
+    #menu .tab-button:hover:not(.active) {
+        background-color: var(--secondary-color);
+    }
+    
+    .menu-category-content {
+        display: none; 
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    .menu-category-content.active {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+    .menu-item {
+        background-color: var(--section-bg-color); /* Light bg for items */
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .menu-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .menu-item .description {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 0.75rem;
+    }
+    .menu-item .price {
+        font-weight: bold;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+    }
+    .menu-item .dietary-icons span {
+        margin-right: 0.5rem;
+        font-size: 1.1rem;
+    }
+    .dietary-icons .fa-leaf { color: #2E8B57; } 
+    .dietary-icons .fa-pepper-hot { color: #DC143C; } 
+    .dietary-icons .fa-wheat-awn-circle-exclamation { color: #8B4513; }
+
+
+    /* --- Reservation Section --- */
+    #reservations { background-color: var(--section-bg-color); } /* ensure alternating bg */
+    #reservations form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        max-width: 700px;
+        margin: 0 auto;
+        background-color: var(--bg-color); /* Lighter bg for form itself */
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #reservations .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+    #reservations label {
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    #reservations input, #reservations select, #reservations textarea {
+        padding: 0.75em;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        font-family: var(--font-body);
+        font-size: 1rem;
+    }
+    #reservations input:focus, #reservations select:focus, #reservations textarea:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 2px rgba(218, 165, 32, 0.3);
+    }
+    #reservations .error-message {
+        color: var(--error-color);
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+    }
+    #reservations button[type="submit"] {
+        grid-column: 1 / -1; 
+        justify-self: center; 
+    }
+    #reservation-status {
+        margin-top: 1rem;
+        text-align: center;
+        font-weight: bold;
+    }
+    #reservation-status.success { color: var(--success-color); }
+    #reservation-status.error { color: var(--error-color); }
+
+
+    /* --- Instagram Section --- */
+    #instagram { background-color: var(--bg-color); } /* ensure alternating bg */
+    #instagram .instagram-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+    #instagram .instagram-grid a {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+    #instagram .instagram-grid img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    #instagram .instagram-grid a:hover img {
+        transform: scale(1.1);
+    }
+    #instagram .instagram-fallback {
+        text-align: center;
+        padding: 2rem;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        border: 1px dashed var(--border-color);
+    }
+    .lightwidget-widget {
+        width: 100%;
+        border: 0;
+        overflow: hidden;
+    }
+
+
+    /* --- Contact Section --- */
+    #contact { background-color: var(--section-bg-color); } /* ensure alternating bg */
+    #contact .contact-container {
+        display: grid;
+        grid-template-columns: 1fr; 
+        gap: 2rem;
+    }
+    #contact .contact-info, #contact .contact-map {
+        padding: 1rem;
+    }
+    #contact .contact-info ul {
+        list-style: none;
+        padding: 0;
+    }
+    #contact .contact-info li {
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+    }
+    #contact .contact-info li i {
+        color: var(--primary-color);
+        margin-right: 0.75rem;
+        width: 20px; 
+        text-align: center;
+    }
+    #contact .social-media-icons a {
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        transition: color 0.3s ease;
+    }
+    #contact .social-media-icons a:hover {
+        color: var(--accent-color);
+    }
+    #contact .map-container {
+        position: relative;
+        padding-bottom: 75%; 
+        height: 0;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+    }
+    #contact .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* --- WhatsApp Button --- */
+    .whatsapp-fab {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        background-color: var(--whatsapp-color);
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem; /* Icon size */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 999;
+        transition: transform 0.2s ease-in-out;
+    }
+    .whatsapp-fab:hover {
+        transform: scale(1.1);
+        color: white; /* Keep icon color on hover */
+        text-decoration: none;
+    }
+
+
+    /* --- Footer --- */
+    footer {
+        text-align: center;
+        padding: 2rem 0;
+        background-color: var(--primary-color);
+        color: var(--light-text-color);
+        font-size: 0.9rem;
+    }
+    footer p a {
+        color: var(--secondary-color);
+    }
+    footer p a:hover {
+        color: var(--light-text-color);
+    }
+
+    /* Keyframes for animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (min-width: 768px) { /* Tablets and up */
+        h1 { font-size: 3.5rem; }
+        #hero h1 { font-size: 4.5rem; }
+        #hero .tagline { font-size: 1.75rem; }
+
+        #about .about-content {
+            grid-template-columns: 1fr 1fr; /* Text | Visuals */
+        }
+        #about .about-visuals { /* If cozy image and grid are stacked */
+             grid-template-columns: 1fr; /* Or could be side-by-side with more complex grid */
+        }
+        #about .image-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        #reservations form {
+            grid-template-columns: 1fr 1fr;
+        }
+        #reservations .form-group-full, #reservations button[type="submit"] {
+            grid-column: 1 / -1;
+        }
+
+        #contact .contact-container {
+            grid-template-columns: 1fr 1.5fr;
+        }
+
+        #instagram .instagram-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    
+    @media (min-width: 1024px) { /* Desktops and up */
+        #instagram .instagram-grid {
+            grid-template-columns: repeat(6, 1fr);
+        }
+         .language-switcher {
+            top: 20px;
+            right: 30px;
+        }
+    }
+</style>
+
+<!-- Structured Data (Schema.org) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "The Gourmet Place",
+  "description": "Experience exquisite flavors, crafted with passion. Serving breakfast, main dishes, drinks, and desserts.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Culinary Avenue",
+    "addressLocality": "Foodville",
+    "addressRegion": "FS",
+    "postalCode": "12345",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "34.052235",
+    "longitude": "-118.243683" 
+  },
+  "telephone": "+1-555-123-4567",
+  "email": "reservations@thegourmetplace.com",
+  "url": "https://www.thegourmetplace.com", 
+  "servesCuisine": "Modern European, International",
+  "priceRange": "$$$",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "11:00", "closes": "22:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Saturday", "Sunday"],
+      "opens": "09:00", "closes": "23:00"
+    }
+  ],
+  "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80",
+  "menu": "#menu", 
+  "acceptsReservations": "True",
+  "hasMenu": { /* ... (menu schema remains the same, not duplicating for brevity) ... */ }
+}
+</script>
+
 </head>
 <body>
-  <header class="header">
-    <div class="logo">KidChess</div>
-    <nav class="nav">
-      <a href="#" class="nav-link">Home</a>
-      <a href="#" class="nav-link">Contact</a>
-      <a href="#" class="nav-link">Concept</a>
-      <a href="#" class="nav-link">Modules</a>
-      <a href="#" class="nav-link">Levels</a>
-      <a href="#" class="nav-link">Project</a>
-    </nav>
-    <div class="lang-switch">
-      <button class="lang-btn" data-lang="az">🇦🇿</button>
-      <button class="lang-btn" data-lang="ru">🇷🇺</button>
+    <!-- Language Switcher -->
+    <div class="language-switcher" id="language-switcher-container">
+        <button data-lang="en" class="lang-btn active" aria-label="Switch to English">EN</button> |
+        <button data-lang="ru" class="lang-btn" aria-label="Переключить на русский">RU</button> |
+        <button data-lang="az" class="lang-btn" aria-label="Azərbaycan dilinə keçid">AZ</button> |
+        <button data-lang="de" class="lang-btn" aria-label="Auf Deutsch umschalten">DE</button>
     </div>
-    <div class="header-actions">
-      <button class="header-btn">Intro</button>
-      <button class="header-btn primary">Register</button>
+
+<!-- 1. Hero Section -->
+<section id="hero">
+    <h1 class="restaurant-name" data-translate-key="hero_h1">The Gourmet Place</h1>
+    <p class="tagline" data-translate-key="hero_tagline">Experience exquisite flavors, crafted with passion.</p>
+    <div class="cta-buttons">
+        <a href="#menu" class="btn btn-primary" data-translate-key="hero_btn_menu">View Menu</a>
+        <a href="#reservations" class="btn btn-secondary" data-translate-key="hero_btn_book">Book a Table</a>
     </div>
-  </header>
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h1 class="hero-title"><span class="accent-green">Simo</span><span class="accent-black">Ldrise Kids</span></h1>
-        <h2 class="hero-subtitle">Story ay thes tvdut Alder Rhäder flen</h2>
-        <p class="hero-desc">If you are the relative for kids or you wanted to learn, so let teach children chess at KidChess. Here you will practice basic tactics and strategies.</p>
-        <div class="hero-buttons">
-          <button class="btn primary">Start Now</button>
-          <button class="btn secondary">Learn More</button>
+</section>
+
+<main>
+    <!-- 2. About Us Section -->
+    <section id="about">
+        <div class="container">
+            <h2 data-translate-key="about_h2">About Us</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-translate-key="about_p1">Welcome to The Gourmet Place, where culinary artistry meets warm hospitality. Our philosophy is simple: to use the freshest, locally-sourced ingredients to create dishes that are both innovative and comforting.</p>
+                    <p data-translate-key="about_p2">Founded in 2023, our team of passionate chefs and dedicated staff work tirelessly to provide an unforgettable dining experience. Whether you're here for a casual brunch, a romantic dinner, or a special celebration, we aim to delight your senses.</p>
+                </div>
+                <div class="about-visuals">
+                    <div class="cozy-image-container">
+                        <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Woman enjoying a coffee in a cozy cafe setting" data-translate-key="about_cozy_image_alt">
+                    </div>
+                    <div class="image-grid">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Elegant interior of The Gourmet Place" data-translate-key="about_img1_alt">
+                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Chef preparing a dish in our kitchen" data-translate-key="about_img2_alt">
+                        <!-- Add a third image if desired -->
+                        <!-- <img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Friendly staff serving customers"> -->
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-children-chess" alt="Kids playing chess" />
-      </div>
     </section>
-    <section class="info-cards">
-      <div class="card card-blue">
-        <div class="card-icon">🏫</div>
-        <h3 class="card-title">Grow Lich Our Kids</h3>
-        <p class="card-desc">Fun activities and chess for all ages. Develop logic, memory, and creativity.</p>
-      </div>
-      <div class="card card-green">
-        <div class="card-icon">🏛️</div>
-        <h3 class="card-title">Lagination of Chess</h3>
-        <p class="card-desc">Learn chess from experienced coaches in a supportive environment.</p>
-      </div>
-      <div class="card card-orange">
-        <div class="card-icon">♟️</div>
-        <h3 class="card-title">Present Kids</h3>
-        <p class="card-desc">Our students participate in tournaments and fun events.</p>
-      </div>
+
+    <!-- 3. Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <h2 data-translate-key="menu_h2">Our Menu</h2>
+            <div class="menu-tabs" role="tablist" aria-label="Menu Categories">
+                <button class="tab-button active" role="tab" aria-selected="true" aria-controls="menu-breakfast" data-category="breakfast" data-translate-key="menu_tab_breakfast">Breakfast</button>
+                <button class="tab-button" role="tab" aria-selected="false" aria-controls="menu-main-dishes" data-category="main-dishes" data-translate-key="menu_tab_main">Main Dishes</button>
+                <button class="tab-button" role="tab" aria-selected="false" aria-controls="menu-drinks" data-category="drinks" data-translate-key="menu_tab_drinks">Drinks</button>
+                <button class="tab-button" role="tab" aria-selected="false" aria-controls="menu-desserts" data-category="desserts" data-translate-key="menu_tab_desserts">Desserts</button>
+            </div>
+
+            <div id="menu-breakfast" class="menu-category-content active" role="tabpanel" aria-labelledby="menu-breakfast-tab">
+                <article class="menu-item">
+                    <h3 data-translate-key="menu_item_pancakes_title">Classic Pancakes</h3>
+                    <p class="description" data-translate-key="menu_item_pancakes_desc">Fluffy buttermilk pancakes served with maple syrup, butter, and fresh berries.</p>
+                    <p class="price">$12.00</p>
+                    <div class="dietary-icons">
+                        <span title="Vegetarian" aria-label="Vegetarian" data-translate-key-title="dietary_vegetarian"><i class="fas fa-leaf"></i></span>
+                    </div>
+                </article>
+                <!-- More menu items with data-translate-key attributes -->
+            </div>
+            <div id="menu-main-dishes" class="menu-category-content" role="tabpanel" aria-labelledby="menu-main-dishes-tab" style="display: none;">
+                 <article class="menu-item">
+                    <h3 data-translate-key="menu_item_salmon_title">Grilled Salmon Fillet</h3>
+                    <p class="description" data-translate-key="menu_item_salmon_desc">Sustainably sourced salmon, grilled and served with roasted asparagus and lemon-dill sauce.</p>
+                    <p class="price">$25.00</p>
+                    <div class="dietary-icons">
+                         <span title="Gluten-Free" aria-label="Gluten-Free" data-translate-key-title="dietary_gluten_free"><i class="fas fa-wheat-awn-circle-exclamation"></i></span>
+                    </div>
+                </article>
+            </div>
+            <div id="menu-drinks" class="menu-category-content" role="tabpanel" aria-labelledby="menu-drinks-tab" style="display: none;"> {/* ... */} </div>
+            <div id="menu-desserts" class="menu-category-content" role="tabpanel" aria-labelledby="menu-desserts-tab" style="display: none;"> {/* ... */} </div>
+        </div>
     </section>
-    <section class="chess-mid">
-      <div class="chess-illustration">
-        <img src="https://images.unsplash.com/photo-chess-pieces" alt="Chess pieces illustration" />
-      </div>
-      <div class="chess-info">
-        <h2 class="chess-title">Chess prais pirepit chees</h2>
-        <p class="chess-desc">Edilowing childcing for your dermilcal. The greatest adventure for kids starts here. Develop critical thinking, patience, and strategic skills while having fun!</p>
-      </div>
+
+    <!-- 4. Reservation Section -->
+    <section id="reservations">
+        <div class="container">
+            <h2 data-translate-key="reservations_h2">Book a Table</h2>
+            <form id="reservation-form" novalidate>
+                <div class="form-group">
+                    <label for="name" data-translate-key="form_label_name">Full Name</label>
+                    <input type="text" id="name" name="name" required aria-required="true">
+                    <p class="error-message" aria-live="polite"></p>
+                </div>
+                <div class="form-group">
+                    <label for="email" data-translate-key="form_label_email">Email</label>
+                    <input type="email" id="email" name="email" required aria-required="true">
+                    <p class="error-message" aria-live="polite"></p>
+                </div>
+                <div class="form-group">
+                    <label for="phone" data-translate-key="form_label_phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" data-translate-key-placeholder="form_placeholder_phone_optional" placeholder="Optional">
+                    <p class="error-message" aria-live="polite"></p>
+                </div>
+                <div class="form-group">
+                    <label for="date" data-translate-key="form_label_date">Date</label>
+                    <input type="date" id="date" name="date" required aria-required="true">
+                    <p class="error-message" aria-live="polite"></p>
+                </div>
+                <div class="form-group">
+                    <label for="time" data-translate-key="form_label_time">Time</label>
+                    <input type="time" id="time" name="time" required aria-required="true" min="11:00" max="21:00" step="1800">
+                    <p class="error-message" aria-live="polite"></p>
+                </div>
+                <div class="form-group">
+                    <label for="guests" data-translate-key="form_label_guests">Number of Guests</label>
+                    <input type="number" id="guests" name="guests" min="1" max="10" value="2" required aria-required="true">
+                    <p class="error-message" aria-live="polite"></p>
+                </div>
+                <div class="form-group form-group-full">
+                    <label for="requests" data-translate-key="form_label_requests">Special Requests (Optional)</label>
+                    <textarea id="requests" name="requests" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" data-translate-key="form_btn_submit">Request Booking</button>
+            </form>
+            <div id="reservation-status" role="status"></div>
+        </div>
     </section>
-  </main>
-  <footer class="footer">
-    <div class="footer-social">
-      <a href="#" class="social-link" aria-label="Instagram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" /></a>
-      <a href="#" class="social-link" aria-label="WhatsApp"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg" alt="WhatsApp" /></a>
-      <a href="#" class="social-link" aria-label="Facebook"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" /></a>
-      <a href="#" class="social-link" aria-label="Telegram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/telegram.svg" alt="Telegram" /></a>
-      <a href="mailto:info@kidchess.com" class="social-link" aria-label="Email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/maildotru.svg" alt="Email" /></a>
+
+    <!-- 5. Instagram Section -->
+    <section id="instagram">
+        <div class="container">
+            <h2 data-translate-key="instagram_h2">Follow Us on Instagram <a href="https://www.instagram.com/YOUR_RESTAURANT_ACCOUNT" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram page (opens in new tab)">@TheGourmetPlace</a></h2>
+            <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+            <iframe src="//lightwidget.com/widgets/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
+            <div class="instagram-fallback" style="display:none;">
+                <p data-translate-key="instagram_fallback_text">Our latest Instagram posts could not be loaded at this time. Please visit our <a href="https://www.instagram.com/YOUR_RESTAURANT_ACCOUNT" target="_blank" rel="noopener noreferrer" data-translate-key="instagram_fallback_link_text">Instagram page</a> directly!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 data-translate-key="contact_h2">Get In Touch</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3 data-translate-key="contact_visit_us">Visit Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> <span data-translate-key="contact_address">123 Culinary Avenue, Foodville, FS 12345</span></li>
+                        <li><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:+15551234567">+1 (555) 123-4567</a></li>
+                        <li><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:info@thegourmetplace.com">info@thegourmetplace.com</a></li>
+                    </ul>
+                    <h3 data-translate-key="contact_working_hours">Working Hours</h3>
+                    <ul>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> <span data-translate-key="contact_hours_weekdays">Mon - Fri: 11:00 AM - 10:00 PM</span></li>
+                        <li><i class="fas fa-clock" aria-hidden="true"></i> <span data-translate-key="contact_hours_weekends">Sat - Sun: 09:00 AM - 11:00 PM</span></li>
+                    </ul>
+                    <div class="social-media-icons">
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" data-translate-key-aria-label="social_facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-translate-key-aria-label="social_instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter" data-translate-key-aria-label="social_twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="TripAdvisor" data-translate-key-aria-label="social_tripadvisor"><i class="fab fa-tripadvisor"></i></a>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <div class="map-container">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3305.661812067753!2d-118.24587668478384!3d34.05223498060678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c63e92f6c0ef%3A0x7837c62378f6a6b7!2sLos%20Angeles%20City%20Hall!5e0!3m2!1sen!2sus!4v1678886432109!5m2!1sen!2sus" 
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Google Map location of The Gourmet Place" data-translate-key-title="contact_map_title">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© <span id="currentYear"></span> <span data-translate-key="footer_copyright_text">The Gourmet Place. All Rights Reserved.</span></p>
+        <p><span data-translate-key="footer_designed_by">Designed by A Full-Stack Web Developer</span></p>
     </div>
-    <div class="footer-copy">© 2024 KidChess. All rights reserved.</div>
-  </footer>
-  <script src="script.js"></script>
+</footer>
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/15551234567?text=Hello%2C%20I%27d%20like%20to%20inquire%20about%20The%20Gourmet%20Place." 
+   class="whatsapp-fab" 
+   target="_blank" 
+   rel="noopener noreferrer" 
+   aria-label="Contact us on WhatsApp"
+   data-translate-key-aria-label="whatsapp_contact_aria_label">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+    // Normally in js/script.js
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // --- Language Switcher ---
+        const translations = {
+            en: {
+                // Meta
+                page_title: "The Gourmet Place - Exquisite Dining Experience",
+                meta_description: "Discover exquisite flavors at The Gourmet Place. View our menu, book a table, and explore our culinary delights.",
+                // Hero
+                hero_h1: "The Gourmet Place",
+                hero_tagline: "Experience exquisite flavors, crafted with passion.",
+                hero_btn_menu: "View Menu",
+                hero_btn_book: "Book a Table",
+                // About
+                about_h2: "About Us",
+                about_p1: "Welcome to The Gourmet Place, where culinary artistry meets warm hospitality. Our philosophy is simple: to use the freshest, locally-sourced ingredients to create dishes that are both innovative and comforting.",
+                about_p2: "Founded in 2023, our team of passionate chefs and dedicated staff work tirelessly to provide an unforgettable dining experience. Whether you're here for a casual brunch, a romantic dinner, or a special celebration, we aim to delight your senses.",
+                about_cozy_image_alt: "Woman enjoying a coffee in a cozy cafe setting",
+                about_img1_alt: "Elegant interior of The Gourmet Place",
+                about_img2_alt: "Chef preparing a dish in our kitchen",
+                // Menu
+                menu_h2: "Our Menu",
+                menu_tab_breakfast: "Breakfast",
+                menu_tab_main: "Main Dishes",
+                menu_tab_drinks: "Drinks",
+                menu_tab_desserts: "Desserts",
+                menu_item_pancakes_title: "Classic Pancakes",
+                menu_item_pancakes_desc: "Fluffy buttermilk pancakes served with maple syrup, butter, and fresh berries.",
+                menu_item_salmon_title: "Grilled Salmon Fillet",
+                menu_item_salmon_desc: "Sustainably sourced salmon, grilled and served with roasted asparagus and lemon-dill sauce.",
+                dietary_vegetarian: "Vegetarian",
+                dietary_gluten_free: "Gluten-Free",
+                dietary_vegan: "Vegan",
+                dietary_spicy: "Spicy",
+                // Reservations
+                reservations_h2: "Book a Table",
+                form_label_name: "Full Name",
+                form_label_email: "Email",
+                form_label_phone: "Phone Number",
+                form_placeholder_phone_optional: "Optional",
+                form_label_date: "Date",
+                form_label_time: "Time",
+                form_label_guests: "Number of Guests",
+                form_label_requests: "Special Requests (Optional)",
+                form_btn_submit: "Request Booking",
+                form_error_name_required: "Name is required.",
+                form_error_email_required: "Email is required.",
+                form_error_email_invalid: "Please enter a valid email address.",
+                form_error_phone_invalid: "Please enter a valid phone number.",
+                form_error_date_required: "Date is required.",
+                form_error_date_past: "Date cannot be in the past.",
+                form_error_time_required: "Time is required.",
+                form_error_guests_required: "Number of guests must be at least 1.",
+                form_submit_processing: "Processing your reservation...",
+                form_submit_success: "Thank you! Your booking request has been sent. We will contact you shortly to confirm.",
+                form_submit_error: "Sorry, there was an issue with your booking. Please try again or call us directly.",
+                form_validation_summary_error: "Please correct the errors above.",
+                // Instagram
+                instagram_h2: "Follow Us on Instagram @TheGourmetPlace",
+                instagram_fallback_text: "Our latest Instagram posts could not be loaded at this time. Please visit our ",
+                instagram_fallback_link_text: "Instagram page",
+                // Contact
+                contact_h2: "Get In Touch",
+                contact_visit_us: "Visit Us",
+                contact_address: "123 Culinary Avenue, Foodville, FS 12345",
+                contact_working_hours: "Working Hours",
+                contact_hours_weekdays: "Mon - Fri: 11:00 AM - 10:00 PM",
+                contact_hours_weekends: "Sat - Sun: 09:00 AM - 11:00 PM",
+                social_facebook: "Facebook",
+                social_instagram: "Instagram",
+                social_twitter: "Twitter",
+                social_tripadvisor: "TripAdvisor",
+                contact_map_title: "Google Map location of The Gourmet Place",
+                // Footer
+                footer_copyright_text: "The Gourmet Place. All Rights Reserved.",
+                footer_designed_by: "Designed by A Full-Stack Web Developer",
+                // WhatsApp
+                whatsapp_contact_aria_label: "Contact us on WhatsApp"
+            },
+            ru: { // Placeholder Russian translations
+                page_title: "The Gourmet Place - Изысканный Ужин",
+                meta_description: "Откройте для себя изысканные вкусы в The Gourmet Place. Просмотрите наше меню, забронируйте столик и насладитесь кулинарными изысками.",
+                hero_h1: "The Gourmet Place",
+                hero_tagline: "Почувствуйте изысканные вкусы, созданные с любовью.",
+                hero_btn_menu: "Смотреть Меню",
+                hero_btn_book: "Забронировать Столик",
+                about_h2: "О Нас",
+                about_p1: "Добро пожаловать в The Gourmet Place, где кулинарное искусство встречается с теплым гостеприимством. Наша философия проста: использовать свежайшие местные ингредиенты для создания блюд, которые одновременно новаторские и утешительные.",
+                about_p2: "Основанная в 2023 году, наша команда страстных поваров и преданных своему делу сотрудников неустанно работает, чтобы обеспечить незабываемые впечатления от ужина. Будь то непринужденный бранч, романтический ужин или особое торжество, мы стремимся порадовать ваши чувства.",
+                about_cozy_image_alt: "Женщина наслаждается кофе в уютном кафе",
+                about_img1_alt: "Элегантный интерьер The Gourmet Place",
+                about_img2_alt: "Шеф-повар готовит блюдо на нашей кухне",
+                menu_h2: "Наше Меню",
+                menu_tab_breakfast: "Завтрак",
+                menu_tab_main: "Основные Блюда",
+                menu_tab_drinks: "Напитки",
+                menu_tab_desserts: "Десерты",
+                menu_item_pancakes_title: "Классические Блины",
+                menu_item_pancakes_desc: "Пышные блины на пахте, подаются с кленовым сиропом, маслом и свежими ягодами.",
+                menu_item_salmon_title: "Филе Лосося на Гриле",
+                menu_item_salmon_desc: "Лосось из устойчивых источников, приготовленный на гриле, подается с жареной спаржей и лимонно-укропным соусом.",
+                dietary_vegetarian: "Вегетарианское",
+                dietary_gluten_free: "Без глютена",
+                dietary_vegan: "Веганское",
+                dietary_spicy: "Острое",
+                reservations_h2: "Забронировать Столик",
+                form_label_name: "Полное Имя",
+                form_label_email: "Электронная почта",
+                form_label_phone: "Номер Телефона",
+                form_placeholder_phone_optional: "Необязательно",
+                form_label_date: "Дата",
+                form_label_time: "Время",
+                form_label_guests: "Количество Гостей",
+                form_label_requests: "Особые Пожелания (Необязательно)",
+                form_btn_submit: "Отправить Запрос",
+                form_error_name_required: "Имя обязательно.",
+                form_error_email_required: "Электронная почта обязательна.",
+                form_error_email_invalid: "Пожалуйста, введите действительный адрес электронной почты.",
+                form_error_phone_invalid: "Пожалуйста, введите действительный номер телефона.",
+                form_error_date_required: "Дата обязательна.",
+                form_error_date_past: "Дата не может быть в прошлом.",
+                form_error_time_required: "Время обязательно.",
+                form_error_guests_required: "Количество гостей должно быть не менее 1.",
+                form_submit_processing: "Обработка вашего бронирования...",
+                form_submit_success: "Спасибо! Ваш запрос на бронирование отправлен. Мы скоро свяжемся с вами для подтверждения.",
+                form_submit_error: "Извините, возникла проблема с вашим бронированием. Пожалуйста, попробуйте еще раз или позвоните нам.",
+                form_validation_summary_error: "Пожалуйста, исправьте ошибки выше.",
+                instagram_h2: "Следите за нами в Instagram @TheGourmetPlace",
+                instagram_fallback_text: "Не удалось загрузить последние посты из Instagram. Пожалуйста, посетите нашу ",
+                instagram_fallback_link_text: "страницу в Instagram",
+                contact_h2: "Свяжитесь с Нами",
+                contact_visit_us: "Посетите Нас",
+                contact_address: "ул. Кулинарная, 123, Фудвилль, ФС 12345",
+                contact_working_hours: "Часы Работы",
+                contact_hours_weekdays: "Пн - Пт: 11:00 - 22:00",
+                contact_hours_weekends: "Сб - Вс: 09:00 - 23:00",
+                social_facebook: "Facebook",
+                social_instagram: "Instagram",
+                social_twitter: "Twitter",
+                social_tripadvisor: "TripAdvisor",
+                contact_map_title: "Расположение The Gourmet Place на Google Картах",
+                footer_copyright_text: "The Gourmet Place. Все права защищены.",
+                footer_designed_by: "Разработано Full-Stack Веб-разработчиком",
+                whatsapp_contact_aria_label: "Свяжитесь с нами в WhatsApp"
+            },
+            az: { // Placeholder Azerbaijani translations
+                page_title: "The Gourmet Place - Nəfis Ziyafət",
+                meta_description: "The Gourmet Place-də nəfis ləzzətləri kəşf edin. Menyumuza baxın, masa sifariş edin və kulinariya ləzzətlərimizi araşdırın.",
+                hero_h1: "The Gourmet Place",
+                hero_tagline: "Ehtirasla hazırlanmış nəfis ləzzətləri dadın.",
+                hero_btn_menu: "Menyuya Bax",
+                hero_btn_book: "Masa Sifariş Et",
+                about_h2: "Haqqımızda",
+                about_p1: "Kulinariya sənətinin səmimi qonaqpərvərliklə qovuşduğu The Gourmet Place-ə xoş gəlmisiniz. Fəlsəfəmiz sadədir: həm innovativ, həm də rahatladıcı yeməklər yaratmaq üçün ən təzə, yerli mənbəli inqrediyentlərdən istifadə etmək.",
+                about_p2: "2023-cü ildə qurulan ehtiraslı aşpazlar və fədakar heyətimiz unudulmaz bir yemək təcrübəsi təqdim etmək üçün yorulmadan çalışır. İstər təsadüfi bir səhər yeməyi, istər romantik bir şam yeməyi, istərsə də xüsusi bir qeyd etmə üçün burada olmağınızdan asılı olmayaraq, duyğularınızı sevindirməyi hədəfləyirik.",
+                // ... (add more AZ translations)
+                reservations_h2: "Masa Sifariş Et",
+                form_label_name: "Tam Adınız",
+                form_btn_submit: "Sifariş Göndər",
+                contact_h2: "Bizimlə Əlaqə",
+                footer_copyright_text: "The Gourmet Place. Bütün hüquqlar qorunur.",
+                whatsapp_contact_aria_label: "WhatsApp-da bizimlə əlaqə saxlayın"
+            },
+            de: { // Placeholder German translations
+                page_title: "The Gourmet Place - Exquisites kulinarisches Erlebnis",
+                meta_description: "Entdecken Sie exquisite Aromen im The Gourmet Place. Sehen Sie sich unsere Speisekarte an, reservieren Sie einen Tisch und erkunden Sie unsere kulinarischen Köstlichkeiten.",
+                hero_h1: "The Gourmet Place",
+                hero_tagline: "Erleben Sie exquisite Aromen, mit Leidenschaft kreiert.",
+                hero_btn_menu: "Speisekarte ansehen",
+                hero_btn_book: "Tisch reservieren",
+                about_h2: "Über Uns",
+                about_p1: "Willkommen im The Gourmet Place, wo kulinarische Kunst auf herzliche Gastfreundschaft trifft. Unsere Philosophie ist einfach: frischeste, lokal bezogene Zutaten zu verwenden, um Gerichte zu kreieren, die sowohl innovativ als auch wohltuend sind.",
+                about_p2: "Gegründet im Jahr 2023, arbeitet unser Team aus passionierten Köchen und engagierten Mitarbeitern unermüdlich daran, ein unvergessliches kulinarisches Erlebnis zu bieten. Ob für einen zwanglosen Brunch, ein romantisches Abendessen oder eine besondere Feier, wir möchten Ihre Sinne erfreuen.",
+                // ... (add more DE translations)
+                reservations_h2: "Tisch Reservieren",
+                form_label_name: "Vollständiger Name",
+                form_btn_submit: "Buchung Anfragen",
+                contact_h2: "Kontaktieren Sie Uns",
+                footer_copyright_text: "The Gourmet Place. Alle Rechte vorbehalten.",
+                whatsapp_contact_aria_label: "Kontaktieren Sie uns über WhatsApp"
+            }
+        };
+
+        let currentLang = localStorage.getItem('language') || 'en';
+        const langButtons = document.querySelectorAll('.lang-btn');
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('language', lang);
+            document.documentElement.lang = lang; // Update html lang attribute
+
+            langButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-translate-key]').forEach(el => {
+                const key = el.dataset.translateKey;
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                } else if (translations['en'][key]) { // Fallback to English if key not found
+                    el.textContent = translations['en'][key];
+                }
+            });
+            document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
+                const key = el.dataset.translateKeyPlaceholder;
+                 if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                } else if (translations['en'][key]) {
+                    el.placeholder = translations['en'][key];
+                }
+            });
+             document.querySelectorAll('[data-translate-key-title]').forEach(el => {
+                const key = el.dataset.translateKeyTitle;
+                 if (translations[lang] && translations[lang][key]) {
+                    el.title = translations[lang][key];
+                    el.setAttribute('aria-label', translations[lang][key]); // Also update aria-label for accessibility
+                } else if (translations['en'][key]) {
+                    el.title = translations['en'][key];
+                    el.setAttribute('aria-label', translations['en'][key]);
+                }
+            });
+            document.querySelectorAll('[data-translate-key-aria-label]').forEach(el => {
+                const key = el.dataset.translateKeyAriaLabel;
+                 if (translations[lang] && translations[lang][key]) {
+                    el.setAttribute('aria-label', translations[lang][key]);
+                } else if (translations['en'][key]) {
+                     el.setAttribute('aria-label', translations['en'][key]);
+                }
+            });
+
+            // Update meta tags (optional, can cause small flicker)
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc && translations[lang] && translations[lang]['meta_description']) {
+                metaDesc.setAttribute('content', translations[lang]['meta_description']);
+            }
+            const pageTitle = document.querySelector('title');
+             if (pageTitle && translations[lang] && translations[lang]['page_title']) {
+                pageTitle.textContent = translations[lang]['page_title'];
+            }
+
+            // Update form error messages if needed dynamically
+            // This requires storing error message keys in translations too
+        }
+
+        langButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                setLanguage(e.target.dataset.lang);
+            });
+        });
+
+        setLanguage(currentLang); // Initialize on page load
+
+
+        // --- Language Switcher Visibility ---
+        const langSwitcher = document.getElementById('language-switcher-container');
+        const heroSection = document.getElementById('hero');
+        function checkLangSwitcherPos() {
+            if (!langSwitcher || !heroSection) return;
+            const heroRect = heroSection.getBoundingClientRect();
+            if (heroRect.bottom < 0 || heroRect.top > window.innerHeight) { // Hero is not visible
+                langSwitcher.classList.add('language-switcher-fixed');
+            } else {
+                langSwitcher.classList.remove('language-switcher-fixed');
+            }
+        }
+        window.addEventListener('scroll', checkLangSwitcherPos);
+        checkLangSwitcherPos(); // Initial check
+
+
+        // --- Copyright Year ---
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // --- Menu Tabs ---
+        const tabButtons = document.querySelectorAll('.menu-tabs .tab-button');
+        const menuCategories = document.querySelectorAll('.menu-category-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.setAttribute('aria-selected', 'false');
+                });
+                menuCategories.forEach(category => {
+                    category.classList.remove('active');
+                    category.style.display = 'none';
+                });
+
+                button.classList.add('active');
+                button.setAttribute('aria-selected', 'true');
+                const categoryId = 'menu-' + button.dataset.category;
+                const activeCategory = document.getElementById(categoryId);
+                if (activeCategory) {
+                    activeCategory.classList.add('active');
+                    activeCategory.style.display = ''; 
+                }
+            });
+        });
+        
+        if (document.querySelector('.menu-tabs .tab-button.active')) {
+             const initialActiveButton = document.querySelector('.menu-tabs .tab-button.active');
+             const initialCategoryId = 'menu-' + initialActiveButton.dataset.category;
+             const initialActiveCategory = document.getElementById(initialCategoryId);
+             if (initialActiveCategory) {
+                 initialActiveCategory.style.display = ''; 
+                 initialActiveCategory.classList.add('active');
+             }
+        }
+
+
+        // --- Reservation Form Validation ---
+        const reservationForm = document.getElementById('reservation-form');
+        const reservationStatus = document.getElementById('reservation-status');
+
+        if (reservationForm) {
+            const dateInput = document.getElementById('date');
+            if (dateInput) {
+                const today = new Date().toISOString().split('T')[0];
+                dateInput.setAttribute('min', today);
+            }
+
+            reservationForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                clearErrors();
+                reservationStatus.textContent = '';
+                reservationStatus.className = '';
+
+                let isValid = true;
+                const lang = currentLang; // Use current language for error messages
+
+                const nameInput = document.getElementById('name');
+                if (nameInput.value.trim() === '') {
+                    showError(nameInput, translations[lang].form_error_name_required || translations.en.form_error_name_required);
+                    isValid = false;
+                }
+                const emailInput = document.getElementById('email');
+                if (emailInput.value.trim() === '') {
+                    showError(emailInput, translations[lang].form_error_email_required || translations.en.form_error_email_required);
+                    isValid = false;
+                } else if (!isValidEmail(emailInput.value.trim())) {
+                    showError(emailInput, translations[lang].form_error_email_invalid || translations.en.form_error_email_invalid);
+                    isValid = false;
+                }
+                const phoneInput = document.getElementById('phone');
+                if (phoneInput.value.trim() !== '' && !isValidPhone(phoneInput.value.trim())) {
+                    showError(phoneInput, translations[lang].form_error_phone_invalid || translations.en.form_error_phone_invalid);
+                    isValid = false;
+                }
+                const dateValue = dateInput.value;
+                if (dateValue === '') {
+                    showError(dateInput, translations[lang].form_error_date_required || translations.en.form_error_date_required);
+                    isValid = false;
+                } else {
+                    const selectedDate = new Date(dateValue + "T00:00:00");
+                    const todayDate = new Date();
+                    todayDate.setHours(0,0,0,0);
+                    if (selectedDate < todayDate) {
+                        showError(dateInput, translations[lang].form_error_date_past || translations.en.form_error_date_past);
+                        isValid = false;
+                    }
+                }
+                const timeInput = document.getElementById('time');
+                if (timeInput.value === '') {
+                    showError(timeInput, translations[lang].form_error_time_required || translations.en.form_error_time_required);
+                    isValid = false;
+                }
+                const guestsInput = document.getElementById('guests');
+                if (guestsInput.value === '' || parseInt(guestsInput.value) < 1) {
+                    showError(guestsInput, translations[lang].form_error_guests_required || translations.en.form_error_guests_required);
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    reservationStatus.textContent = translations[lang].form_submit_processing || translations.en.form_submit_processing;
+                    reservationStatus.className = 'info'; 
+                    setTimeout(() => {
+                        const success = Math.random() > 0.2; 
+                        if (success) {
+                            reservationStatus.textContent = translations[lang].form_submit_success || translations.en.form_submit_success;
+                            reservationStatus.className = 'success';
+                            reservationForm.reset();
+                        } else {
+                            reservationStatus.textContent = translations[lang].form_submit_error || translations.en.form_submit_error;
+                            reservationStatus.className = 'error';
+                        }
+                    }, 2000);
+                } else {
+                    reservationStatus.textContent = translations[lang].form_validation_summary_error || translations.en.form_validation_summary_error;
+                    reservationStatus.className = 'error';
+                }
+            });
+        }
+
+        function showError(inputElement, message) {
+            const formGroup = inputElement.parentElement;
+            const errorElement = formGroup.querySelector('.error-message');
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+            inputElement.setAttribute('aria-invalid', 'true');
+            inputElement.setAttribute('aria-describedby', inputElement.id + '-error');
+            if(errorElement) errorElement.id = inputElement.id + '-error';
+        }
+
+        function clearErrors() {
+            const errorMessages = document.querySelectorAll('#reservation-form .error-message');
+            errorMessages.forEach(msg => msg.textContent = '');
+            const invalidInputs = document.querySelectorAll('#reservation-form [aria-invalid="true"]');
+            invalidInputs.forEach(input => {
+                input.removeAttribute('aria-invalid');
+                input.removeAttribute('aria-describedby');
+            });
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        function isValidPhone(phone) {
+            const phoneRegex = /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/;
+            return phoneRegex.test(phone);
+        }
+
+        // --- Instagram Fallback ---
+        const lightwidgetFrame = document.querySelector('.lightwidget-widget');
+        const instagramFallback = document.querySelector('#instagram .instagram-fallback');
+        if (lightwidgetFrame && instagramFallback) {
+            if (!lightwidgetFrame.src || lightwidgetFrame.src.includes('//lightwidget.com/widgets/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.html')) {
+                lightwidgetFrame.style.display = 'none';
+                instagramFallback.style.display = 'block';
+            } else {
+                let attempts = 0;
+                const checkWidgetLoad = setInterval(() => {
+                    attempts++;
+                    try {
+                        if (lightwidgetFrame.contentWindow && lightwidgetFrame.contentWindow.document.body && lightwidgetFrame.contentWindow.document.body.innerHTML.length > 100) {
+                            clearInterval(checkWidgetLoad); 
+                            instagramFallback.style.display = 'none';
+                        } else if (attempts > 10) { 
+                            clearInterval(checkWidgetLoad);
+                            lightwidgetFrame.style.display = 'none';
+                            instagramFallback.style.display = 'block';
+                        }
+                    } catch (e) {
+                        if (attempts > 10) {
+                            clearInterval(checkWidgetLoad);
+                            lightwidgetFrame.style.display = 'none';
+                            instagramFallback.style.display = 'block';
+                        }
+                    }
+                }, 500);
+            }
+        } else if (instagramFallback) {
+            instagramFallback.style.display = 'block';
+        }
+
+        // --- Smooth scroll ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId.length > 1 && document.querySelector(targetId)) { 
+                    const isMenuTabRelated = this.closest('.menu-tabs') || this.closest('.menu-category-content');
+                    if (!isMenuTabRelated) {
+                        e.preventDefault();
+                        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    });
+</script>
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+IGNORE_WHEN_COPYING_END
 </body>
 </html>
+
+
+Create a modern restaurant landing page with a light brown background instead of white. Keep all existing colors for buttons, text, and accents. The layout must include a multilingual hero section, about us, and contact.
+Add a detailed, well-structured menu section that includes dish names, descriptions of ingredients, and prices — with visually distinct categories (like Breakfast, Main Dishes, Drinks, Desserts).
+Apply a modern, elegant, and responsive design — rounded cards, shadows, clean typography. All other layout and features should stay as-is.
