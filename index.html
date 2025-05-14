@@ -1,71 +1,191 @@
-// Внутри компонента, где рендерится аккордеон
-const [activeIndex, setActiveIndex] = useState(null); // null или -1 для "все закрыты"
+import React, { useState } from "react";
+// TailwindCSS is assumed to be imported globally via main entry point or index.html
 
-// Для каждого AccordionItem
-const AccordionItem = ({ title, content, index, isActive, onToggle }) => {
-  const contentRef = useRef(null);
-  const isContentArray = Array.isArray(content); // Если контент может быть массивом (для ссылок)
-
-  return (
-    <div className="bg-gray-800 p-4 rounded-md">
-      <h3 className="text-xl font-bold">
-        <button
-          onClick={() => onToggle(index)}
-          className="w-full text-left flex justify-between items-center focus:outline-none"
-          aria-expanded={isActive}
-          aria-controls={`accordion-content-${index}`}
-        >
-          {title}
-          <span>{isActive ? '-' : '+'}</span> {/* Индикатор */}
-        </button>
-      </h3>
-      <div
-        id={`accordion-content-${index}`}
-        ref={contentRef}
-        style={{
-          maxHeight: isActive ? `${contentRef.current?.scrollHeight}px` : '0px',
-          overflow: 'hidden',
-          transition: 'max-height 0.5s ease-in-out',
-        }}
-      >
-        <div className="text-base mt-2 whitespace-pre-line py-2"> {/* Добавлен py-2 для отступа от maxHeight=0 */}
-          {isContentArray ? (
-            content.map((line, i) =>
-              typeof line === 'string' && line.startsWith('http') ? (
-                <a key={i} href={line} target="_blank" rel="noopener noreferrer" className="text-yellow-300 hover:underline block">
-                  {line}
-                </a>
-              ) : (
-                <span key={i} className="block">{typeof line === 'string' ? line : line.text}</span> // Пример для объекта
-              )
-            )
-          ) : (
-             content.split('\n').map((line, i) => // Ваша предыдущая логика для строк
-                line.startsWith('http') ? (
-                    <a key={i} href={line} target="_blank" rel="noopener noreferrer" className="text-yellow-300 hover:underline block">
-                    {line}
-                    </a>
-                ) : (
-                    <span key={i} className="block">{line}</span>
-                )
-            )
-          )}
-        </div>
-      </div>
-    </div>
-  );
+const accordionData = {
+  az: [
+    {
+      title: "Şahmatın Necə və Harda Yaranıb?",
+      content:
+        "Şahmat oyunu Hindistanda VI əsrdə 'çaturanga' adı ilə yaranmışdır. Daha sonra İran (şətrənc) vasitəsilə ərəb ölkələrinə, ordan isə Avropaya yayılmışdır. Müasir şahmat qaydaları əsasən Avropada formalaşmışdır.",
+    },
+    {
+      title: "Dünya Çempionları – Kim, Nə Zaman?",
+      content:
+        "1886-cı ildən bu günə qədər şahmat üzrə dünya çempionları sırasına Steinitz, Lasker, Capablanca, Alekhine, Botvinnik, Tal, Spassky, Fischer, Karpov, Kasparov, Kramnik, Anand, Carlsen və Ding Liren daxildir.",
+    },
+    {
+      title: "Azərbaycan Ulduzları",
+      content:
+        "Şəhriyar Məmmədyarov, Teymur Rəcəbov və Vuqar Həşimov Azərbaycanın tanınmış şahmatçılarıdır. Vuqar Həşimovun xatirəsinə hər il beynəlxalq turnir keçirilir.",
+    },
+    {
+      title: "Zəkalılar üçün Faydalı Linklər",
+      content:
+        "https://www.fide.com\nhttps://www.azerichess.az\nhttps://www.chess-results.com",
+    },
+  ],
+  ru: [
+    {
+      title: "Как и где появились шахматы?",
+      content:
+        "Шахматы возникли в Индии в VI веке под названием 'чатуранга'. Затем они распространились через Персию (шахмат) в арабские страны и в Европу. Современные правила сложились в Европе.",
+    },
+    {
+      title: "Чемпионы мира — кто и когда?",
+      content:
+        "С 1886 года чемпионами мира были Стейниц, Ласкер, Капабланка, Алехин, Ботвинник, Таль, Спасский, Фишер, Карпов, Каспаров, Крамник, Ананд, Карлсен и Дин Лижэнь.",
+    },
+    {
+      title: "Звёзды Азербайджана",
+      content:
+        "Шахрияр Мамедьяров, Теймур Раджабов и Вугар Гашимов — известные азербайджанские шахматисты. В память о Хашимове проводится международный турнир.",
+    },
+    {
+      title: "Полезные ссылки для умных",
+      content:
+        "https://www.fide.com\nhttps://www.azerichess.az\nhttps://www.chess-results.com",
+    },
+  ],
 };
 
-// В родительском компоненте (App или AccordionSection)
-// ...
-// {accordionData[language].map((item, index) => (
-//   <AccordionItem
-//     key={index}
-//     title={item.title}
-//     content={item.content} // Здесь уже может быть обработанный контент
-//     index={index}
-//     isActive={activeIndex === index}
-//     onToggle={() => setActiveIndex(activeIndex === index ? null : index)}
-//   />
-// ))}
-// ...
+const languageContext = {
+  az: {
+    heroTitle: "Şahmatla Düşün, Oyna, Qazan!",
+    heroSubtitle:
+      "Yeniyetmələr üçün interaktiv dərslər – Başlanğıcdan usta səviyyəsinə qədər",
+    mainSectionTitle: "Şahmat Dünyasına İlk Addımını At!",
+    testimonialQuote:
+      "Şahmat indi çox əyləncəlidir! Məşqçim bunları necə başa düşməyi asanlaşdırır.",
+    ctaText: "Şahmat Səyahətinizi Başlamağa Hazırsınız?",
+    ctaButton: "Pulsuz dərsə yazıl",
+    contactForm: {
+      name: "Ad",
+      email: "Email",
+      message: "Mesaj",
+      submit: "Göndər",
+    },
+  },
+  ru: {
+    heroTitle: "Думай, Играй, Побеждай с Шахматами!",
+    heroSubtitle:
+      "Интерактивные уроки для подростков — от новичка до мастера",
+    mainSectionTitle: "Сделай Первый Шаг в Мир Шахмат!",
+    testimonialQuote:
+      "Шахматы теперь очень интересные! Мой тренер объясняет всё очень понятно.",
+    ctaText: "Готовы начать своё шахматное путешествие?",
+    ctaButton: "Записаться на бесплатный урок",
+    contactForm: {
+      name: "Имя",
+      email: "Электронная почта",
+      message: "Сообщение",
+      submit: "Отправить",
+    },
+  },
+};
+
+export default function App() {
+  const [language, setLanguage] = useState("az");
+  const lang = languageContext[language];
+
+  const toggleLanguage = () => {
+    setLanguage((prevLang) => (prevLang === "az" ? "ru" : "az"));
+  };
+
+  return (
+    <div className="bg-black text-white min-h-screen font-sans">
+      <header className="flex justify-between items-center px-4 py-6">
+        <div className="flex items-center space-x-2">
+          <img src="https://placehold.co/50x50" alt="Logo" className="h-8 w-8" />
+          <span className="text-xl font-bold">CHESS SCHOOL</span>
+        </div>
+        <div className="space-x-4">
+          <button
+            onClick={toggleLanguage}
+            className="bg-gray-700 hover:bg-yellow-300 text-white hover:text-black px-3 py-1 rounded transition"
+          >
+            {language === "az" ? "на русском" : "azərbaycanca"}
+          </button>
+        </div>
+      </header>
+
+      <section className="flex flex-col md:flex-row items-center justify-between p-4 md:p-12">
+        <div className="w-full md:w-1/2">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">{lang.heroTitle}</h1>
+          <p className="text-xl mb-6 animate-fade-in delay-200">{lang.heroSubtitle}</p>
+          <button className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded-md shadow-md transition">
+            {language === "az" ? "BAŞLA" : "НАЧАТЬ"}
+          </button>
+        </div>
+        <div className="w-full md:w-1/2 mt-6 md:mt-0 text-center">
+          <img
+            src="https://chessmatenok.ru/wp-content/uploads/2017/08/pervie-shagi-2.jpg"
+            alt="Uşaqlar şahmat oynayır"
+            className="rounded-lg shadow-lg max-w-full animate-fade-in"
+          />
+        </div>
+      </section>
+
+      <section className="p-4 md:p-12">
+        <h2 className="text-3xl font-bold mb-6">{lang.mainSectionTitle}</h2>
+        <div className="space-y-4">
+          {accordionData[language].map((item, index) => (
+            <div key={index} className="bg-gray-800 p-4 rounded-md">
+              <h3
+                className="text-xl font-bold cursor-pointer"
+                onClick={() => {
+                  const el = document.getElementById(`accordion-${index}`);
+                  if (el) {
+                    el.style.maxHeight = el.style.maxHeight ? null : `${el.scrollHeight}px`;
+                  }
+                }}
+              >
+                {item.title}
+              </h3>
+              <div
+                id={`accordion-${index}`}
+                style={{ maxHeight: 0, overflow: "hidden", transition: "max-height 0.5s ease-in-out" }}
+                className="overflow-hidden"
+              >
+                <p className="text-base mt-2 whitespace-pre-line">{item.content}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="p-4 md:p-12 text-center">
+        <h2 className="text-xl mb-4 italic">{lang.testimonialQuote}</h2>
+        <div className="text-yellow-300 text-lg">★ 4.8</div>
+      </section>
+
+      <section className="bg-gray-800 p-4 md:p-12 text-center">
+        <h2 className="text-3xl font-bold mb-4">{lang.ctaText}</h2>
+        <button className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded-md shadow-md transition">
+          {lang.ctaButton}
+        </button>
+      </section>
+
+      <section className="p-4 md:p-12">
+        <h2 className="text-3xl font-bold mb-6">Contact Us</h2>
+        <form className="space-y-4">
+          <input type="text" placeholder={lang.contactForm.name} className="w-full p-2 border border-gray-500 rounded-md" />
+          <input type="email" placeholder={lang.contactForm.email} className="w-full p-2 border border-gray-500 rounded-md" />
+          <textarea placeholder={lang.contactForm.message} className="w-full p-2 border border-gray-500 rounded-md"></textarea>
+          <button className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded-md">
+            {lang.contactForm.submit}
+          </button>
+        </form>
+        <div className="mt-4">
+          <a
+            href="https://wa.me/994501234567"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md inline-block mt-2"
+          >
+            WhatsApp ilə əlaqə saxla
+          </a>
+        </div>
+      </section>
+    </div>
+  );
+}
