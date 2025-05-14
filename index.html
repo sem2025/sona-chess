@@ -1,212 +1,335 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sona.Chess - Шахматная школа</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* Основные переменные и стили */
-    :root {
-      --primary: #2C3E50;
-      --secondary: #E74C3C;
-      --accent: #3498DB;
-      --light: #ECF0F1;
-      --dark: #2C3E50;
-      --success: #27AE60;
-      --orange: #FF7F11;
-      --purple: #9B59B6;
-      --teal: #1ABC9C;
-      --yellow: #F1C40F;
-      --red: #E74C3C;
-      --blue: #3498DB;
-      --section-1: #E8F4F8;
-      --section-2: #FFF3E0;
-      --section-3: #E8F5E9;
-      --section-4: #F3E5F5;
-      --section-5: #E3F2FD;
-      --section-6: #FFF8E1;
-    }
+/*  Chess School – bilingual (AZ/RU) React + Tailwind site
+    Refactored: [current date]
+    TailwindCSS is assumed to be loaded globally (e.g., in index.html)   */
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+import React, { useState, useEffect } from "react";
 
-    body {
-      font-family: 'Roboto', sans-serif;
-      line-height: 1.6;
-      color: var(--dark);
-      scroll-behavior: smooth;
-    }
+/* ───────────────────────────────────────── Data & Localization ────────────────────────────────── */
 
-    h1, h2, h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 600;
-    }
+const siteData = {
+  az: {
+    // Language Switcher
+    switchTo: "на русском",
+    // Header
+    logoText: "CHESS SCHOOL",
+    // Hero Section
+    heroTitle: "Şahmatla Düşün, Oyna, Qazan!",
+    heroSubtitle: "Yeniyetmələr üçün interaktiv dərslər – Başlanğıcdan usta səviyyəsinə qədər",
+    heroCtaButton: "BAŞLA",
+    // Accordion Section
+    mainSectionTitle: "Şahmat Dünyasına İlk Addımını At!",
+    accordion: [
+      {
+        title: "Şahmatın Necə və Harda Yaranıb?",
+        content: "Şahmat oyunu Hindistanda VI əsrdə 'çaturanga' adı ilə yaranmışdır. Daha sonra İran (şətrənc) vasitəsilə ərəb ölkələrinə, ordan isə Avropaya yayılmışdır. Müasir şahmat qaydaları əsasən Avropada formalaşmışdır.",
+      },
+      {
+        title: "Dünya Çempionları – Kim, Nə Zaman?",
+        content: "1886-cı ildən bu günə qədər şahmat üzrə dünya çempionları sırasına Steinitz, Lasker, Capablanca, Alekhine, Botvinnik, Tal, Spassky, Fischer, Karpov, Kasparov, Kramnik, Anand, Carlsen və Ding Liren daxildir.",
+      },
+      {
+        title: "Azərbaycan Ulduzları",
+        content: "Şəhriyar Məmmədyarov, Teymur Rəcəbov və Vuqar Həşimov Azərbaycanın tanınmış şahmatçılarıdır. Vuqar Həşimovun xatirəsinə hər il beynəlxalq turnir keçirilir.",
+      },
+      {
+        title: "Zəkalılar üçün Faydalı Linklər",
+        content: "https://www.fide.com\nhttps://www.azerichess.az\nhttps://www.chess-results.com",
+      },
+    ],
+    // Testimonial
+    testimonialQuote: "Şahmat indi çox əyləncəlidir! Məşqçim bunları necə başa düşməyi asanlaşdırır.",
+    // Call to Action
+    ctaText: "Şahmat Səyahətinizi Başlamağa Hazırsınız?",
+    ctaButton: "Pulsuz dərsə yazıl",
+    // Contact Form
+    contactFormTitle: "Bizimlə Əlaqə",
+    contactForm: {
+      name: "Ad",
+      email: "Email",
+      message: "Mesaj",
+      submit: "Göndər",
+    },
+    whatsappButton: "WhatsApp ilə əlaqə saxla",
+  },
+  ru: {
+    // Language Switcher
+    switchTo: "azərbaycanca",
+    // Header
+    logoText: "ШАХМАТНАЯ ШКОЛА", // Example, you might keep it CHESS SCHOOL
+    // Hero Section
+    heroTitle: "Думай, Играй, Побеждай с Шахматами!",
+    heroSubtitle: "Интерактивные уроки для подростков — от новичка до мастера",
+    heroCtaButton: "НАЧАТЬ",
+    // Accordion Section
+    mainSectionTitle: "Сделай Первый Шаг в Мир Шахмат!",
+    accordion: [
+      {
+        title: "Как и где появились шахматы?",
+        content: "Шахматы возникли в Индии в VI веке под названием 'чатуранга'. Затем они распространились через Персию (шахмат) в арабские страны и в Европу. Современные правила сложились в Европе.",
+      },
+      {
+        title: "Чемпионы мира — кто и когда?",
+        content: "С 1886 года чемпионами мира были Стейниц, Ласкер, Капабланка, Алехин, Ботвинник, Таль, Спасский, Фишер, Карпов, Каспаров, Крамник, Ананд, Карлсен и Дин Лижэнь.",
+      },
+      {
+        title: "Звёзды Азербайджана",
+        content: "Шахрияр Мамедьяров, Теймур Раджабов и Вугар Гашимов — известные азербайджанские шахматисты. В память о Хашимове проводится международный турнир.",
+      },
+      {
+        title: "Полезные ссылки для умных",
+        content: "https://www.fide.com\nhttps://www.azerichess.az\nhttps://www.chess-results.com",
+      },
+    ],
+    // Testimonial
+    testimonialQuote: "Шахматы теперь очень интересные! Мой тренер объясняет всё очень понятно.",
+    // Call to Action
+    ctaText: "Готовы начать своё шахматное путешествие?",
+    ctaButton: "Записаться на бесплатный урок",
+    // Contact Form
+    contactFormTitle: "Свяжитесь с Нами",
+    contactForm: {
+      name: "Имя",
+      email: "Электронная почта",
+      message: "Сообщение",
+      submit: "Отправить",
+    },
+    whatsappButton: "Связаться по WhatsApp",
+  },
+};
 
-    header {
-      background: var(--primary);
-      padding: 1rem;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
+/* ───────────────────────────────────────── Helper Functions/Hooks ──────────────────────────────── */
+const useDateUpdater = () => {
+  const [currentDate, setCurrentDate] = useState("");
 
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      color: white;
-      font-size: 1.5rem;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    nav {
-      display: flex;
-      gap: 2rem;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: var(--secondary);
-    }
-
-    .lang-btn {
-      background: transparent;
-      border: 1px solid white;
-      color: white;
-      padding: 0.3rem 0.7rem;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .lang-btn.active, .lang-btn:hover {
-      background: white;
-      color: var(--primary);
-    }
-
-    .hero {
-      margin-top: 80px;
-      height: 80vh;
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                  url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: white;
-    }
-
-    .hero-content h1 {
-      font-size: 3rem;
-    }
-
-    .btn {
-      padding: 0.8rem 1.5rem;
-      background: var(--orange);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 1rem;
-      display: inline-block;
-    }
-
-    section {
-      padding: 4rem 1rem;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    footer {
-      background: var(--dark);
-      color: white;
-      text-align: center;
-      padding: 2rem 0;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="header-container">
-      <a href="#" class="logo">Sona.Chess</a>
-      <nav>
-        <a href="#about">О нас</a>
-        <a href="#contact">Контакты</a>
-        <button class="lang-btn active" data-lang="ru">RU</button>
-        <button class="lang-btn" data-lang="az">AZ</button>
-      </nav>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1 data-lang="ru">Sona.Chess</h1>
-      <h1 data-lang="az" style="display: none;">Sona.Chess</h1>
-      <p data-lang="ru">Развиваем интеллект через игру в шахматы</p>
-      <p data-lang="az" style="display: none;">Şahmat oyunu vasitəsilə intellekti inkişaf etdiririk</p>
-      <a href="#contact" class="btn">Записаться на занятие</a>
-    </div>
-  </section>
-
-  <section id="about">
-    <div class="container">
-      <h2 data-lang="ru">О нашей школе</h2>
-      <h2 data-lang="az" style="display: none;">Məktəbimiz haqqında</h2>
-      <p data-lang="ru">Мы обучаем детей и взрослых шахматам с нуля до уровня турниров.</p>
-      <p data-lang="az" style="display: none;">Biz uşaqları və böyükləri şahmata sıfırdan turnir səviyyəsinədək öyrədirik.</p>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="container">
-      <h2 data-lang="ru">Контакты</h2>
-      <h2 data-lang="az" style="display: none;">Əlaqə</h2>
-      <p>Email: info@sonachess.com</p>
-      <p>Telegram: <a href="https://t.me/sonachess">@sonachess</a></p>
-    </div>
-  </section>
-
-  <footer>
-    <p data-lang="ru">&copy; 2024 Sona.Chess. Все права защищены.</p>
-    <p data-lang="az" style="display: none;">&copy; 2024 Sona.Chess. Bütün hüquqlar qorunur.</p>
-  </footer>
-
-  <script>
-    // Языковое переключение
-    document.querySelectorAll('.lang-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        const lang = this.dataset.lang;
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-        document.querySelectorAll('[data-lang]').forEach(el => {
-          el.style.display = el.dataset.lang === lang ? '' : 'none';
-        });
-        document.documentElement.lang = lang;
-      });
+  useEffect(() => {
+    const date = new Date().toLocaleDateString(undefined, { // Use browser's locale for date formatting
+      year: 'numeric', month: 'long', day: 'numeric'
     });
-  </script>
-</body>
-</html>
+    setCurrentDate(date);
+    // Update the comment in the DOM
+    const comments = Array.from(document.childNodes)
+      .filter(node => node.nodeType === Node.COMMENT_NODE)
+      .find(comment => comment.textContent.includes("Last updated:"));
+    
+    if (comments && comments.textContent.includes("[current date]")) {
+      comments.textContent = comments.textContent.replace("[current date]", date);
+    }
+  }, []);
+
+  return currentDate; // though not directly used in render, it triggers the update
+};
+
+
+/* ───────────────────────────────────────── Components ─────────────────────────────────────────── */
+
+const Header = ({ lang, onToggleLanguage, currentLanguage }) => (
+  <header className="flex justify-between items-center px-4 py-6">
+    <div className="flex items-center space-x-2">
+      <img src="https://placehold.co/50x50/FACC15/000000?text=CS" alt="Logo" className="h-8 w-8 rounded" />
+      <span className="text-xl font-bold">{lang.logoText}</span>
+    </div>
+    <button
+      onClick={onToggleLanguage}
+      className="bg-gray-700 hover:bg-yellow-300 text-white hover:text-black px-3 py-1 rounded transition"
+    >
+      {lang.switchTo}
+    </button>
+  </header>
+);
+
+const HeroSection = ({ lang }) => (
+  <section className="flex flex-col md:flex-row items-center justify-between p-4 md:p-12">
+    <div className="w-full md:w-1/2">
+      <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
+        {lang.heroTitle}
+      </h1>
+      <p className="text-xl mb-6 animate-fade-in delay-200">
+        {lang.heroSubtitle}
+      </p>
+      <button className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded-md shadow-md transition">
+        {lang.heroCtaButton}
+      </button>
+    </div>
+    <div className="w-full md:w-1/2 mt-6 md:mt-0 text-center">
+      <img
+        src="https://chessmatenok.ru/wp-content/uploads/2017/08/pervie-shagi-2.jpg"
+        alt="Uşaqlar şahmat oynayır" // Consider translating alt text or making it more generic
+        className="rounded-lg shadow-lg max-w-full animate-fade-in"
+      />
+    </div>
+  </section>
+);
+
+const AccordionItem = ({ title, content, index }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const contentId = `accordion-content-${index}`;
+  const headerId = `accordion-header-${index}`;
+
+  return (
+    <div className="bg-gray-800 p-4 rounded-md">
+      <h2>
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-controls={contentId}
+          id={headerId}
+          className="text-xl font-bold cursor-pointer w-full text-left flex justify-between items-center"
+        >
+          {title}
+          <span className={`transform transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}>
+            ▼
+          </span>
+        </button>
+      </h2>
+      <div
+        id={contentId}
+        aria-labelledby={headerId}
+        style={{
+          maxHeight: isOpen ? "1000px" : "0px", // Estimate a large enough max-height
+          overflow: "hidden",
+          transition: "max-height 0.5s ease-in-out",
+        }}
+      >
+        <p className="text-base mt-2 whitespace-pre-line">{content}</p>
+      </div>
+    </div>
+  );
+};
+
+const AccordionSection = ({ lang }) => (
+  <section className="p-4 md:p-12">
+    <h2 className="text-3xl font-bold mb-6">{lang.mainSectionTitle}</h2>
+    <div className="space-y-4">
+      {lang.accordion.map((item, index) => (
+        <AccordionItem key={index} title={item.title} content={item.content} index={index} />
+      ))}
+    </div>
+  </section>
+);
+
+const TestimonialSection = ({ lang }) => (
+  <section className="p-4 md:p-12 text-center">
+    <blockquote className="text-xl mb-4 italic">"{lang.testimonialQuote}"</blockquote>
+    <div className="text-yellow-300 text-lg">★ 4.8</div>
+  </section>
+);
+
+const CTASection = ({ lang }) => (
+  <section className="bg-gray-800 p-4 md:p-12 text-center">
+    <h2 className="text-3xl font-bold mb-4">{lang.ctaText}</h2>
+    <button className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded-md shadow-md transition">
+      {lang.ctaButton}
+    </button>
+  </section>
+);
+
+const ContactFormSection = ({ lang }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form data submitted:", formData);
+    // Here you would typically send the data to a backend server
+    alert("Mesajınız göndərildi! (Message sent!)"); // Placeholder feedback
+    setFormData({ name: "", email: "", message: "" }); // Reset form
+  };
+
+  return (
+    <section className="p-4 md:p-12">
+      <h2 className="text-3xl font-bold mb-6">{lang.contactFormTitle}</h2>
+      <form onSubmit={handleSubmit} className="space-y-4 max-w-xl mx-auto">
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder={lang.contactForm.name}
+          className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:ring-yellow-300 focus:border-yellow-300"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder={lang.contactForm.email}
+          className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:ring-yellow-300 focus:border-yellow-300"
+          required
+        />
+        <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          placeholder={lang.contactForm.message}
+          rows="4"
+          className="w-full p-3 border border-gray-600 rounded-md bg-gray-700 text-white placeholder-gray-400 focus:ring-yellow-300 focus:border-yellow-300"
+          required
+        ></textarea>
+        <button
+          type="submit"
+          className="bg-yellow-300 hover:bg-yellow-400 text-black px-6 py-3 rounded-md shadow-md transition w-full md:w-auto"
+        >
+          {lang.contactForm.submit}
+        </button>
+      </form>
+      <div className="mt-6 text-center">
+        <a
+          href="https://wa.me/994501234567" // Replace with actual number
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md inline-flex items-center space-x-2 transition"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.001 2C5.582 2 2 5.582 2 10.001c0 1.604.465 3.109 1.281 4.402L2 20l5.598-1.281A7.948 7.948 0 0010.001 20c4.418 0 8-3.582 8-8.001S14.418 2 10.001 2zm3.181 11.049c-.197.313-.792.614-1.069.649-.275.035-.814.151-1.247-.142-.434-.294-1.287-.946-2.016-1.675-.902-.893-1.362-1.621-1.362-1.621s-.09-.117-.09-.264c0-.147.404-.488.551-.649.147-.161.294-.264.388-.39.094-.126.188-.264.094-.453-.094-.188-.614-1.48-.83-2.016-.215-.535-.43-.453-.597-.453-.167 0-.313 0-.47.012-.156.012-.423.094-.648.328-.226.234-.862.83-1.009 1.621-.147.792.047 1.575.47 2.294.423.719 1.287 2.028 2.897 3.638 2.004 2.004 3.417 2.613 4.379 2.897.962.284 1.649.188 2.126-.082.477-.27.745-.862.648-1.287-.097-.423-.097-.828-.097-.828s-.035-.059-.094-.094c-.059-.035-.117-.047-.176-.047z" />
+          </svg>
+          <span>{lang.whatsappButton}</span>
+        </a>
+      </div>
+    </section>
+  );
+};
+
+/* ───────────────────────────────────────── App Component ────────────────────────────────────────── */
+
+export default function App() {
+  const [language, setLanguage] = useState("az"); // Default language
+  const langData = siteData[language];
+
+  // Function to update the date in the initial comment
+  useDateUpdater();
+
+
+  const toggleLanguage = () => {
+    setLanguage((prevLang) => (prevLang === "az" ? "ru" : "az"));
+  };
+
+  return (
+    <div className="bg-black text-white min-h-screen font-sans selection:bg-yellow-300 selection:text-black">
+      <Header lang={langData} onToggleLanguage={toggleLanguage} currentLanguage={language} />
+      <main>
+        <HeroSection lang={langData} />
+        <AccordionSection lang={langData} />
+        <TestimonialSection lang={langData} />
+        <CTASection lang={langData} />
+        <ContactFormSection lang={langData} />
+      </main>
+      <footer className="text-center p-4 md:p-8 text-sm text-gray-500">
+        <p>© {new Date().getFullYear()} Chess School. All rights reserved.</p>
+        <p>Developed with React & TailwindCSS.</p>
+      </footer>
+    </div>
+  );
+}
