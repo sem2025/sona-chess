@@ -1,235 +1,212 @@
-/*  Chess School – bilingual (AZ/RU) React + Tailwind site
-Last updated: [current date]
-TailwindCSS is assumed to be loaded globally (e.g., in index.html)   */
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sona.Chess - Шахматная школа</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Основные переменные и стили */
+    :root {
+      --primary: #2C3E50;
+      --secondary: #E74C3C;
+      --accent: #3498DB;
+      --light: #ECF0F1;
+      --dark: #2C3E50;
+      --success: #27AE60;
+      --orange: #FF7F11;
+      --purple: #9B59B6;
+      --teal: #1ABC9C;
+      --yellow: #F1C40F;
+      --red: #E74C3C;
+      --blue: #3498DB;
+      --section-1: #E8F4F8;
+      --section-2: #FFF3E0;
+      --section-3: #E8F5E9;
+      --section-4: #F3E5F5;
+      --section-5: #E3F2FD;
+      --section-6: #FFF8E1;
+    }
 
-import React, { useState } from "react";
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-/* ───────────────────────────────────────── Accordion Data ───────────────────────────────────────── */
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      scroll-behavior: smooth;
+    }
 
-const accordionData = {
-az: [
-{
-title: "Şahmatın Necə və Harda Yaranıb?",
-content:
-"Şahmat oyunu Hindistanda VI əsrdə 'çaturanga' adı ilə yaranmışdır. Daha sonra İran (şətrənc) vasitəsilə ərəb ölkələrinə, ordan isə Avropaya yayılmışdır. Müasir şahmat qaydaları əsasən Avropada formalaşmışdır.",
-},
-{
-title: "Dünya Çempionları – Kim, Nə Zaman?",
-content:
-"1886-cı ildən bu günə qədər şahmat üzrə dünya çempionları sırasına Steinitz, Lasker, Capablanca, Alekhine, Botvinnik, Tal, Spassky, Fischer, Karpov, Kasparov, Kramnik, Anand, Carlsen və Ding Liren daxildir.",
-},
-{
-title: "Azərbaycan Ulduzları",
-content:
-"Şəhriyar Məmmədyarov, Teymur Rəcəbov və Vuqar Həşimov Azərbaycanın tanınmış şahmatçılarıdır. Vuqar Həşimovun xatirəsinə hər il beynəlxalq turnir keçirilir.",
-},
-{
-title: "Zəkalılar üçün Faydalı Linklər",
-content:
-"https://www.fide.com\nhttps://www.azerichess.az\nhttps://www.chess-results.com",
-},
-],
-ru: [
-{
-title: "Как и где появились шахматы?",
-content:
-"Шахматы возникли в Индии в VI веке под названием 'чатуранга'. Затем они распространились через Персию (шахмат) в арабские страны и в Европу. Современные правила сложились в Европе.",
-},
-{
-title: "Чемпионы мира — кто и когда?",
-content:
-"С 1886 года чемпионами мира были Стейниц, Ласкер, Капабланка, Алехин, Ботвинник, Таль, Спасский, Фишер, Карпов, Каспаров, Крамник, Ананд, Карлсен и Дин Лижэнь.",
-},
-{
-title: "Звёзды Азербайджана",
-content:
-"Шахрияр Мамедьяров, Теймур Раджабов и Вугар Гашимов — известные азербайджанские шахматисты. В память о Хашимове проводится международный турнир.",
-},
-{
-title: "Полезные ссылки для умных",
-content:
-"https://www.fide.com\nhttps://www.azerichess.az\nhttps://www.chess-results.com",
-},
-],
-};
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+    }
 
-/* ───────────────────────────────────────── Language Context ─────────────────────────────────────── */
+    header {
+      background: var(--primary);
+      padding: 1rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
 
-const languageContext = {
-az: {
-heroTitle: "Şahmatla Düşün, Oyna, Qazan!",
-heroSubtitle:
-"Yeniyetmələr üçün interaktiv dərslər – Başlanğıcdan usta səviyyəsinə qədər",
-mainSectionTitle: "Şahmat Dünyasına İlk Addımını At!",
-testimonialQuote:
-"Şahmat indi çox əyləncəlidir! Məşqçim bunları necə başa düşməyi asanlaşdırır.",
-ctaText: "Şahmat Səyahətinizi Başlamağa Hazırsınız?",
-ctaButton: "Pulsuz dərsə yazıl",
-contactForm: {
-name: "Ad",
-email: "Email",
-message: "Mesaj",
-submit: "Göndər",
-},
-},
-ru: {
-heroTitle: "Думай, Играй, Побеждай с Шахматами!",
-heroSubtitle:
-"Интерактивные уроки для подростков — от новичка до мастера",
-mainSectionTitle: "Сделай Первый Шаг в Мир Шахмат!",
-testimonialQuote:
-"Шахматы теперь очень интересные! Мой тренер объясняет всё очень понятно.",
-ctaText: "Готовы начать своё шахматное путешествие?",
-ctaButton: "Записаться на бесплатный урок",
-contactForm: {
-name: "Имя",
-email: "Электронная почта",
-message: "Сообщение",
-submit: "Отправить",
-},
-},
-};
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-/* ───────────────────────────────────────── App Component ────────────────────────────────────────── */
+    .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
 
-export default function App() {
-const [language, setLanguage] = useState("az");
-const lang = languageContext[language];
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
 
-/* toggle AZ ↔ RU */
-const toggleLanguage = () =>
-setLanguage((prev) => (prev === "az" ? "ru" : "az"));
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
 
-return (
-<div className="bg-black text-white min-h-screen font-sans">
-{/* ───────── Header with language switcher ───────── */}
-<header className="flex justify-between items-center px-4 py-6">
-<div className="flex items-center space-x-2">
-<img
-src="https://placehold.co/50x50"
-alt="Logo"
-className="h-8 w-8"
-/>
-<span className="text-xl font-bold">CHESS SCHOOL</span>
-</div>
-<button
-onClick={toggleLanguage}
-className="bg-gray-700 hover:bg-yellow-300 text-white hover:text-black px-3 py-1 rounded transition"
->
-{language === "az" ? "на русском" : "azərbaycanca"}
-</button>
-</header>
+    nav a:hover {
+      color: var(--secondary);
+    }
 
-{/* ───────── Hero Section ───────── */}
-  <section className="flex flex-col md:flex-row items-center justify-between p-4 md:p-12">
-    <div className="w-full md:w-1/2">
-      <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-fade-in">
-        {lang.heroTitle}
-      </h1>
-      <p className="text-xl mb-6 animate-fade-in delay-200">
-        {lang.heroSubtitle}
-      </p>
-      <button className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded-md shadow-md transition">
-        {language === "az" ? "BAŞLA" : "НАЧАТЬ"}
-      </button>
+    .lang-btn {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .lang-btn.active, .lang-btn:hover {
+      background: white;
+      color: var(--primary);
+    }
+
+    .hero {
+      margin-top: 80px;
+      height: 80vh;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 1rem;
+      display: inline-block;
+    }
+
+    section {
+      padding: 4rem 1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">Sona.Chess</a>
+      <nav>
+        <a href="#about">О нас</a>
+        <a href="#contact">Контакты</a>
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="az">AZ</button>
+      </nav>
     </div>
-    <div className="w-full md:w-1/2 mt-6 md:mt-0 text-center">
-      <img
-        src="https://chessmatenok.ru/wp-content/uploads/2017/08/pervie-shagi-2.jpg"
-        alt="Uşaqlar şahmat oynayır"
-        className="rounded-lg shadow-lg max-w-full animate-fade-in"
-      />
-    </div>
-  </section>
+  </header>
 
-  {/* ───────── Accordion Section ───────── */}
-  <section className="p-4 md:p-12">
-    <h2 className="text-3xl font-bold mb-6">{lang.mainSectionTitle}</h2>
-    <div className="space-y-4">
-      {accordionData[language].map((item, index) => (
-        <div key={index} className="bg-gray-800 p-4 rounded-md">
-          <h3
-            className="text-xl font-bold cursor-pointer"
-            onClick={() => {
-              const el = document.getElementById(`accordion-${index}`);
-              if (el) {
-                el.style.maxHeight = el.style.maxHeight
-                  ? null
-                  : `${el.scrollHeight}px`;
-              }
-            }}
-          >
-            {item.title}
-          </h3>
-          <div
-            id={`accordion-${index}`}
-            style={{
-              maxHeight: 0,
-              overflow: "hidden",
-              transition: "max-height 0.5s ease-in-out",
-            }}
-            className="overflow-hidden"
-          >
-            <p className="text-base mt-2 whitespace-pre-line">
-              {item.content}
-            </p>
-          </div>
-        </div>
-      ))}
+  <section class="hero">
+    <div class="hero-content">
+      <h1 data-lang="ru">Sona.Chess</h1>
+      <h1 data-lang="az" style="display: none;">Sona.Chess</h1>
+      <p data-lang="ru">Развиваем интеллект через игру в шахматы</p>
+      <p data-lang="az" style="display: none;">Şahmat oyunu vasitəsilə intellekti inkişaf etdiririk</p>
+      <a href="#contact" class="btn">Записаться на занятие</a>
     </div>
   </section>
 
-  {/* ───────── Testimonial ───────── */}
-  <section className="p-4 md:p-12 text-center">
-    <h2 className="text-xl mb-4 italic">{lang.testimonialQuote}</h2>
-    <div className="text-yellow-300 text-lg">★ 4.8</div>
-  </section>
-
-  {/* ───────── Call-to-Action ───────── */}
-  <section className="bg-gray-800 p-4 md:p-12 text-center">
-    <h2 className="text-3xl font-bold mb-4">{lang.ctaText}</h2>
-    <button className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded-md shadow-md transition">
-      {lang.ctaButton}
-    </button>
-  </section>
-
-  {/* ───────── Contact / Feedback ───────── */}
-  <section className="p-4 md:p-12">
-    <h2 className="text-3xl font-bold mb-6">Contact Us</h2>
-
-    <form className="space-y-4">
-      <input
-        type="text"
-        placeholder={lang.contactForm.name}
-        className="w-full p-2 border border-gray-500 rounded-md"
-      />
-      <input
-        type="email"
-        placeholder={lang.contactForm.email}
-        className="w-full p-2 border border-gray-500 rounded-md"
-      />
-      <textarea
-        placeholder={lang.contactForm.message}
-        className="w-full p-2 border border-gray-500 rounded-md"
-      ></textarea>
-      <button className="bg-yellow-300 hover:bg-yellow-400 text-black px-4 py-2 rounded-md">
-        {lang.contactForm.submit}
-      </button>
-    </form>
-
-    <div className="mt-4">
-      <a
-        href="https://wa.me/994501234567"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md inline-block mt-2"
-      >
-        WhatsApp ilə əlaqə saxla
-      </a>
+  <section id="about">
+    <div class="container">
+      <h2 data-lang="ru">О нашей школе</h2>
+      <h2 data-lang="az" style="display: none;">Məktəbimiz haqqında</h2>
+      <p data-lang="ru">Мы обучаем детей и взрослых шахматам с нуля до уровня турниров.</p>
+      <p data-lang="az" style="display: none;">Biz uşaqları və böyükləri şahmata sıfırdan turnir səviyyəsinədək öyrədirik.</p>
     </div>
   </section>
-</div>
 
+  <section id="contact">
+    <div class="container">
+      <h2 data-lang="ru">Контакты</h2>
+      <h2 data-lang="az" style="display: none;">Əlaqə</h2>
+      <p>Email: info@sonachess.com</p>
+      <p>Telegram: <a href="https://t.me/sonachess">@sonachess</a></p>
+    </div>
+  </section>
 
-);
-}
+  <footer>
+    <p data-lang="ru">&copy; 2024 Sona.Chess. Все права защищены.</p>
+    <p data-lang="az" style="display: none;">&copy; 2024 Sona.Chess. Bütün hüquqlar qorunur.</p>
+  </footer>
+
+  <script>
+    // Языковое переключение
+    document.querySelectorAll('.lang-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        const lang = this.dataset.lang;
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelectorAll('[data-lang]').forEach(el => {
+          el.style.display = el.dataset.lang === lang ? '' : 'none';
+        });
+        document.documentElement.lang = lang;
+      });
+    });
+  </script>
+</body>
+</html>
