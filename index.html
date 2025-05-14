@@ -1,272 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="az">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KidChess - Kids Chess School</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Chess School</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
+    :root {
+      --bg: #121526;
+      --accent: #FFD700;
+      --text: #ffffff;
     }
-    body {
-      font-family: 'Nunito', sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #2c3e50;
-    }
-    .nav {
-      display: flex;
-      gap: 1rem;
-    }
-    .nav-link {
-      text-decoration: none;
-      color: #444;
-      font-weight: bold;
-    }
-    .lang-switch button {
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      margin: 0 4px;
-      cursor: pointer;
-    }
-    .header-actions .header-btn {
-      padding: 0.5rem 1rem;
-      border: 1px solid #333;
-      background-color: transparent;
-      cursor: pointer;
-      margin-left: 0.5rem;
-      font-weight: bold;
-    }
-    .header-btn.primary {
-      background-color: #2ecc71;
-      color: white;
-      border: none;
-    }
-
-    .hero {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      padding: 2rem;
-      background: linear-gradient(to right, #e8f5e9, #e0f7fa);
-    }
-    .hero-content {
-      flex: 1 1 45%;
-      padding: 1rem;
-    }
-    .hero-title {
-      font-size: 2.5rem;
-      font-family: 'Montserrat', sans-serif;
-    }
-    .accent-green { color: #2ecc71; }
-    .accent-black { color: #2c3e50; }
-    .hero-subtitle {
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
-      color: #555;
-    }
-    .hero-desc {
-      margin-top: 1rem;
-      color: #666;
-    }
-    .hero-buttons {
-      margin-top: 1.5rem;
-    }
-    .btn {
-      padding: 0.75rem 1.5rem;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      margin-right: 0.5rem;
-    }
-    .btn.primary {
-      background-color: #2ecc71;
-      color: #fff;
-    }
-    .btn.secondary {
-      background-color: transparent;
-      border: 2px solid #2ecc71;
-      color: #2ecc71;
-    }
-
-    .hero-image {
-      flex: 1 1 45%;
-      padding: 1rem;
-      text-align: center;
-    }
-    .hero-image img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-      object-fit: cover;
-      aspect-ratio: 4 / 3;
-      transition: transform 0.3s ease;
-    }
-    .hero-image img:hover {
-      transform: scale(1.02);
-    }
-
-    .info-cards {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      padding: 2rem;
-      background-color: #fff;
-    }
-    .card {
-      flex: 1 1 250px;
-      background-color: #fafafa;
-      margin: 1rem;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .card-icon {
-      font-size: 2rem;
-    }
-    .card-blue { background-color: #e3f2fd; }
-    .card-green { background-color: #e8f5e9; }
-    .card-orange { background-color: #fff3e0; }
-
-    .chess-mid {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 2rem;
-      align-items: center;
-    }
-    .chess-illustration, .chess-info {
-      flex: 1 1 45%;
-      padding: 1rem;
-    }
-    .chess-illustration img {
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    .footer {
-      background-color: #2c3e50;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-    }
-    .footer-social {
-      margin-bottom: 1rem;
-    }
-    .footer-social a {
-      margin: 0 0.5rem;
-      display: inline-block;
-    }
-    .footer-social img {
-      width: 24px;
-      height: 24px;
-    }
-
-    @media (max-width: 768px) {
-      .hero, .chess-mid {
-        flex-direction: column;
-      }
-      .info-cards {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
+    body {font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);} 
+    .btn-primary {background: var(--accent); color:#000; padding:0.75rem 1.5rem; border-radius:0.5rem; font-weight:600; transition:background 0.2s ease;} 
+    .btn-primary:hover {background:#ffea66;}
+    .lang-btn {padding:0.5rem 1rem; border-radius:0.375rem; font-weight:600;}
+    .lang-btn.active {background:var(--accent); color:#000;}
+    .accordion-header{cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:1rem; background:#1e212e; border-radius:0.5rem; font-weight:600;}
+    .accordion-body{max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:#1e212e; border-radius:0 0 0.5rem 0.5rem;}
+    .accordion-body.open{padding:0 1rem 1rem;}
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="logo">KidChess</div>
-    <nav class="nav">
-      <a href="#" class="nav-link">Home</a>
-      <a href="#" class="nav-link">Contact</a>
-      <a href="#" class="nav-link">Concept</a>
-      <a href="#" class="nav-link">Modules</a>
-      <a href="#" class="nav-link">Levels</a>
-      <a href="#" class="nav-link">Project</a>
-    </nav>
-    <div class="lang-switch">
-      <button class="lang-btn" data-lang="az">🇦🇿</button>
-      <button class="lang-btn" data-lang="ru">🇷🇺</button>
+  <!-- Header -->
+  <header class="flex justify-between items-center px-4 py-6 max-w-7xl mx-auto">
+    <div class="flex items-center space-x-2">
+      <img src="https://placehold.co/48x48" alt="Logo" class="rounded" />
+      <span class="text-xl font-bold">CHESS SCHOOL</span>
     </div>
-    <div class="header-actions">
-      <button class="header-btn">Intro</button>
-      <button class="header-btn primary">Register</button>
+    <div class="space-x-2" id="langSwitcher">
+      <button class="lang-btn active" data-lang="az">AZ</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-content">
-        <h1 class="hero-title"><span class="accent-green">Simo</span><span class="accent-black">Ldrise Kids</span></h1>
-        <h2 class="hero-subtitle">Story ay thes tvdut Alder Rhäder flen</h2>
-        <p class="hero-desc">If you are the relative for kids or you wanted to learn, so let teach children chess at KidChess. Here you will practice basic tactics and strategies.</p>
-        <div class="hero-buttons">
-          <button class="btn primary">Start Now</button>
-          <button class="btn secondary">Learn More</button>
-        </div>
-      </div>
-      <div class="hero-image">
-        <img src="hero-kids.jpg" alt="Boy and girl playing chess" />
-      </div>
-    </section>
-
-    <section class="info-cards">
-      <div class="card card-blue">
-        <div class="card-icon">🏫</div>
-        <h3 class="card-title">Grow Lich Our Kids</h3>
-        <p class="card-desc">Fun activities and chess for all ages. Develop logic, memory, and creativity.</p>
-      </div>
-      <div class="card card-green">
-        <div class="card-icon">🏛️</div>
-        <h3 class="card-title">Lagination of Chess</h3>
-        <p class="card-desc">Learn chess from experienced coaches in a supportive environment.</p>
-      </div>
-      <div class="card card-orange">
-        <div class="card-icon">♟️</div>
-        <h3 class="card-title">Present Kids</h3>
-        <p class="card-desc">Our students participate in tournaments and fun events.</p>
-      </div>
-    </section>
-
-    <section class="chess-mid">
-      <div class="chess-illustration">
-        <img src="https://images.unsplash.com/photo-chess-pieces" alt="Chess pieces illustration" />
-      </div>
-      <div class="chess-info">
-        <h2 class="chess-title">Chess prais pirepit chees</h2>
-        <p class="chess-desc">Edilowing childcing for your dermilcal. The greatest adventure for kids starts here. Develop critical thinking, patience, and strategic skills while having fun!</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-social">
-      <a href="#" class="social-link" aria-label="Instagram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" /></a>
-      <a href="#" class="social-link" aria-label="WhatsApp"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg" alt="WhatsApp" /></a>
-      <a href="#" class="social-link" aria-label="Facebook"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" /></a>
-      <a href="#" class="social-link" aria-label="Telegram"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/telegram.svg" alt="Telegram" /></a>
-      <a href="mailto:info@kidchess.com" class="social-link" aria-label="Email"><img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/maildotru.svg" alt="Email" /></a>
+  <!-- Hero Section -->
+  <section class="flex flex-col md:flex-row items-center justify-between px-4 md:px-10 py-10 max-w-7xl mx-auto">
+    <div class="w-full md:w-1/2" id="heroText">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4" id="heroTitle"></h1>
+      <p class="text-xl mb-6" id="heroSub"></p>
+      <button class="btn-primary" id="heroBtn"></button>
     </div>
-    <div class="footer-copy">© 2024 KidChess. All rights reserved.</div>
-  </footer>
+    <div class="w-full md:w-1/2 mt-8 md:mt-0">
+      <img src="https://placehold.co/600x400" alt="Chess Coach" class="w-full h-full object-cover rounded-lg" />
+    </div>
+  </section>
+
+  <!-- Info Block -->
+  <section class="px-4 md:px-10 py-10 max-w-5xl mx-auto">
+    <h2 class="text-3xl font-bold mb-6" id="infoTitle"></h2>
+    <div id="accordionContainer" class="space-y-4"></div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="flex flex-col md:flex-row items-center justify-between px-4 md:px-10 py-10 max-w-7xl mx-auto">
+    <div class="w-full md:w-1/2">
+      <img src="https://placehold.co/150x150" alt="Student" class="w-24 h-24 rounded-full mb-4" />
+      <p class="text-xl mb-2" id="testimonialQuote"></p>
+      <div class="flex items-center text-yellow-300 font-semibold">★ 4.8</div>
+    </div>
+    <div class="w-full md:w-1/2 mt-6 md:mt-0 text-center md:text-left">
+      <h3 class="text-2xl font-bold mb-4" id="ctaTop"></h3>
+      <button class="btn-primary" id="ctaBtn"></button>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="px-4 md:px-10 py-10 max-w-3xl mx-auto">
+    <h2 class="text-3xl font-bold mb-6" id="contactHeader"></h2>
+    <form class="space-y-4" id="contactForm">
+      <input id="nameField" type="text" class="w-full p-3 rounded bg-gray-700 placeholder-gray-400" />
+      <input id="emailField" type="email" class="w-full p-3 rounded bg-gray-700 placeholder-gray-400" />
+      <textarea id="msgField" rows="4" class="w-full p-3 rounded bg-gray-700 placeholder-gray-400"></textarea>
+      <button type="submit" class="btn-primary w-full md:w-auto" id="submitBtn"></button>
+    </form>
+    <div class="mt-6 text-center">
+      <a href="https://wa.me/YOUR_NUMBER" target="_blank" class="btn-primary inline-block">WhatsApp</a>
+    </div>
+  </section>
+
+  <script>
+    const data = {
+      az: {
+        heroTitle: "Şahmatla Düşün, Oyna, Qazan!",
+        heroSub: "Yeniyetmələr üçün interaktiv dərslər – Başlanğıcdan usta səviyyəsinə qədər",
+        heroBtn: "BAŞLA",
+        infoTitle: "Şahmat Dünyasına İlk Addımını At!",
+        accordion: [
+          {
+            title: "Şahmatın Necə və Harda Yaranıb?",
+            content: `Şahmatın tarixi Hindistandan başlayır. Qədim Hindistanda bu oyuna “çaturanga” deyilirdi və VI əsrdə yaranmışdır. Daha sonra bu oyun İran vasitəsilə “şatranc” adını alaraq ərəb ölkələrinə və oradan İspaniya və Avropa ölkələrinə keçmişdir. Şahmatın indiki qaydaları XV əsrdə Avropada formalaşmağa başlamışdır və XIX əsrdən etibarən beynəlxalq yarışlar keçirilmişdir.`
+          },
+          {
+            title: "Dünya Çempionları – Kim, Nə Zaman?",
+            content: `Wilhelm Steinitz (1886–1894)\nEmanuel Lasker (1894–1921)\nJosé Raúl Capablanca (1921–1927)\nAlexander Alekhine (1927–1935, 1937–1946)\nMax Euwe (1935–1937)\nMikhail Botvinnik, Vasily Smyslov, Mikhail Tal, Tigran Petrosian, Boris Spassky\nBobby Fischer (1972–1975)\nAnatoly Karpov (1975–1985)\nGarry Kasparov (1985–2000)\nVladimir Kramnik, Viswanathan Anand, Magnus Carlsen (2013–2023)\nDing Liren (2023– )`
+          },
+          {
+            title: "Azərbaycan Ulduzları",
+            content: `Şəhriyar Məmmədyarov, Teymur Rəcəbov və Vüqar Həşimov Azərbaycan şahmatının tanınmış isimləridir. Vüqar Həşimov (1986–2014) FIDE reytinqində ilk 10-luğa daxil olmuş və dünya miqyaslı turnirlərin qalibi olmuşdur. Onun xatirəsinə hər il Vüqar Həşimov Memorial turniri keçirilir.`
+          },
+          {
+            title: "Zəkalılar üçün Faydalı Linklər",
+            content: `<a href='https://www.fide.com' class='text-yellow-300 underline' target='_blank'>FIDE</a><br><a href='https://www.azerichess.az' class='text-yellow-300 underline' target='_blank'>Azerbaijan Chess Federation</a><br><a href='https://www.chess-results.com' class='text-yellow-300 underline' target='_blank'>Chess-Results</a>`
+          }
+        ],
+        testimonial: "Şahmat indi çox əyləncəlidir! Məşqçim bunları necə başa düşməyi asanlaşdırır.",
+        ctaTop: "Şahmat Səyahətinizi Başlamağa Hazırsınız?",
+        ctaBtn: "Pulsuz dərsə yazıl",
+        contactHeader: "Bizimlə Əlaqə",
+        placeholders: {name:"Ad", email:"Email", message:"Mesaj", submit:"Göndər"}
+      },
+      ru: {
+        heroTitle: "Думай, Играй, Побеждай с Шахматами!",
+        heroSub: "Интерактивные уроки для подростков — от новичка до мастера",
+        heroBtn: "НАЧАТЬ",
+        infoTitle: "Сделай Первый Шаг в Мир Шахмат!",
+        accordion: [
+          {
+            title: "Как и где появились шахматы?",
+            content: `История шахмат начинается в Индии, где в VI веке появилась игра \"чатуранга\". Позже она была перенята в Персию под названием \"шатранж\", затем распространилась в арабском мире и Европе. Современные правила сформировались в XV веке в Испании. С XIX века стали проводиться международные турниры.`
+          },
+          {
+            title: "Чемпионы мира — кто и когда?",
+            content: `Вильгельм Стейниц (1886–1894)\nЭммануил Ласкер (1894–1921)\nХосе Рауль Капабланка (1921–1927)\nАлександр Алехин (1927–1935, 1937–1946)\nМакс Эйве (1935–1937)\nМихаил Ботвинник, Василий Смыслов, Михаил Таль, Тигран Петросян, Борис Спасский\nБобби Фишер (1972–1975)\nАнатолий Карпов (1975–1985)\nГарри Каспаров (1985–2000)\nВладимир Крамник, Виши Ананд, Магнус Карлсен\nДин Лижэнь (с 2023 года)`
+          },
+          {
+            title: "Звёзды Азербайджана",
+            content: `Мамедъяров, Раджабов и Вугар Гашимов — известные азербайджанские гроссмейстеры. Вугар Гашимов (1986–2014) входил в топ‑10 FIDE, побеждал в крупных турнирах. В его честь ежегодно проводится Мемориал Вугара Гашимова.`
+          },
+          {
+            title: "Полезные ссылки для умных",
+            content: `<a href='https://www.fide.com' class='text-yellow-300 underline' target='_blank'>FIDE</a><br><a href='https://www.azerichess.az' class='text-yellow-300 underline' target='_blank'>Федерация шахмат Азербайджана</a><br><a href='https://www.chess-results.com' class='text-yellow-300 underline' target='_blank'>Chess-Results</a>`
+          }
+        ],
+        testimonial: "Шахматы теперь очень интересные! Мой тренер объясняет всё очень понятно.",
+        ctaTop: "Готовы начать своё шахматное путешествие?",
+        ctaBtn: "Записаться на бесплатный урок",
+        contactHeader: "Свяжитесь с нами",
+        placeholders: {name:"Имя", email:"Электронная почта", message:"Сообщение", submit:"Отправить"}
+      }
+    };
+
+    let currentLang = 'az';
+
+    const elements = {
+      heroTitle: document.getElementById('heroTitle'),
+      heroSub: document.getElementById('heroSub'),
+      heroBtn: document.getElementById('heroBtn'),
+      infoTitle: document.getElementById('infoTitle'),
+      accordionContainer: document.getElementById('accordionContainer'),
+      testimonialQuote: document.getElementById('testimonialQuote'),
+      ctaTop: document.getElementById('ctaTop'),
+      ctaBtn: document.getElementById('ctaBtn'),
+      contactHeader: document.getElementById('contactHeader'),
+      nameField: document.getElementById('nameField'),
+      emailField: document.getElementById('emailField'),
+      msgField: document.getElementById('msgField'),
+      submitBtn: document.getElementById('submitBtn'),
+      langButtons: document.querySelectorAll('#langSwitcher button')
+    };
+
+    function buildAccordion(langKey){
+      elements.accordionContainer.innerHTML='';
+      data[langKey].accordion.forEach((item,i)=>{
+        const wrapper=document.createElement('div');
+        wrapper.className='';
+        const header=document.createElement('div');
+        header.className='accordion-header';
+        header.innerHTML=`<span>${item.title}</span><span>+</span>`;
+        const body=document.createElement('div');
+        body.className='accordion-body';
+        body.innerHTML=`<p class='pt-4'>${item.content.replace(/\n/g,'<br>')}</p>`;
+        header.addEventListener('click',()=>{
+          const open=body.classList.toggle('open');
+          body.style.maxHeight=open?body.scrollHeight+'px':'0';
+          header.querySelector('span:last-child').textContent=open?'-':'+';
+        });
+        wrapper.appendChild(header);
+        wrapper.appendChild(body);
+        elements.accordionContainer.appendChild(wrapper);
+      });
+    }
+
+    function switchLang(langKey){
+      currentLang=langKey;
+      elements.langButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===langKey));
+      document.documentElement.lang=langKey;
+      const d=data[langKey];
+      elements.heroTitle.textContent=d.heroTitle;
+      elements.heroSub.textContent=d.heroSub;
+      elements.heroBtn.textContent=d.heroBtn;
+      elements.infoTitle.textContent=d.infoTitle;
+      elements.testimonialQuote.textContent=d.testimonial;
+      elements.ctaTop.textContent=d.ctaTop;
+      elements.ctaBtn.textContent=d.ctaBtn;
+      elements.contactHeader.textContent=d.contactHeader;
+      elements.nameField.placeholder=d.placeholders.name;
+      elements.emailField.placeholder=d.placeholders.email;
+      elements.msgField.placeholder=d.placeholders.message;
+      elements.submitBtn.textContent=d.placeholders.submit;
+      buildAccordion(langKey);
+    }
+
+    // init
+    elements.langButtons.forEach(btn=>btn.addEventListener('click',()=>switchLang(btn.dataset.lang)));
+    switchLang('az');
+
+    // simple form handler
+    document.getElementById('contactForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      alert(currentLang==='az'?'Mesajınız göndərildi!':'Ваше сообщение отправлено!');
+      e.target.reset();
+    });
+  </script>
 </body>
 </html>
