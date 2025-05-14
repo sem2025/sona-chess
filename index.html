@@ -1,89 +1,96 @@
 <!DOCTYPE html>
 
-<html lang="az">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Online Chess School</title>
-  <style>
-    :root {
-      --bg-dark: #121212;
-      --bg-card: #1e1e1e;
-      --text-main: #ffffff;
-      --accent: #ffd700;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Segoe UI", sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-main);
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px;
-      background: var(--bg-card);
-    }
-    .logo { display: flex; align-items: center; gap:8px; font-weight:600; }
-    .lang-switch button {
-      background: var(--accent);
-      border: none;
-      padding: 6px 14px;
-      margin-left: 6px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight:600;
-    }
-    .lang-switch .active { filter: brightness(85%); }
-
-```
-/* HERO */
-.hero { 
-  display:flex; 
-  flex-wrap:wrap; 
-  gap:40px; 
-  align-items:center; 
-  padding:40px 20px; 
-  flex-direction:row; /* image will be on the right */
-}
-@media (max-width:768px){
-  .hero{flex-direction:column;} /* stack on small screens */
-}
-.hero-text { flex:1 1 300px; }
-.hero-text h1 { font-size:clamp(32px,5vw,48px); color:var(--accent); margin:0 0 16px; }
-.hero-text p { font-size:1.1rem; margin:0 0 24px; max-width:550px; }
-.primary-btn { background:var(--accent); color:#000; border:none; padding:10px 24px; border-radius:6px; font-size:1rem; cursor:pointer; font-weight:600; transition:filter .2s; }
-.primary-btn:hover { filter:brightness(90%); }
-.hero-img { flex:1 1 300px; order:2; }
-.hero-img img { width:100%; max-width:600px; border-radius:8px; }
-
-/* ACCORDION */
-.section { padding:40px 20px; }
-.section h2 { font-size:2rem; margin-bottom:24px; text-align:center; }
-.accordion-item { background:var(--bg-card); border-radius:6px; margin:10px auto; max-width:900px; }
-.accordion-header { padding:16px; cursor:pointer; font-size:1.1rem; font-weight:600; display:flex; justify-content:space-between; align-items:center; }
-.accordion-content { max-height:0; overflow:hidden; transition:max-height .3s ease; padding:0 16px; }
-.accordion-content p { margin:16px 0; }
-
-/* TESTIMONIAL */
-.testimonial { display:flex; flex-wrap:wrap; align-items:center; gap:32px; justify-content:center; max-width:900px; margin:0 auto; }
-.testimonial img { width:120px; height:120px; border-radius:50%; }
-
-/* CTA */
-.cta { background:var(--bg-card); text-align:center; padding:40px 20px; }
-
-/* CONTACT */
-.contact-form { max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
-.contact-form input, .contact-form textarea { padding:10px 14px; border:1px solid #444; border-radius:4px; font-size:1rem; background:#181818; color:var(--text-main); }
-
-a.whatsapp-btn { display:inline-block; margin-top:12px; background:var(--accent); color:#000; padding:10px 20px; border-radius:6px; font-weight:600; text-decoration:none; }
-```
-
-  </style>
+  <title>Онлайн школа шахмат</title>
+  <meta name="description" content="Онлайн школа шахмат для детей и подростков. Обучение от новичка до мастера.">
+  <meta name="keywords" content="шахматы, обучение, дети, онлайн школа, шахматный тренер">
+  <meta name="author" content="Chess School">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <!-- Rest of document remains unchanged -->
+<body class="bg-gray-900 text-white font-sans">
+  <header class="text-center py-8">
+    <h1 class="text-4xl font-bold">Добро пожаловать в Онлайн Школу Шахмат</h1>
+    <p class="text-lg mt-2">Учитесь у профессионалов. Онлайн. Удобно. Эффективно.</p>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4">
+    <section class="my-12">
+      <h2 class="text-2xl font-semibold mb-4">📅 Календарь занятий</h2>
+      <iframe src="https://calendar.google.com/calendar/embed?src=yourcalendar%40gmail.com&ctz=Europe%2FBerlin" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+    </section>
+
+```
+<section class="my-12">
+  <h2 class="text-2xl font-semibold mb-4">🧑‍🎓 Регистрация ученика</h2>
+  <form action="https://formspree.io/f/YOUR_ID" method="POST" class="grid gap-4 bg-gray-800 p-6 rounded">
+    <input type="text" name="name" placeholder="Имя ученика" required class="p-2 rounded text-black">
+    <input type="number" name="age" placeholder="Возраст" required class="p-2 rounded text-black">
+    <select name="level" class="p-2 rounded text-black">
+      <option value="beginner">Начинающий</option>
+      <option value="intermediate">Средний</option>
+      <option value="advanced">Продвинутый</option>
+    </select>
+    <input type="text" name="preferred_time" placeholder="Удобное время занятий" class="p-2 rounded text-black">
+    <button type="submit" class="bg-yellow-400 text-black py-2 px-4 rounded font-bold hover:bg-yellow-300">Записаться</button>
+  </form>
+</section>
+
+<section class="my-12">
+  <h2 class="text-2xl font-semibold mb-4">📹 Пример видеоурока</h2>
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/1t3ZyrAltZk" title="YouTube Video" frameborder="0" allowfullscreen class="w-full h-96"></iframe>
+  </div>
+</section>
+
+<section class="my-12">
+  <h2 class="text-2xl font-semibold mb-4">🖼️ Галерея</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <img src="https://placehold.co/300x200" alt="Gallery 1" class="rounded">
+    <img src="https://placehold.co/300x200" alt="Gallery 2" class="rounded">
+    <img src="https://placehold.co/300x200" alt="Gallery 3" class="rounded">
+    <img src="https://placehold.co/300x200" alt="Gallery 4" class="rounded">
+  </div>
+</section>
+
+<section class="my-12">
+  <h2 class="text-2xl font-semibold mb-4">💳 Тарифы и услуги</h2>
+  <table class="w-full text-left bg-gray-800 rounded">
+    <thead class="bg-gray-700">
+      <tr>
+        <th class="py-2 px-4">Уровень</th>
+        <th class="py-2 px-4">Описание</th>
+        <th class="py-2 px-4">Цена</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="py-2 px-4">Начинающий</td>
+        <td class="py-2 px-4">Основы фигур и правил</td>
+        <td class="py-2 px-4">€15/урок</td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4">Средний</td>
+        <td class="py-2 px-4">Тактика и стратегии</td>
+        <td class="py-2 px-4">€20/урок</td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4">Продвинутый</td>
+        <td class="py-2 px-4">Дебюты, эндшпиль, анализ</td>
+        <td class="py-2 px-4">€25/урок</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+```
+
+  </main>
+
+  <footer class="text-center py-6 bg-gray-800 mt-12">
+    <p>Связаться с нами: <a href="https://wa.me/YOUR_NUMBER" class="text-yellow-400">WhatsApp</a></p>
+    <p class="text-sm text-gray-400">© 2025 Chess School. Все права защищены.</p>
+  </footer>
 </body>
 </html>
