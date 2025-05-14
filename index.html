@@ -1,220 +1,237 @@
 <!DOCTYPE html>
+
 <html lang="az">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Online Chess School</title>
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <!-- Tailwind via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
-      --bg: #121526;
-      --accent: #FFD700;
-      --text: #ffffff;
+      --bg-dark: #121212;
+      --bg-card: #1e1e1e;
+      --text-main: #ffffff;
+      --accent: #ffd700;
     }
-    body {font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);} 
-    .btn-primary {background: var(--accent); color:#000; padding:0.75rem 1.5rem; border-radius:0.5rem; font-weight:600; transition:background 0.2s ease;} 
-    .btn-primary:hover {background:#ffea66;}
-    .lang-btn {padding:0.5rem 1rem; border-radius:0.375rem; font-weight:600;}
-    .lang-btn.active {background:var(--accent); color:#000;}
-    .accordion-header{cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:1rem; background:#1e212e; border-radius:0.5rem; font-weight:600;}
-    .accordion-body{max-height:0; overflow:hidden; transition:max-height 0.3s ease; background:#1e212e; border-radius:0 0 0.5rem 0.5rem;}
-    .accordion-body.open{padding:0 1rem 1rem;}
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-main);
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: var(--bg-card);
+    }
+    .logo { display: flex; align-items: center; gap:8px; font-weight:600; }
+    .lang-switch button {
+      background: var(--accent);
+      border: none;
+      padding: 6px 14px;
+      margin-left: 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight:600;
+    }
+    .lang-switch .active { filter: brightness(85%); }
+
+```
+/* HERO */
+.hero { display:flex; flex-wrap:wrap; gap:40px; align-items:center; padding:40px 20px; }
+.hero-text { flex:1 1 300px; }
+.hero-text h1 { font-size:clamp(32px,5vw,48px); color:var(--accent); margin:0 0 16px; }
+.hero-text p { font-size:1.1rem; margin:0 0 24px; max-width:550px; }
+.primary-btn { background:var(--accent); color:#000; border:none; padding:10px 24px; border-radius:6px; font-size:1rem; cursor:pointer; font-weight:600; transition:filter .2s; }
+.primary-btn:hover { filter:brightness(90%); }
+.hero-img { flex:1 1 300px; }
+.hero-img img { width:100%; max-width:600px; border-radius:8px; }
+
+/* ACCORDION */
+.section { padding:40px 20px; }
+.section h2 { font-size:2rem; margin-bottom:24px; text-align:center; }
+.accordion-item { background:var(--bg-card); border-radius:6px; margin:10px auto; max-width:900px; }
+.accordion-header { padding:16px; cursor:pointer; font-size:1.1rem; font-weight:600; display:flex; justify-content:space-between; align-items:center; }
+.accordion-content { max-height:0; overflow:hidden; transition:max-height .3s ease; padding:0 16px; }
+.accordion-content p { margin:16px 0; }
+
+/* TESTIMONIAL */
+.testimonial { display:flex; flex-wrap:wrap; align-items:center; gap:32px; justify-content:center; max-width:900px; margin:0 auto; }
+.testimonial img { width:120px; height:120px; border-radius:50%; }
+
+/* CTA */
+.cta { background:var(--bg-card); text-align:center; padding:40px 20px; }
+
+/* CONTACT */
+.contact-form { max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:14px; }
+.contact-form input, .contact-form textarea { padding:10px 14px; border:1px solid #444; border-radius:4px; font-size:1rem; background:#181818; color:var(--text-main); }
+
+a.whatsapp-btn { display:inline-block; margin-top:12px; background:var(--accent); color:#000; padding:10px 20px; border-radius:6px; font-weight:600; text-decoration:none; }
+```
+
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="flex justify-between items-center px-4 py-6 max-w-7xl mx-auto">
-    <div class="flex items-center space-x-2">
-      <img src="https://placehold.co/48x48" alt="Logo" class="rounded" />
-      <span class="text-xl font-bold">CHESS SCHOOL</span>
+  <header>
+    <div class="logo">
+      <img src="https://placehold.co/40x40" alt="logo" />
+      <span>CHESS SCHOOL</span>
     </div>
-    <div class="space-x-2" id="langSwitcher">
-      <button class="lang-btn active" data-lang="az">AZ</button>
-      <button class="lang-btn" data-lang="ru">RU</button>
+    <div class="lang-switch">
+      <button id="btn-az" class="active">AZ</button>
+      <button id="btn-ru">RU</button>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="flex flex-col md:flex-row items-center justify-between px-4 md:px-10 py-10 max-w-7xl mx-auto">
-    <div class="w-full md:w-1/2" id="heroText">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4" id="heroTitle"></h1>
-      <p class="text-xl mb-6" id="heroSub"></p>
-      <button class="btn-primary" id="heroBtn"></button>
+  <!-- HERO SECTION -->
+
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1 data-az="Şahmatla Düşün, Oyna, Qazan!" data-ru="Думай, Играй, Побеждай с Шахматами!">Şahmatla Düşün, Oyna, Qazan!</h1>
+      <p data-az="Yeniyetmələr üçün interaktiv dərslər – Başlanğıcdan usta səviyyəsinə qədər" data-ru="Интерактивные уроки для подростков — от новичка до мастера">Yeniyetmələr üçün interaktiv dərslər – Başlanğıcdan usta səviyyəsinə qədər</p>
+      <button class="primary-btn" id="hero-btn" data-az="BAŞLA" data-ru="НАЧАТЬ">BAŞLA</button>
     </div>
-    <div class="w-full md:w-1/2 mt-8 md:mt-0">
-      <img src="https://placehold.co/600x400" alt="Chess Coach" class="w-full h-full object-cover rounded-lg" />
+    <div class="hero-img">
+      <img src="https://st2.depositphotos.com/3078691/6682/i/950/depositphotos_66821237-stock-photo-little-boy-and-little-girl.jpg" alt="Chess kids" />
     </div>
   </section>
 
-  <!-- Info Block -->
-  <section class="px-4 md:px-10 py-10 max-w-5xl mx-auto">
-    <h2 class="text-3xl font-bold mb-6" id="infoTitle"></h2>
-    <div id="accordionContainer" class="space-y-4"></div>
+  <!-- ACCORDION SECTION -->
+
+  <section class="section" id="info">
+    <h2 data-az="Şahmat Dünyasına İlk Addımını At!" data-ru="Сделай Первый Шаг в Мир Шахмат!">Şahmat Dünyasına İlk Addımını At!</h2>
+
+```
+<!-- Accordion items generated by JS -->
+<div id="accordion-wrapper"></div>
+```
+
   </section>
 
-  <!-- Testimonial -->
-  <section class="flex flex-col md:flex-row items-center justify-between px-4 md:px-10 py-10 max-w-7xl mx-auto">
-    <div class="w-full md:w-1/2">
-      <img src="https://placehold.co/150x150" alt="Student" class="w-24 h-24 rounded-full mb-4" />
-      <p class="text-xl mb-2" id="testimonialQuote"></p>
-      <div class="flex items-center text-yellow-300 font-semibold">★ 4.8</div>
-    </div>
-    <div class="w-full md:w-1/2 mt-6 md:mt-0 text-center md:text-left">
-      <h3 class="text-2xl font-bold mb-4" id="ctaTop"></h3>
-      <button class="btn-primary" id="ctaBtn"></button>
+  <!-- TESTIMONIAL -->
+
+  <section class="section" id="testimonial">
+    <div class="testimonial">
+      <img src="https://placehold.co/120x120" alt="student" />
+      <div>
+        <p id="testimonial-text">Şahmat indi çox əyləncəlidir! Məşqçim bunları necə başa düşməyi asanlaşdırır.</p>
+        <p style="color:var(--accent); font-size:1.2rem; font-weight:600;">★★★★★ 4.8</p>
+      </div>
     </div>
   </section>
 
-  <!-- Contact -->
-  <section class="px-4 md:px-10 py-10 max-w-3xl mx-auto">
-    <h2 class="text-3xl font-bold mb-6" id="contactHeader"></h2>
-    <form class="space-y-4" id="contactForm">
-      <input id="nameField" type="text" class="w-full p-3 rounded bg-gray-700 placeholder-gray-400" />
-      <input id="emailField" type="email" class="w-full p-3 rounded bg-gray-700 placeholder-gray-400" />
-      <textarea id="msgField" rows="4" class="w-full p-3 rounded bg-gray-700 placeholder-gray-400"></textarea>
-      <button type="submit" class="btn-primary w-full md:w-auto" id="submitBtn"></button>
+  <!-- CALL TO ACTION -->
+
+  <section class="cta" id="cta">
+    <h2 id="cta-title" data-az="Şahmat Səyahətinizi Başlamağa Hazırsınız?" data-ru="Готовы начать своё шахматное путешествие?">Şahmat Səyahətinizi Başlamağa Hazırsınız?</h2>
+    <button class="primary-btn" id="cta-btn" data-az="Pulsuz dərsə yazıl" data-ru="Записаться на бесплатный урок">Pulsuz dərsə yazıl</button>
+  </section>
+
+  <!-- CONTACT -->
+
+  <section class="section" id="contact">
+    <h2 data-az="Bizimlə Əlaqə" data-ru="Свяжитесь с нами">Bizimlə Əlaqə</h2>
+    <form class="contact-form">
+      <input type="text" id="name" placeholder="Ad / Имя" />
+      <input type="email" id="email" placeholder="Email" />
+      <textarea id="message" rows="4" placeholder="Mesaj / Сообщение"></textarea>
+      <button type="submit" class="primary-btn">Göndər / Отправить</button>
     </form>
-    <div class="mt-6 text-center">
-      <a href="https://wa.me/YOUR_NUMBER" target="_blank" class="btn-primary inline-block">WhatsApp</a>
-    </div>
+    <a class="whatsapp-btn" href="https://wa.me/YOUR_NUMBER" target="_blank">WhatsApp</a>
   </section>
 
   <script>
+    /* Language data */
     const data = {
       az: {
-        heroTitle: "Şahmatla Düşün, Oyna, Qazan!",
-        heroSub: "Yeniyetmələr üçün interaktiv dərslər – Başlanğıcdan usta səviyyəsinə qədər",
-        heroBtn: "BAŞLA",
-        infoTitle: "Şahmat Dünyasına İlk Addımını At!",
-        accordion: [
+        accordions: [
           {
             title: "Şahmatın Necə və Harda Yaranıb?",
             content: `Şahmatın tarixi Hindistandan başlayır. Qədim Hindistanda bu oyuna “çaturanga” deyilirdi və VI əsrdə yaranmışdır. Daha sonra bu oyun İran vasitəsilə “şatranc” adını alaraq ərəb ölkələrinə və oradan İspaniya və Avropa ölkələrinə keçmişdir. Şahmatın indiki qaydaları XV əsrdə Avropada formalaşmağa başlamışdır və XIX əsrdən etibarən beynəlxalq yarışlar keçirilmişdir.`
           },
           {
             title: "Dünya Çempionları – Kim, Nə Zaman?",
-            content: `Wilhelm Steinitz (1886–1894)\nEmanuel Lasker (1894–1921)\nJosé Raúl Capablanca (1921–1927)\nAlexander Alekhine (1927–1935, 1937–1946)\nMax Euwe (1935–1937)\nMikhail Botvinnik, Vasily Smyslov, Mikhail Tal, Tigran Petrosian, Boris Spassky\nBobby Fischer (1972–1975)\nAnatoly Karpov (1975–1985)\nGarry Kasparov (1985–2000)\nVladimir Kramnik, Viswanathan Anand, Magnus Carlsen (2013–2023)\nDing Liren (2023– )`
+            content: `- Wilhelm Steinitz (1886–1894)\n- Emanuel Lasker (1894–1921)\n- José Raúl Capablanca (1921–1927)\n- Alexander Alekhine (1927–1935, 1937–1946)\n- Max Euwe (1935–1937)\n- Mikhail Botvinnik (1948–1957, 1958–1960, 1961–1963)\n- Vasily Smyslov, Mikhail Tal, Tigran Petrosian, Boris Spassky\n- Bobby Fischer (1972–1975)\n- Anatoly Karpov (1975–1985)\n- Garry Kasparov (1985–2000)\n- Vladimir Kramnik, Viswanathan Anand, Magnus Carlsen (2013–2023)\n- Ding Liren (2023– )`
           },
           {
             title: "Azərbaycan Ulduzları",
-            content: `Şəhriyar Məmmədyarov, Teymur Rəcəbov və Vüqar Həşimov Azərbaycan şahmatının tanınmış isimləridir. Vüqar Həşimov (1986–2014) FIDE reytinqində ilk 10-luğa daxil olmuş və dünya miqyaslı turnirlərin qalibi olmuşdur. Onun xatirəsinə hər il Vüqar Həşimov Memorial turniri keçirilir.`
+            content: `Vüqar Həşimov (1986–2014) Azərbaycanın ən parlaq şahmatçılarından biri idi. O, FIDE reytinqində dünyада 6-cı yerə yüksəlmiş, Tata Steel və digər beynəlxalq turnirlərdə qalib olmuşdur. Onun xatirəsinə hər il Vüqar Həşimov Memorial turniri keçirilir.\n\nŞəhriyar Məmmədyarov və Teymur Rəcəbov da dünya şahmat səhnəsində tanınmış azərbaycanlı qrossmeysterlərdir.`
           },
           {
             title: "Zəkalılar üçün Faydalı Linklər",
-            content: `<a href='https://www.fide.com' class='text-yellow-300 underline' target='_blank'>FIDE</a><br><a href='https://www.azerichess.az' class='text-yellow-300 underline' target='_blank'>Azerbaijan Chess Federation</a><br><a href='https://www.chess-results.com' class='text-yellow-300 underline' target='_blank'>Chess-Results</a>`
+            content: `<a href='https://www.fide.com' target='_blank'>FIDE</a><br><a href='https://www.azerichess.az' target='_blank'>Azerbaijan Chess Federation</a><br><a href='https://www.chess-results.com' target='_blank'>Chess-Results</a>`
           }
         ],
         testimonial: "Şahmat indi çox əyləncəlidir! Məşqçim bunları necə başa düşməyi asanlaşdırır.",
-        ctaTop: "Şahmat Səyahətinizi Başlamağa Hazırsınız?",
-        ctaBtn: "Pulsuz dərsə yazıl",
-        contactHeader: "Bizimlə Əlaqə",
-        placeholders: {name:"Ad", email:"Email", message:"Mesaj", submit:"Göndər"}
       },
       ru: {
-        heroTitle: "Думай, Играй, Побеждай с Шахматами!",
-        heroSub: "Интерактивные уроки для подростков — от новичка до мастера",
-        heroBtn: "НАЧАТЬ",
-        infoTitle: "Сделай Первый Шаг в Мир Шахмат!",
-        accordion: [
+        accordions: [
           {
             title: "Как и где появились шахматы?",
-            content: `История шахмат начинается в Индии, где в VI веке появилась игра \"чатуранга\". Позже она была перенята в Персию под названием \"шатранж\", затем распространилась в арабском мире и Европе. Современные правила сформировались в XV веке в Испании. С XIX века стали проводиться международные турниры.`
+            content: `История шахмат начинается в Индии, где в VI веке появилась игра \"чатуранга\". Позже она была перенята Персией под названием \"шатранж\", затем распространилась в арабском мире и Европе. Современные правила сформировались в XV веке, а международные турниры стали проводиться с XIX века.`
           },
           {
             title: "Чемпионы мира — кто и когда?",
-            content: `Вильгельм Стейниц (1886–1894)\nЭммануил Ласкер (1894–1921)\nХосе Рауль Капабланка (1921–1927)\nАлександр Алехин (1927–1935, 1937–1946)\nМакс Эйве (1935–1937)\nМихаил Ботвинник, Василий Смыслов, Михаил Таль, Тигран Петросян, Борис Спасский\nБобби Фишер (1972–1975)\nАнатолий Карпов (1975–1985)\nГарри Каспаров (1985–2000)\nВладимир Крамник, Виши Ананд, Магнус Карлсен\nДин Лижэнь (с 2023 года)`
+            content: `- Вильгельм Стейниц (1886–1894)\n- Эммануил Ласкер (1894–1921)\n- Хосе Рауль Капабланка (1921–1927)\n- Александр Алехин (1927–1935, 1937–1946)\n- Макс Эйве (1935–1937)\n- Михаил Ботвинник, Василий Смыслов, Михаил Таль, Тигран Петросян, Борис Спасский\n- Бобби Фишер (1972–1975)\n- Анатолий Карпов (1975–1985)\n- Гарри Каспаров (1985–2000)\n- Владимир Крамник, Виши Ананд, Магнус Карлсен\n- Дин Лижэнь (с 2023 года)`
           },
           {
             title: "Звёзды Азербайджана",
-            content: `Мамедъяров, Раджабов и Вугар Гашимов — известные азербайджанские гроссмейстеры. Вугар Гашимов (1986–2014) входил в топ‑10 FIDE, побеждал в крупных турнирах. В его честь ежегодно проводится Мемориал Вугара Гашимова.`
+            content: `Вугар Гашимов (1986–2014) — один из самых ярких азербайджанских шахматистов. Входил в топ-10 FIDE, побеждал на турнире Tata Steel. В его честь ежегодно проводится Мемориал Вугара Гашимова.\n\nШахрияр Мамедьяров и Теймур Раджабов также входят в элиту мировых гроссмейстеров.`
           },
           {
             title: "Полезные ссылки для умных",
-            content: `<a href='https://www.fide.com' class='text-yellow-300 underline' target='_blank'>FIDE</a><br><a href='https://www.azerichess.az' class='text-yellow-300 underline' target='_blank'>Федерация шахмат Азербайджана</a><br><a href='https://www.chess-results.com' class='text-yellow-300 underline' target='_blank'>Chess-Results</a>`
+            content: `<a href='https://www.fide.com' target='_blank'>FIDE</a><br><a href='https://www.azerichess.az' target='_blank'>Шахматная Федерация Азербайджана</a><br><a href='https://www.chess-results.com' target='_blank'>Chess-Results</a>`
           }
         ],
         testimonial: "Шахматы теперь очень интересные! Мой тренер объясняет всё очень понятно.",
-        ctaTop: "Готовы начать своё шахматное путешествие?",
-        ctaBtn: "Записаться на бесплатный урок",
-        contactHeader: "Свяжитесь с нами",
-        placeholders: {name:"Имя", email:"Электронная почта", message:"Сообщение", submit:"Отправить"}
       }
     };
 
+    const btnAZ = document.getElementById('btn-az');
+    const btnRU = document.getElementById('btn-ru');
+    const accordionWrapper = document.getElementById('accordion-wrapper');
+    const testimonialText = document.getElementById('testimonial-text');
+
     let currentLang = 'az';
 
-    const elements = {
-      heroTitle: document.getElementById('heroTitle'),
-      heroSub: document.getElementById('heroSub'),
-      heroBtn: document.getElementById('heroBtn'),
-      infoTitle: document.getElementById('infoTitle'),
-      accordionContainer: document.getElementById('accordionContainer'),
-      testimonialQuote: document.getElementById('testimonialQuote'),
-      ctaTop: document.getElementById('ctaTop'),
-      ctaBtn: document.getElementById('ctaBtn'),
-      contactHeader: document.getElementById('contactHeader'),
-      nameField: document.getElementById('nameField'),
-      emailField: document.getElementById('emailField'),
-      msgField: document.getElementById('msgField'),
-      submitBtn: document.getElementById('submitBtn'),
-      langButtons: document.querySelectorAll('#langSwitcher button')
-    };
-
-    function buildAccordion(langKey){
-      elements.accordionContainer.innerHTML='';
-      data[langKey].accordion.forEach((item,i)=>{
-        const wrapper=document.createElement('div');
-        wrapper.className='';
-        const header=document.createElement('div');
-        header.className='accordion-header';
-        header.innerHTML=`<span>${item.title}</span><span>+</span>`;
-        const body=document.createElement('div');
-        body.className='accordion-body';
-        body.innerHTML=`<p class='pt-4'>${item.content.replace(/\n/g,'<br>')}</p>`;
-        header.addEventListener('click',()=>{
-          const open=body.classList.toggle('open');
-          body.style.maxHeight=open?body.scrollHeight+'px':'0';
-          header.querySelector('span:last-child').textContent=open?'-':'+';
-        });
-        wrapper.appendChild(header);
-        wrapper.appendChild(body);
-        elements.accordionContainer.appendChild(wrapper);
+    function renderContent(lang) {
+      // Update static text nodes
+      document.querySelectorAll('[data-az]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
       });
+      document.querySelectorAll('[data-ru]').forEach(el => {
+        // handled above
+      });
+      // Update testimonial
+      testimonialText.textContent = data[lang].testimonial;
+      // Render accordions
+      accordionWrapper.innerHTML = '';
+      data[lang].accordions.forEach((item, idx) => {
+        const accItem = document.createElement('div');
+        accItem.className = 'accordion-item';
+        accItem.innerHTML = `
+          <div class='accordion-header'>${item.title}<span>+</span></div>
+          <div class='accordion-content'><p>${item.content}</p></div>`;
+        accItem.querySelector('.accordion-header').addEventListener('click', () => {
+          const content = accItem.querySelector('.accordion-content');
+          const expanded = content.style.maxHeight;
+          content.style.maxHeight = expanded ? null : content.scrollHeight + 'px';
+        });
+        accordionWrapper.appendChild(accItem);
+      });
+      // Highlight active lang button
+      btnAZ.classList.toggle('active', lang === 'az');
+      btnRU.classList.toggle('active', lang === 'ru');
     }
 
-    function switchLang(langKey){
-      currentLang=langKey;
-      elements.langButtons.forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===langKey));
-      document.documentElement.lang=langKey;
-      const d=data[langKey];
-      elements.heroTitle.textContent=d.heroTitle;
-      elements.heroSub.textContent=d.heroSub;
-      elements.heroBtn.textContent=d.heroBtn;
-      elements.infoTitle.textContent=d.infoTitle;
-      elements.testimonialQuote.textContent=d.testimonial;
-      elements.ctaTop.textContent=d.ctaTop;
-      elements.ctaBtn.textContent=d.ctaBtn;
-      elements.contactHeader.textContent=d.contactHeader;
-      elements.nameField.placeholder=d.placeholders.name;
-      elements.emailField.placeholder=d.placeholders.email;
-      elements.msgField.placeholder=d.placeholders.message;
-      elements.submitBtn.textContent=d.placeholders.submit;
-      buildAccordion(langKey);
-    }
+    btnAZ.addEventListener('click', () => { currentLang = 'az'; renderContent('az'); document.documentElement.lang = 'az'; });
+    btnRU.addEventListener('click', () => { currentLang = 'ru'; renderContent('ru'); document.documentElement.lang = 'ru'; });
 
-    // init
-    elements.langButtons.forEach(btn=>btn.addEventListener('click',()=>switchLang(btn.dataset.lang)));
-    switchLang('az');
-
-    // simple form handler
-    document.getElementById('contactForm').addEventListener('submit',e=>{
-      e.preventDefault();
-      alert(currentLang==='az'?'Mesajınız göndərildi!':'Ваше сообщение отправлено!');
-      e.target.reset();
-    });
+    // Initial render
+    renderContent(currentLang);
   </script>
+
 </body>
 </html>
